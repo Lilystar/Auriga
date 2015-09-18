@@ -2993,6 +2993,8 @@ int pc_dropitem(struct map_session_data *sd, int n, int amount)
 	return 0;
 }
 
+
+
 /*==========================================
  * アイテムを拾う処理本体
  *------------------------------------------
@@ -3467,7 +3469,7 @@ int pc_steal_coin(struct map_session_data *sd,struct mob_data *md)
  * PCの位置設定
  *------------------------------------------
  */
-int pc_setpos(struct map_session_data *sd,char *mapname_org,int x,int y,int clrtype)
+int pc_setpos(struct map_session_data *sd,const char *mapname_org,int x,int y,int clrtype)
 {
 	char mapname[24];
 	int m, move_flag = 0;
@@ -6697,7 +6699,7 @@ int pc_checkitem(struct map_session_data *sd)
 			if( battle_config.error_log )
 				printf("illegal item id %d in %d[%s] inventory.\n",itemid,sd->bl.id,sd->status.name);
 			if( sd->status.inventory[i].card[0] == (short)0xff00 )
- 				intif_delete_petdata(*((long *)(&sd->status.inventory[i].card[1])));
+				intif_delete_petdata(*((long *)(&sd->status.inventory[i].card[1])));
 			pc_delitem(sd,i,sd->status.inventory[i].amount,3);
 		}
 		// カート内の不正チェック
@@ -6709,7 +6711,7 @@ int pc_checkitem(struct map_session_data *sd)
 			if( battle_config.error_log )
 				printf("illegal item id %d in %d[%s] cart.\n",itemid,sd->bl.id,sd->status.name);
 			if( sd->status.cart[i].card[0] == (short)0xff00 )
- 				intif_delete_petdata(*((long *)(&sd->status.cart[i].card[1])));
+				intif_delete_petdata(*((long *)(&sd->status.cart[i].card[1])));
 			pc_cart_delitem(sd,i,sd->status.cart[i].amount,1);
 		}
 	}
