@@ -1032,7 +1032,7 @@ static int mob_ai_sub_hard(struct mob_data *md,unsigned int tick)
 					ret=unit_walktoxy(&md->bl,md->bl.x+dx,md->bl.y+dy);
 					i++;
 				} while(ret == 0 && i<5);
-				if(ret){ // ˆÚ“®•s‰Â”\‚ÈŠ‚©‚ç‚ÌUŒ‚‚È‚ç2•à‰º‚é
+				if(ret == 0){ // ˆÚ“®•s‰Â”\‚ÈŠ‚©‚ç‚ÌUŒ‚‚È‚ç2•à‰º‚é
 					if(dx<0) dx=2; else if(dx>0) dx=-2;
 					if(dy<0) dy=2; else if(dy>0) dy=-2;
 					unit_walktoxy(&md->bl,md->bl.x+dx,md->bl.y+dy);

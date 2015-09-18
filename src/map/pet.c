@@ -853,7 +853,7 @@ static int pet_ai_sub_hard(struct pet_data *pd,unsigned int tick)
 			if(!unit_walktoxy(&pd->bl,pd->ud.to_x,pd->ud.to_y))
 				pet_randomwalk(pd,tick);
 		}
-		else if(pd->target_id  > MAX_FLOORITEM) {
+		else if(pd->target_id > MAX_FLOORITEM) {
 			int mode=mob_db[pd->class_].mode;
 			int race=mob_db[pd->class_].race;
 			struct mob_data *md = map_id2md(pd->target_id);
@@ -892,7 +892,7 @@ static int pet_ai_sub_hard(struct pet_data *pd,unsigned int tick)
 						i++;
 					} while(ret == 0 && i<5);
 
-					if(ret) { // ˆÚ“®•s‰Â”\‚ÈŠ‚©‚ç‚ÌUŒ‚‚È‚ç2•à‰º‚é
+					if(ret == 0) { // ˆÚ“®•s‰Â”\‚ÈŠ‚©‚ç‚ÌUŒ‚‚È‚ç2•à‰º‚é
 						if(dx<0) dx=2;
 						else if(dx>0) dx=-2;
 						if(dy<0) dy=2;
