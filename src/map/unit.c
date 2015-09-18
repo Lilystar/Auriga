@@ -27,11 +27,6 @@
 #include "vending.h"
 #include "intif.h"
 
-// for VC.NET 2005
-#if _MSC_VER >= 1400
-#pragma warning(disable : 4996)
-#endif
-
 /*==========================================
  * “ñ“_ŠÔ‚Ì‹——£‚ğ•Ô‚·
  * –ß‚è‚Í®”‚Å0ˆÈã
