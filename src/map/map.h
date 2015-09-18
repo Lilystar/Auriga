@@ -712,6 +712,7 @@ enum {
 
 struct map_data {
 	char name[24];
+	char ref_name[24];
 	unsigned char *gat;	// NULL‚È‚ç‰º‚Ìmap_data_other_server‚Æ‚µ‚Äˆµ‚¤
 	struct block_list **block;
 	struct block_list **block_mob;
