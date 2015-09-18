@@ -304,11 +304,11 @@ enum {
 struct mail {
 	int account_id;
 	int char_id;
-	int rates;	// ‘Œ”
-	int store;	// •Û—LŒ”
+	unsigned int rates;	// ‘Œ”
+	int store;		// •Û—LŒ”
 };
 struct mail_data {
-	int mail_num;
+	unsigned int mail_num;
 	//‘—MŒ³
 	int char_id;
 	char char_name[24];
