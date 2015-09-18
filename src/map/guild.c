@@ -1872,8 +1872,11 @@ void guild_broken(int guild_id, unsigned char flag)
 
 	for(i=0;i<g->max_member;i++){	// ƒMƒ‹ƒh‰ðŽU‚ð’Ê’m
 		if((sd=g->member[i].sd)!=NULL){
-			if(sd->state.storage_flag == 2)
-				storage_guild_storage_quit(sd,1);
+			if(sd->state.storage_flag == 2) {
+				// ƒMƒ‹ƒh‘qŒÉ‚ðŠJ‚¢‚Ä‚¢‚é‚È‚ç•Â‚¶‚é
+				sd->state.storage_flag = 0;
+				clif_storageclose(sd);
+			}
 			sd->status.guild_id=0;
 			sd->guild_sended=0;
 			clif_guild_broken(g->member[i].sd,0);
