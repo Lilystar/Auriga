@@ -342,6 +342,17 @@ struct mail_data {
 #endif
 
 // =====================
+// ‘å‚«‚È”š—p‚Ì•ÏŠ·w’èq
+// ---------------------
+#if defined(BIGNUMBER_DOUBLE) || defined(__BORLANDC__)
+#	define BIGNUMCODE ".0f"
+#elif defined(_WIN32) && defined(_MSC_VER)
+#	define BIGNUMCODE "I64d"
+#else
+#	define BIGNUMCODE "lld"
+#endif
+
+// =====================
 // VC ‚Å‚Ì’Ç‰Áˆ—
 // ---------------------
 #if defined(_WIN32) && defined(_MSC_VER)
