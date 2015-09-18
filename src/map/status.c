@@ -52,8 +52,6 @@ static char race_name[11][5] = {{"無形"},{"不死"},{"動物"},{"植物"},{"昆虫"},{""
 struct status_change dummy_sc_data[MAX_STATUSCHANGE];
 struct scdata_db scdata_db[MAX_STATUSCHANGE];	// ステータス異常データベース
 
-/* (スキル番号 - GD_SKILLBASE)＝＞ステータス異常番号変換テーブル */
-/* */
 static int StatusIconChangeTable[] = {
 /* 0- */
 	SI_PROVOKE,SI_ENDURE,SI_TWOHANDQUICKEN,SI_CONCENTRATE,SI_BLANK,SI_CLOAKING,SI_ENCPOISON,SI_POISONREACT,SI_QUAGMIRE,SI_ANGELUS,
@@ -296,7 +294,7 @@ L_RECALC:
 	//転生や養子の場合の元の職業を算出する
 	s_class = pc_calc_base_job(sd->status.class_);
 
-	sd->race = 7;
+	sd->race = RCT_HUMAN;
 	sd->ranker_weapon_bonus  = 0;
 	sd->ranker_weapon_bonus_ = 0;
 	sd->infinite_tigereye    = 0;
@@ -1497,9 +1495,9 @@ L_RECALC:
 	// 種族耐性（これでいいの？ ディバインプロテクションと同じ処理がいるかも）
 	if( (skill=pc_checkskill(sd,SA_DRAGONOLOGY))>0 ){	// ドラゴノロジー
 		skill = skill*4;
-		sd->addrace[9]+=skill;
-		sd->addrace_[9]+=skill;
-		sd->subrace[9]+=skill;
+		sd->addrace[RCT_DRAGON]  += skill;
+		sd->addrace_[RCT_DRAGON] += skill;
+		sd->subrace[RCT_DRAGON]  += skill;
 	}
 	//Flee上昇
 	if( (skill=pc_checkskill(sd,TF_MISS))>0 ) {	// 回避率増加
@@ -1823,8 +1821,8 @@ L_RECALC:
 		}
 		// プロヴィデンス
 		if(sd->sc_data[SC_PROVIDENCE].timer!=-1) {
-			sd->subele[ELE_HOLY] += sd->sc_data[SC_PROVIDENCE].val2;	// 対 聖属性
-			sd->subrace[6]       += sd->sc_data[SC_PROVIDENCE].val2;	// 対 悪魔
+			sd->subele[ELE_HOLY]   += sd->sc_data[SC_PROVIDENCE].val2;	// 対聖属性
+			sd->subrace[RCT_DEMON] += sd->sc_data[SC_PROVIDENCE].val2;	// 対悪魔
 		}
 
 		// その他
@@ -2319,8 +2317,10 @@ int status_get_str(struct block_list *bl)
 			str += 4;
 		if( sc_data[SC_BLESSING].timer != -1 && bl->type != BL_PC){	// ブレッシング
 			int race=status_get_race(bl);
-			if(battle_check_undead(race,status_get_elem_type(bl)) || race==6 )	str >>= 1;	// 悪 魔/不死
-			else str += sc_data[SC_BLESSING].val1;	// その他
+			if(battle_check_undead(race,status_get_elem_type(bl)) || race == RCT_DEMON)
+				str >>= 1;				// 悪魔/不死
+			else
+				str += sc_data[SC_BLESSING].val1;	// その他
 		}
 		if(sc_data[SC_TRUESIGHT].timer!=-1 && bl->type != BL_PC)	// トゥルーサイト
 			str += 5;
@@ -2430,8 +2430,10 @@ int status_get_int(struct block_list *bl)
 	if(sc_data && bl->type!=BL_HOM) {
 		if( sc_data[SC_BLESSING].timer != -1 && bl->type != BL_PC){	// ブレッシング
 			int race=status_get_race(bl);
-			if(battle_check_undead(race,status_get_elem_type(bl)) || race==6 )	int_ >>= 1;	// 悪 魔/不死
-			else int_ += sc_data[SC_BLESSING].val1;	// その他
+			if(battle_check_undead(race,status_get_elem_type(bl)) || race == RCT_DEMON)
+				int_ >>= 1;	// 悪魔/不死
+			else
+				int_ += sc_data[SC_BLESSING].val1;	// その他
 		}
 		if( sc_data[SC_STRIPHELM].timer != -1 && bl->type != BL_PC)
 			int_ = int_*90/100;
@@ -2470,8 +2472,10 @@ int status_get_dex(struct block_list *bl)
 
 		if( sc_data[SC_BLESSING].timer != -1 && bl->type != BL_PC){	// ブレッシング
 			int race=status_get_race(bl);
-			if(battle_check_undead(race,status_get_elem_type(bl)) || race==6 )	dex >>= 1;	// 悪 魔/不死
-			else dex += sc_data[SC_BLESSING].val1;	// その他
+			if(battle_check_undead(race,status_get_elem_type(bl)) || race == RCT_DEMON)
+				dex >>= 1;	// 悪魔/不死
+			else
+				dex += sc_data[SC_BLESSING].val1;	// その他
 		}
 
 		if(sc_data[SC_QUAGMIRE].timer!=-1 )	// クァグマイア
@@ -3638,7 +3642,7 @@ int status_get_race(struct block_list *bl)
 	int race;
 	struct status_change *sc_data;
 
-	nullpo_retr(0, bl);
+	nullpo_retr(RCT_FORMLESS, bl);
 
 	if(bl->type==BL_MOB && (struct mob_data *)bl)
 		race = mob_db[((struct mob_data *)bl)->class_].race;
@@ -3649,31 +3653,31 @@ int status_get_race(struct block_list *bl)
 	else if(bl->type==BL_HOM && (struct homun_data *)bl)
 		return homun_db[((struct homun_data *)bl)->status.class_-HOM_ID].race;
 	else
-		return 0;
+		return RCT_FORMLESS;
 
 	sc_data = status_get_sc_data(bl);
 
 	if(sc_data) {
 		if( sc_data[SC_RACEUNKNOWN].timer!=-1)	//無形
-			race=0;
+			race = RCT_FORMLESS;
 		if( sc_data[SC_RACEUNDEAD].timer!=-1)	//不死
-			race=1;
+			race = RCT_UNDEAD;
 		if( sc_data[SC_RACEBEAST].timer!=-1)	//動物
-			race=2;
+			race = RCT_BRUTE;
 		if( sc_data[SC_RACEPLANT].timer!=-1)	//植物
-			race=3;
+			race = RCT_PLANT;
 		if( sc_data[SC_RACEINSECT].timer!=-1)	//昆虫
-			race=4;
+			race = RCT_INSECT;
 		if( sc_data[SC_RACEFISH].timer!=-1)		//魚貝
-			race=5;
+			race = RCT_FISH;
 		if( sc_data[SC_RACEDEVIL].timer!=-1)	//悪魔
-			race=6;
+			race = RCT_DEMON;
 		if( sc_data[SC_RACEHUMAN].timer!=-1)	//人間
-			race=7;
+			race = RCT_HUMAN;
 		if( sc_data[SC_RACEANGEL].timer!=-1)	//天使
-			race=8;
+			race = RCT_ANGEL;
 		if( sc_data[SC_RACEDRAGON].timer!=-1)	//竜
-			race=9;
+			race = RCT_DRAGON;
 	}
 
 	return race;
@@ -4015,10 +4019,10 @@ int status_change_start(struct block_list *bl,int type,int val1,int val2,int val
 	}
 
 	//アンデッドは凍結・石化・出血無効
-	if((race==1 || elem==ELE_UNDEAD) && !(flag&1) && (type==SC_STONE || type==SC_FREEZE || type==SC_BLEED))
+	if((race == RCT_UNDEAD || elem == ELE_UNDEAD) && !(flag&1) && (type == SC_STONE || type == SC_FREEZE || type == SC_BLEED))
 		return 0;
 
-	if((type == SC_ADRENALINE || type==SC_ADRENALINE2 || type == SC_WEAPONPERFECTION || type == SC_OVERTHRUST) &&
+	if((type == SC_ADRENALINE || type == SC_ADRENALINE2 || type == SC_WEAPONPERFECTION || type == SC_OVERTHRUST) &&
 		sc_data[type].timer != -1 && sc_data[type].val2 && !val2)
 		return 0;
 
@@ -4027,7 +4031,7 @@ int status_change_start(struct block_list *bl,int type,int val1,int val2,int val
 	type==SC_POISON || type==SC_CURSE || type==SC_SILENCE || type==SC_CONFUSION ||
 	type==SC_BLIND || type==SC_BLEED || type==SC_DPOISON || type==SC_PROVOKE ||
 	type==SC_QUAGMIRE || type==SC_DECREASEAGI || type==SC_FOGWALLPENALTY ||
-	(type==SC_BLESSING && (battle_check_undead(race,elem) || race==6))))
+	(type==SC_BLESSING && (battle_check_undead(race,elem) || race == RCT_DEMON))))
 	/* ボスには効かない(ただしカードによる効果は適用される) */
 		return 0;
 
@@ -4035,7 +4039,7 @@ int status_change_start(struct block_list *bl,int type,int val1,int val2,int val
 	if(type==SC_STAN || type==SC_SLEEP)
 		unit_stop_walking(bl,1);
 
-	if (type==SC_BLESSING && (bl->type==BL_PC || (!battle_check_undead(race,elem) && race!=6))) {
+	if (type==SC_BLESSING && (bl->type==BL_PC || (!battle_check_undead(race,elem) && race != RCT_DEMON))) {
 		if (sc_data[SC_CURSE].timer!=-1)
 			status_change_end(bl,SC_CURSE,-1);
 		if (sc_data[SC_STONE].timer!=-1 && sc_data[SC_STONE].val2==0)
@@ -5966,7 +5970,7 @@ int status_change_timer(int tid, unsigned int tick, int id, int data)
 	case SC_SIGNUMCRUCIS:		/* シグナムクルシス */
 		{
 			int race = status_get_race(bl);
-			if(race == 6 || battle_check_undead(race,status_get_elem_type(bl))) {
+			if(race == RCT_DEMON || battle_check_undead(race,status_get_elem_type(bl))) {
 				sc_data[type].timer=add_timer(1000*600+tick,status_change_timer, bl->id, data );
 				return 0;
 			}

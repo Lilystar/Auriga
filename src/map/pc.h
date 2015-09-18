@@ -9,40 +9,6 @@
 
 #define MAX_SKILL_TREE 100
 
-// status.weapon‚¨‚æ‚Ñweapontype1, weapontype2—p‚Ì•Šíƒ^ƒCƒv’è‹`
-enum {
-	WT_FIST     = 0,
-	WT_DAGGER,
-	WT_1HSWORD,
-	WT_2HSWORD,
-	WT_1HSPEAR,
-	WT_2HSPEAR,
-	WT_1HAXE,
-	WT_2HAXE,
-	WT_MACE,
-	WT_2HMACE,		// –¢g—p
-	WT_STAFF,
-	WT_BOW,
-	WT_KNUCKLE,
-	WT_MUSICAL,
-	WT_WHIP,
-	WT_BOOK,
-	WT_KATAR,
-	WT_HANDGUN,
-	WT_RIFLE,
-	WT_SHOTGUN,
-	WT_GATLING,
-	WT_GRENADE,
-	WT_HUUMA,
-	WT_DOUBLE_DD = 23,	// ’ZŒ•+’ZŒ•
-	WT_DOUBLE_SS,		// •ĞèŒ•+•ĞèŒ•
-	WT_DOUBLE_AA,		// •Ğè•€+•Ğè•€
-	WT_DOUBLE_DS,		// ’ZŒ•+•ĞèŒ•
-	WT_DOUBLE_DA,		// ’ZŒ•+•Ğè•€
-	WT_DOUBLE_SA,		// •ĞèŒ•+•Ğè•€
-	WT_MAX,			// Å‘å’l
-};
-
 #define pc_setdead(sd) ((sd)->state.dead_sit = 1)
 #define pc_setsit(sd) ((sd)->state.dead_sit = 2)
 //#define pc_setstand(sd) ((sd)->state.dead_sit = 0)

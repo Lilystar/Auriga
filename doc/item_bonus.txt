@@ -20,7 +20,9 @@ bAutoSpell,bAutoSelfSpell,bRevAutoSpell,bRevAutoSelfSpell‚Í16ŒÂ‚Ü‚Å—LŒø‚Å‚·B16‚
 	bonus bAtkRate						UŒ‚—Í+n%
 	bonus2 bWeaponAtk,n,x;				ƒ^ƒCƒvn‚Ì•Ší‚ð‘•”õ‚µ‚Ä‚¢‚é‚Æ‚«‚ÉUŒ‚—Í+xB
 	bonus2 bWeaponAtkRate,n,x;			ƒ^ƒCƒvn‚Ì•Ší‚ð‘•”õ‚µ‚Ä‚¢‚é‚Æ‚«‚ÉUŒ‚—Í+x%B
-					0,‘fŽè	1,’ZŒ•	2,•ÐŽèŒ•@3,—¼ŽèŒ•@4,•ÐŽè‘„@5,—¼Žè‘„	6,•ÐŽè•€@7,—¼Žè•€@8,“ÝŠí	9,	10,ñ	11,‹|	12,Œ	13,ŠyŠí	14,•Ú	15,–{	16,ƒJƒ^[ƒ‹
+					0,‘fŽè	1,’ZŒ•	2,•ÐŽèŒ•@3,—¼ŽèŒ•@4,•ÐŽè‘„@5,—¼Žè‘„	6,•ÐŽè•€@7,—¼Žè•€@8,“ÝŠí@9,—¼Žè“ÝŠí@10,ñ@11,‹|@12,ƒiƒbƒNƒ‹@13,ŠyŠí@14,•Ú@15,–{@16,ƒJƒ^[ƒ‹
+					17,ƒnƒ“ƒhƒKƒ“@18,ƒ‰ƒCƒtƒ‹@19,ƒVƒ‡ƒbƒgƒKƒ“@20,ƒKƒgƒŠƒ“ƒOƒKƒ“@21,ƒOƒŒƒl[ƒhƒ‰ƒ“ƒ`ƒƒ[@22,Žè— Œ•
+					23,’ZŒ•+’ZŒ•@24,•ÐŽèŒ•+•ÐŽèŒ•@25,•ÐŽè•€+•ÐŽè•€@26,’ZŒ•+•ÐŽèŒ•@27,’ZŒ•+•ÐŽè•€@28,•ÐŽèŒ•+•ÐŽè•€
 	bonus bBaseAtk,n;					Šî–{UŒ‚—Í+n
 	bonus bMatk,n;						–‚–@UŒ‚—Í1+nA–‚–@UŒ‚—Í2+n
 	bonus bMatk1,n;						–‚–@UŒ‚—Í1+n
@@ -126,6 +128,7 @@ bAutoSpell,bAutoSelfSpell,bRevAutoSpell,bRevAutoSelfSpell‚Í16ŒÂ‚Ü‚Å—LŒø‚Å‚·B16‚
 EƒNƒŠƒeƒBƒJƒ‹
 	bonus bAddCriticalDamage,n;			ƒNƒŠƒeƒBƒJƒ‹ƒ_ƒ[ƒW+n%
 	bonus2 bCriticalRace,n,x;			nŽí‘°‚ÉƒNƒŠƒeƒBƒJƒ‹+x
+	bonus2 bCriticalRaceRate,n,x;			nŽí‘°‚ÉƒNƒŠƒeƒBƒJƒ‹+x%
 					0,–³Œ`@1,•sŽ€@2,“®•¨@3,A•¨@4,©’Ž@5,‹›ŠL@6,ˆ«–‚@7,lŠÔ@8,“VŽg@9,—³‘°@10,‘SŽí‘°
 
 
