@@ -1311,6 +1311,7 @@ struct Damage battle_calc_weapon_attack(struct block_list *src,struct block_list
 		case MO_INVESTIGATE:		// ”­™¤
 		case MO_EXTREMITYFIST:		// ˆ¢C—…”e–PŒ
 		case CR_ACIDDEMONSTRATION:	// ƒAƒVƒbƒhƒfƒ‚ƒ“ƒXƒgƒŒ[ƒVƒ‡ƒ“
+		case NJ_ISSEN:			// ˆê‘M
 			calc_flag.hitrate = 1000000;
 			s_ele = s_ele_ = 0;
 			break;
@@ -1361,7 +1362,6 @@ struct Damage battle_calc_weapon_attack(struct block_list *src,struct block_list
 			break;
 		case NPC_COMBOATTACK:		// ‘½’iUŒ‚
 		case NPC_RANDOMATTACK:		// ƒ‰ƒ“ƒ_ƒ€ATKUŒ‚
-		case NJ_ISSEN:			// ˆê‘M
 			s_ele = s_ele_ = 0;
 			break;
 		case NPC_RANGEATTACK:		// ‰“‹——£UŒ‚
@@ -4987,7 +4987,7 @@ int battle_config_read(const char *cfgName)
 		battle_config.hvan_explosion_intimate   = 45000;
 		battle_config.homun_speed_is_same_as_pc = 1;
 		battle_config.homun_skill_intimate_type = 0;
-		battle_config.master_get_homun_base_exp = 0;
+		battle_config.master_get_homun_base_exp = 100;
 		battle_config.master_get_homun_job_exp = 0;
 		battle_config.extra_system_flag = 1;
 		battle_config.mob_take_over_sp = 0;
