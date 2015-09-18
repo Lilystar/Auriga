@@ -337,7 +337,6 @@ struct map_session_data {
 	unsigned int chatID;
 	short joinchat;	//Q‰ÁoråÃ
 	short race;
-	short mob_view_class;
 	short view_size;
 
 	char wis_refusal[MAX_WIS_REFUSAL][24];	//Wis‹‘”ÛƒŠƒXƒg
