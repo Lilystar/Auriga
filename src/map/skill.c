@@ -2145,8 +2145,11 @@ int skill_castend_damage_id( struct block_list* src, struct block_list *bl,int s
 		break;
 	case CH_TIGERFIST:		/* •šŒÕŒ */
 	case CH_CHAINCRUSH:		/* ˜A’Œ•öŒ‚ */
-	case CH_PALMSTRIKE:		/* –ÒŒÕd”hR */
 		battle_skill_attack(BF_WEAPON,src,src,bl,skillid,skilllv,tick,flag);
+		break;
+	case CH_PALMSTRIKE:		/* –ÒŒÕdà¦R */
+		clif_damage(src,bl,tick,status_get_amotion(src),0,-1,1,4,0);	// UŒ‚ƒ‚[ƒVƒ‡ƒ“‚Ì‚İ“ü‚ê‚é
+		skill_addtimerskill(src,tick+1000,bl->id,0,0,skillid,skilllv,BF_WEAPON,flag);
 		break;
 	case MO_EXTREMITYFIST:	/* ˆ¢C—…”e–PŒ */
 		{
