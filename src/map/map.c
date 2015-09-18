@@ -1107,7 +1107,7 @@ int map_addflooritem(struct item *item_data,int amount,int m,int x,int y,struct 
 	}
 
 	if(item_data->card[0] == (short)0xff00)
-		intif_delete_petdata(*((long *)(item_data->card[1])));
+		intif_delete_petdata(*((long *)(&item_data->card[1])));
 
 	return 0;
 }
@@ -1166,7 +1166,7 @@ void map_clear_delayitem_que(void)
 	node = delayitem_head;
 	while(node) {
 		node2 = node->next;
- 		intif_delete_petdata(*((long *)(&node->item_data.card[1])));
+		intif_delete_petdata(*((long *)(&node->item_data.card[1])));
 		aFree(node);
 		node = node2;
 	}
@@ -2611,11 +2611,14 @@ void do_final(void)
 
 	chrif_mapactive(0);	//マップサーバー停止中
 
-	do_final_script();				// スクリプトは最優先で実行
+	// OnFinalイベント実行
+	printf("do_final: OnFinal Event done. (%d npc)\n", npc_event_doall("OnFinal"));
+
 	guild_flush_expcache();				// ギルドExpをフラッシュ
 	clif_foreachclient(chrif_disconnect_sub);	// ここで先にキャラを全て切断しておく
 
 	do_final_npc();
+	do_final_script();
 	do_final_itemdb();
 	do_final_storage();
 	do_final_guild();
