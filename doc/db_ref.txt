@@ -625,11 +625,13 @@ delay    : ƒXƒLƒ‹g—pŒã‚ÌƒfƒBƒŒƒCŠÔimsjA‚½‚¾‚µƒfƒBƒŒƒC’†‚Ég‚¦‚È‚¢‚Ì‚Í“¯‚¶ƒ
 ==========================================================================
 12. db/homun_db.txt
 --------------------------------------------------------------------------
-Class,Name,JName,AcceID,FoodID,HP,SP,Str,Agi,Vit,Int,Dex,Luk,[Rate->]Base,HP_max,HP_min,SP_max,SP_min,Str,Agi,Vit,Int,Dex,Luk,aspd,{homun_script}
+Class,ViewClass,Name,JName,Lv,AcceID,FoodID,HP,SP,Str,Agi,Vit,Int,Dex,Luk,[Rate->]Base,HP_max,HP_min,SP_max,SP_min,Str,Agi,Vit,Int,Dex,Luk,aspd,Size,Race,Element,EvoClass,ExpTable,{homun_script}
 
-Class : Ragexe Sakexe‚Å’è‹`‚³‚ê‚½ID
-Name : –¼‘Oi‰pŒêj
+Class     : Ragexe Sakexe‚Å’è‹`‚³‚ê‚½ID
+ViewClass : Œ©‚½–Ú‚ÌID
+Name  : –¼‘Oi‰pŒêj
 Jname : –¼‘Oi“ú–{Œêj
+Lv    : ì¬’¼Œã‚ÌBaseLevel
 AcceID : ƒzƒ€ƒ“ƒNƒ‹ƒX‚ª‘•”õ‚·‚é‚±‚Æ‚ª‚Å‚«‚éƒAƒNƒZƒTƒŠ‚ÌƒAƒCƒeƒ€ID
 FoodID : ƒzƒ€ƒ“ƒNƒ‹ƒX‚ÌƒGƒT‚Æ‚È‚éƒAƒCƒeƒ€‚ÌID
 HP : ì¬’¼Œã‚ÌMHP‚Ì’l
@@ -645,6 +647,11 @@ SP_min : ƒŒƒxƒ‹‚ª‚Pã‚ª‚Á‚½‚ÉAã¸‚·‚éSP‚ÌÅ’á’l
 Str,Agi,Vit,Int,Dex,Luk : ƒŒƒxƒ‹‚ª‚Pã‚ª‚Á‚½‚ÉAã¸‚·‚éŠm—¦‚ğ•S•ª—¦‚Å•\‚µ‚½”’l
 
 Aspd : ŒÅ—LAspdŒW”
+Size : ƒTƒCƒYidb/mob_db.txt‚Ì€‚ğQÆj
+Race : í‘°idb/mob_db.txt‚Ì€‚ğQÆj
+Element : ‘®«idb/mob_db.txt‚Ì€‚ğQÆj
+EvoClass : i‰»Œã‚ÌƒNƒ‰ƒXID
+ExpTable : ŒoŒ±’lƒe[ƒuƒ‹”Ô†
 homun_script: ƒzƒ€ƒ“ƒNƒ‹ƒX‚ğ‚Á‚Ä‚¢‚é“K—p‚³‚ê‚éƒXƒe[ƒ^ƒXƒ{[ƒiƒX‚ğİ’è(–¢À‘•)
 
 ==========================================================================
