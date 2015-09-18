@@ -6661,7 +6661,7 @@ void pc_unequipitem(struct map_session_data *sd, int n, int type)
 		if(!type)
 			pc_checkallowskill(sd);
 		if(sd->weapontype1 == WT_FIST && sd->weapontype2 == WT_FIST)
-			status_encchant_eremental_end(&sd->bl,-1);  // •Ší‚¿¾‚¦‚Í–³ğŒ‚Å‘®«•t—^‰ğœ
+			status_enchant_elemental_end(&sd->bl,SC_SEVENWIND);  // ’g‚©‚¢•—ˆÈŠO‚Í•Ší‚¿¾‚¦‚Å‘®«•t—^‰ğœ
 	} else {
 		clif_unequipitemack(sd,n,0,0);
 	}
