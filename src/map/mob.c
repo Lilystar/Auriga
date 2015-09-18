@@ -277,7 +277,11 @@ int mob_spawn(int id)
 	unsigned int c, tick = gettick();
 	struct mob_data *md;
 
-	nullpo_retr(-1, md = map_id2md(id));
+	md = map_id2md(id);
+	if(md == NULL) {
+		// Šù‚Éíœ‚³‚ê‚½‰Â”\«‚ª‚ ‚é
+		return -1;
+	}
 
 	md->last_spawntime = tick;
 	md->mode = mob_db[md->base_class].mode;
