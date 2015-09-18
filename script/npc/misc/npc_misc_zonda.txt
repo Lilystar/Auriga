@@ -182,7 +182,7 @@ OnTimer60000:
 	end;
 }
 
--	script	ƒJƒvƒ‰“Š•[L•ñEˆõ#vote	116,{
+-	script	ƒJƒvƒ‰“Š•[L•ñEˆõ#vt	116,{
 	if(strnpcinfo(4) == "ƒWƒ…ƒm[" || strnpcinfo(4) == "ƒŠƒqƒ^ƒ‹ƒ[ƒ“")
 		cutin "kafra_09",2;
 	else
@@ -385,7 +385,7 @@ OnTimer60000:
 	end;
 }
 
--	script	ƒWƒ‡ƒ“ƒ_“Š•[L•ñEˆõ#vote	874,{
+-	script	ƒWƒ‡ƒ“ƒ_“Š•[L•ñEˆõ#vt	874,{
 	cutin "zonda_01",2;
 	mes "[ƒWƒ‡ƒ“ƒ_“Š•[L•ñEˆõ]";
 	mes "‚¢‚ç‚Á‚µ‚á‚¢‚Ü‚¹A‚¨‹q—lB";
@@ -583,19 +583,19 @@ OnTimer60000:
 	end;
 }
 
-yuno.gat,162,191,4	duplicate(ƒJƒvƒ‰“Š•[L•ñEˆõ#vote)	ƒJƒvƒ‰“Š•[L•ñEˆõ::ƒWƒ…ƒm[		861
-yuno.gat,153,191,6	duplicate(ƒWƒ‡ƒ“ƒ_“Š•[L•ñEˆõ#vote)	ƒWƒ‡ƒ“ƒ_“Š•[L•ñEˆõ::ƒWƒ…ƒm[		874
-prontera.gat,164,125,4	duplicate(ƒJƒvƒ‰“Š•[L•ñEˆõ#vote)	ƒJƒvƒ‰“Š•[L•ñEˆõ::ƒvƒƒ“ƒeƒ‰		116
-prontera.gat,147,125,6	duplicate(ƒWƒ‡ƒ“ƒ_“Š•[L•ñEˆõ#vote)	ƒWƒ‡ƒ“ƒ_“Š•[L•ñEˆõ::ƒvƒƒ“ƒeƒ‰	874
-morocc.gat,164,114,4	duplicate(ƒJƒvƒ‰“Š•[L•ñEˆõ#vote)	ƒJƒvƒ‰“Š•[L•ñEˆõ::ƒ‚ƒƒN		116
-morocc.gat,155,114,6	duplicate(ƒWƒ‡ƒ“ƒ_“Š•[L•ñEˆõ#vote)	ƒWƒ‡ƒ“ƒ_“Š•[L•ñEˆõ::ƒ‚ƒƒN		874
-geffen.gat,122,37,4	duplicate(ƒJƒvƒ‰“Š•[L•ñEˆõ#vote)	ƒJƒvƒ‰“Š•[L•ñEˆõ::ƒQƒtƒFƒ“		116
-geffen.gat,117,37,6	duplicate(ƒWƒ‡ƒ“ƒ_“Š•[L•ñEˆõ#vote)	ƒWƒ‡ƒ“ƒ_“Š•[L•ñEˆõ::ƒQƒtƒFƒ“		874
-payon.gat,158,182,4	duplicate(ƒJƒvƒ‰“Š•[L•ñEˆõ#vote)	ƒJƒvƒ‰“Š•[L•ñEˆõ::ƒtƒFƒCƒˆƒ“		116
-payon.gat,153,182,6	duplicate(ƒWƒ‡ƒ“ƒ_“Š•[L•ñEˆõ#vote)	ƒWƒ‡ƒ“ƒ_“Š•[L•ñEˆõ::ƒtƒFƒCƒˆƒ“	874
-alberta.gat,119,70,4	duplicate(ƒJƒvƒ‰“Š•[L•ñEˆõ#vote)	ƒJƒvƒ‰“Š•[L•ñEˆõ::ƒAƒ‹ƒxƒ‹ƒ^		116
-alberta.gat,114,70,6	duplicate(ƒWƒ‡ƒ“ƒ_“Š•[L•ñEˆõ#vote)	ƒWƒ‡ƒ“ƒ_“Š•[L•ñEˆõ::ƒAƒ‹ƒxƒ‹ƒ^	874
-aldebaran.gat,145,102,4	duplicate(ƒJƒvƒ‰“Š•[L•ñEˆõ#vote)	ƒJƒvƒ‰“Š•[L•ñEˆõ::ƒAƒ‹ƒfƒoƒ‰ƒ“	116
-aldebaran.gat,138,102,6	duplicate(ƒWƒ‡ƒ“ƒ_“Š•[L•ñEˆõ#vote)	ƒWƒ‡ƒ“ƒ_“Š•[L•ñEˆõ::ƒAƒ‹ƒfƒ‰ƒoƒ“	874
-lighthalzen.gat,163,60,4	duplicate(ƒJƒvƒ‰“Š•[L•ñEˆõ#vote)	ƒJƒvƒ‰“Š•[L•ñEˆõ::ƒŠƒqƒ^ƒ‹ƒ[ƒ“	861
-lighthalzen.gat,154,60,6	duplicate(ƒWƒ‡ƒ“ƒ_“Š•[L•ñEˆõ#vote)	ƒWƒ‡ƒ“ƒ_“Š•[L•ñEˆõ::ƒŠƒqƒ^ƒ‹ƒ[ƒ“	874
+yuno.gat,162,191,4	duplicate(ƒJƒvƒ‰“Š•[L•ñEˆõ#vt)	ƒJƒvƒ‰“Š•[L•ñEˆõ::ƒWƒ…ƒm[		861
+yuno.gat,153,191,6	duplicate(ƒWƒ‡ƒ“ƒ_“Š•[L•ñEˆõ#vt)	ƒWƒ‡ƒ“ƒ_“Š•[L•ñEˆõ::ƒWƒ…ƒm[		874
+prontera.gat,164,125,4	duplicate(ƒJƒvƒ‰“Š•[L•ñEˆõ#vt)	ƒJƒvƒ‰“Š•[L•ñEˆõ::ƒvƒƒ“ƒeƒ‰		116
+prontera.gat,147,125,6	duplicate(ƒWƒ‡ƒ“ƒ_“Š•[L•ñEˆõ#vt)	ƒWƒ‡ƒ“ƒ_“Š•[L•ñEˆõ::ƒvƒƒ“ƒeƒ‰	874
+morocc.gat,164,114,4	duplicate(ƒJƒvƒ‰“Š•[L•ñEˆõ#vt)	ƒJƒvƒ‰“Š•[L•ñEˆõ::ƒ‚ƒƒN		116
+morocc.gat,155,114,6	duplicate(ƒWƒ‡ƒ“ƒ_“Š•[L•ñEˆõ#vt)	ƒWƒ‡ƒ“ƒ_“Š•[L•ñEˆõ::ƒ‚ƒƒN		874
+geffen.gat,122,37,4	duplicate(ƒJƒvƒ‰“Š•[L•ñEˆõ#vt)	ƒJƒvƒ‰“Š•[L•ñEˆõ::ƒQƒtƒFƒ“		116
+geffen.gat,117,37,6	duplicate(ƒWƒ‡ƒ“ƒ_“Š•[L•ñEˆõ#vt)	ƒWƒ‡ƒ“ƒ_“Š•[L•ñEˆõ::ƒQƒtƒFƒ“		874
+payon.gat,158,182,4	duplicate(ƒJƒvƒ‰“Š•[L•ñEˆõ#vt)	ƒJƒvƒ‰“Š•[L•ñEˆõ::ƒtƒFƒCƒˆƒ“		116
+payon.gat,153,182,6	duplicate(ƒWƒ‡ƒ“ƒ_“Š•[L•ñEˆõ#vt)	ƒWƒ‡ƒ“ƒ_“Š•[L•ñEˆõ::ƒtƒFƒCƒˆƒ“	874
+alberta.gat,119,70,4	duplicate(ƒJƒvƒ‰“Š•[L•ñEˆõ#vt)	ƒJƒvƒ‰“Š•[L•ñEˆõ::ƒAƒ‹ƒxƒ‹ƒ^		116
+alberta.gat,114,70,6	duplicate(ƒWƒ‡ƒ“ƒ_“Š•[L•ñEˆõ#vt)	ƒWƒ‡ƒ“ƒ_“Š•[L•ñEˆõ::ƒAƒ‹ƒxƒ‹ƒ^	874
+aldebaran.gat,145,102,4	duplicate(ƒJƒvƒ‰“Š•[L•ñEˆõ#vt)	ƒJƒvƒ‰“Š•[L•ñEˆõ::ƒAƒ‹ƒfƒoƒ‰ƒ“	116
+aldebaran.gat,138,102,6	duplicate(ƒWƒ‡ƒ“ƒ_“Š•[L•ñEˆõ#vt)	ƒWƒ‡ƒ“ƒ_“Š•[L•ñEˆõ::ƒAƒ‹ƒfƒ‰ƒoƒ“	874
+lighthalzen.gat,163,60,4	duplicate(ƒJƒvƒ‰“Š•[L•ñEˆõ#vt)	ƒJƒvƒ‰“Š•[L•ñEˆõ::ƒŠƒqƒ^ƒ‹ƒ[ƒ“	861
+lighthalzen.gat,154,60,6	duplicate(ƒWƒ‡ƒ“ƒ_“Š•[L•ñEˆõ#vt)	ƒWƒ‡ƒ“ƒ_“Š•[L•ñEˆõ::ƒŠƒqƒ^ƒ‹ƒ[ƒ“	874
