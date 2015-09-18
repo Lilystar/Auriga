@@ -1697,7 +1697,7 @@ int map_addnpc(int m,struct npc_data *nd)
  * map–¼‚©‚çmap”Ô†‚Ö•ÏŠ·
  *------------------------------------------
  */
-int map_mapname2mapid(char *name)
+int map_mapname2mapid(const char *name)
 {
 	struct map_data *md;
 

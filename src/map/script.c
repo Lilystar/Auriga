@@ -136,8 +136,8 @@ static int varsdb_final(void *key,void *data,va_list ap);
 
 extern struct script_function {
 	int (*func)(struct script_state *st);
-	char *name;
-	char *arg;
+	const char *name;
+	const char *arg;
 } buildin_func[];
 
 static struct linkdb_node *sleep_db = NULL;
@@ -3181,7 +3181,7 @@ int script_config_read(char *cfgName)
  * "this" ‚ğl—¶‚µ‚Ämap–¼‚©‚çmap”Ô†‚Ö•ÏŠ·
  *------------------------------------------
  */
-static int script_mapname2mapid(struct script_state *st,char *mapname)
+static int script_mapname2mapid(struct script_state *st,const char *mapname)
 {
 	if(strcmp(mapname,"this")==0)
 	{
