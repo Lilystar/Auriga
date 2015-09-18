@@ -275,7 +275,13 @@ static void db_rebalance_erase(struct dbn *z,struct dbn **root)
 		else
 			z->parent->right = y;
 		y->parent = z->parent;
-		{ int tmp=y->color; y->color=z->color; z->color=tmp; }
+
+		{
+			char tmp = y->color;
+			y->color = z->color;
+			z->color = tmp;
+		}
+
 		y = z;
 	} else { // ‚Ç‚¿‚ç‚©‹ó‚¢‚Ä‚¢‚½ê‡ x‚ğz‚ÌˆÊ’u‚É‚Á‚Ä‚«‚Äz‚ğ•‚‚©‚¹‚é
 		x_parent = y->parent;
