@@ -10606,15 +10606,16 @@ int skill_unit_move(struct block_list *bl,unsigned int tick,int flag)
  * ˆø”‚ÍƒOƒ‹[ƒv‚ÆˆÚ“®—Ê
  *------------------------------------------
  */
-int skill_unit_move_unit_group( struct skill_unit_group *group, int m,int dx,int dy)
+int skill_unit_move_unit_group(struct skill_unit_group *group,int m,int dx,int dy)
 {
 	int i,j;
 	unsigned int tick = gettick();
-	static int m_flag[MAX_SKILL_UNIT_COUNT];	// group->unit_count‚ÍMAX_SKILL_UNIT_COUNT‚ð‰z‚¦‚é‚±‚Æ‚Í‚È‚¢
+	unsigned char m_flag[MAX_SKILL_UNIT_COUNT];	// group->unit_count‚ÍMAX_SKILL_UNIT_COUNT‚ð‰z‚¦‚é‚±‚Æ‚Í‚È‚¢
 	struct skill_unit *unit1;
 	struct skill_unit *unit2;
 
 	nullpo_retr(0, group);
+
 	if (group->unit_count<=0)
 		return 0;
 	if (group->unit==NULL)
