@@ -25,6 +25,7 @@
 #include "timer.h"
 #include "socket.h"
 #include "malloc.h"
+#include "utils.h"
 
 // socket.h ‚Ådefine ‚³‚ê‚½close‚ð’u‚«Š·‚¦
 #ifdef _WIN32
