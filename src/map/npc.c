@@ -2193,6 +2193,9 @@ int do_final_npc(void)
 				aFree(nd);
 				nd = NULL;
 			} else if(bl->type == BL_MOB && (md = (struct mob_data *)bl)) {
+				if(map[md->bl.m].mvpboss == md) {
+					map[md->bl.m].mvpboss = NULL;
+				}
 				if(bl->prev) {
 					// •œŠˆ‚µ‚È‚¢MOB‚Æ‚µ‚Äˆµ‚¤
 					md->spawndelay1 = -1;
