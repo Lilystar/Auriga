@@ -567,6 +567,8 @@ struct map_session_data {
 	int add_attackrange, add_attackrange_rate;	// bAtkRange2,bAtkRangeRate2 —p
 	int skill_delay_rate;
 
+	unsigned int emotion_lasttick;
+
 	// ƒ[ƒ‹“Y•tî•ñ
 	int mail_zeny;
 	int mail_amount;
