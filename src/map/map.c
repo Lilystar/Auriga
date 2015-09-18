@@ -89,6 +89,10 @@ char motd_txt[256]="conf/motd.txt";
 char help_txt[256]="conf/help.txt";
 char extra_add_file_txt[1024] = "map_extra_add.txt"; // to add items from external software (use append to add a line)
 
+// Œü‚«ŒvZ—p
+const int dirx[8] = { 0,-1,-1,-1, 0, 1, 1, 1 };
+const int diry[8] = { 1, 1, 0,-1,-1,-1, 0, 1 };
+
 /*==========================================
  * ‘SmapI‘Œv‚Å‚ÌÚ‘±”İ’è
  * (charI‚©‚ç‘—‚ç‚ê‚Ä‚­‚é)

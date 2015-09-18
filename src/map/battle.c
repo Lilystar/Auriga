@@ -109,8 +109,7 @@ int battle_damage(struct block_list *bl,struct block_list *target,int damage,int
 
 	if(target->type==BL_MOB){	// MOB
 		struct mob_data *md=(struct mob_data *)target;
-		if(md && md->ud.skilltimer!=-1 && md->ud.state.skillcastcancel)	// ‰r¥–WŠQ
-			unit_skillcastcancel(target,0);
+		unit_skillcastcancel(target,2);	// ‰r¥–WŠQ
 		mob_damage(bl,md,damage,0);
 
 		if(sd && md && md->bl.prev != NULL && !unit_isdead(&md->bl) && flag&(BF_WEAPON|BF_NORMAL) && status_get_class(target) != 1288)
@@ -164,15 +163,7 @@ int battle_damage(struct block_list *bl,struct block_list *target,int damage,int
 				}
 			}
 		}
-
-		if(tsd && tsd->ud.skilltimer!=-1){	// ‰r¥–WŠQ
-				// ƒtƒFƒ“ƒJ[ƒh‚â–WŠQ‚³‚ê‚È‚¢ƒXƒLƒ‹‚©‚ÌŒŸ¸
-			if( (!tsd->special_state.no_castcancel || map[bl->m].flag.gvg) && tsd->ud.state.skillcastcancel &&
-				!tsd->special_state.no_castcancel2)
-			{
-				unit_skillcastcancel(target,0);
-			}
-		}
+		unit_skillcastcancel(target,2);		// ‰r¥–WŠQ
 
 		pc_damage(bl,tsd,damage);
 
@@ -192,8 +183,7 @@ int battle_damage(struct block_list *bl,struct block_list *target,int damage,int
 	}
 	else if(target->type==BL_HOM){	// HOM
 		struct homun_data *hd=(struct homun_data *)target;
-		if(hd && hd->ud.skilltimer!=-1 && hd->ud.state.skillcastcancel)	// ‰r¥–WŠQ
-			unit_skillcastcancel(target,0);
+		unit_skillcastcancel(target,2);		// ‰r¥–WŠQ
 		homun_damage(bl,hd,damage);
 
 		if(sd && hd && hd->bl.prev != NULL && !unit_isdead(&hd->bl) && flag&(BF_WEAPON|BF_NORMAL) && status_get_class(target) != 1288)
