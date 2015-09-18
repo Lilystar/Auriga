@@ -12,9 +12,6 @@
 							// passwordencrypt2‚Ì‚Æ‚«‚Í2‚É‚·‚éB
 							// 3‚É‚·‚é‚Æ—¼•û‚É‘Î‰
 
-#define START_ACCOUNT_NUM	2000000
-#define END_ACCOUNT_NUM		5000000
-
 struct login_session_data {
 	long account_id;
 	long login_id1;
