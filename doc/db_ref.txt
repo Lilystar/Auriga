@@ -1,5 +1,5 @@
 ==========================================================================
- Auriga‚Ìconfƒtƒ@ƒCƒ‹‚ÌƒŠƒtƒ@ƒŒƒ“ƒX
+ Auriga‚Ìdbƒtƒ@ƒCƒ‹‚ÌƒŠƒtƒ@ƒŒƒ“ƒX
 --------------------------------------------------------------------------
 
 < ‚±‚Ìƒtƒ@ƒCƒ‹‚Í‰½H >
@@ -9,18 +9,20 @@
 
 < db‚ÌƒŠƒXƒg >
 
-cast_db.txt		ƒXƒLƒ‹‚ÌƒLƒƒƒXƒeƒBƒ“ƒOŠÔ‚ÆƒfƒBƒŒƒCAˆÛŠÔ“™‚ğİ’èB
-skill_db.txt		ƒXƒLƒ‹‚Ìƒf[ƒ^‚ğİ’èB
-skill_require_db.txt	ƒXƒLƒ‹g—pğŒ‚ğİ’èB
+skill_cast_db.txt	ƒXƒLƒ‹‚ÌƒLƒƒƒXƒeƒBƒ“ƒOŠÔ‚ÆƒfƒBƒŒƒCAˆÛŠÔ“™‚ğİ’è
+skill_db.txt		ƒXƒLƒ‹‚Ìƒf[ƒ^‚ğİ’è
+skill_require_db.txt	ƒXƒLƒ‹g—pğŒ‚ğİ’è
+skill_tree.txt		ƒXƒLƒ‹ƒcƒŠ[‚ğİ’è
 skill_unit_db.txt	ƒXƒLƒ‹ƒ†ƒjƒbƒg‚ÉŠÖ‚·‚éİ’èB
-pet_db.txt		ƒyƒbƒg‚Ìƒf[ƒ^‚ğİ’èB
-packet_db.txt		map-server clif.c‚Åg‚¤ƒpƒPƒbƒg’è‹`B
+pet_db.txt		ƒyƒbƒg‚Ìƒf[ƒ^‚ğİ’è
+packet_db.txt		map-server clif.c‚Åg‚¤ƒpƒPƒbƒg’è‹`
 item_db.txt		ƒAƒCƒeƒ€‚Ìƒf[ƒ^‚ğİ’è
 item_db2.txt		ƒAƒCƒeƒ€‚Ì’Ç‰Áî•ñ‚ğİ’è
 item_value_db.txt	ƒAƒCƒeƒ€‰¿Ši‚ÌƒI[ƒo[ƒ‰ƒCƒh
 mob_db.txt		ƒ‚ƒ“ƒXƒ^[‚Ìƒf[ƒ^‚ğİ’è
 mob_skill_db.txt	ƒ‚ƒ“ƒXƒ^[‚Ìg—p‚·‚éƒXƒLƒ‹‚ğİ’è
 homun_db.txt		ƒzƒ€ƒ“ƒNƒ‹ƒX‚Ìƒf[ƒ^‚ğİ’è
+homun_skill_tree.txt	ƒzƒ€ƒ“ƒNƒ‹ƒX‚ÌƒXƒLƒ‹ƒcƒŠ[‚ğİ’è
 produce_db.txt		»‘¢‚ÉŠÖ˜A‚·‚éƒf[ƒ^‚ğİ’è
 scdata_db.txt		ƒXƒe[ƒ^ƒXˆÙí‚Ìƒf[ƒ^‚ğİ’è
 
@@ -28,7 +30,6 @@ scdata_db.txt		ƒXƒe[ƒ^ƒXˆÙí‚Ìƒf[ƒ^‚ğİ’è
 ==========================================================================
 1. db/skill_cast_db.txt
 --------------------------------------------------------------------------
-
 id,cast_list,fixed_cast_list,delay_list,upkeep_time,upkeep_time2
 
 id: ƒXƒLƒ‹‚ÌID‚Å‚·B
@@ -38,7 +39,17 @@ delay_list: ƒXƒLƒ‹‚ÌƒfƒBƒŒƒCŠÔ‚ğİ’è‚µ‚Ü‚·BƒŒƒxƒ‹•Ê‚Éİ’è‚·‚éê‡‚Íu:v‚ğg‚
 upkeep_time:ƒXƒLƒ‹‚ÌˆÛŠÔ‚ğİ’è‚µ‚Ü‚·BƒŒƒxƒ‹•Ê‚Éİ’è‚·‚éê‡‚Íu:v‚ğg‚¢‚Ü‚·B
 upkeep_time2:ƒXƒLƒ‹‚É‚æ‚Á‚Ä‹N‚±‚éó‘ÔˆÙí‚ÌˆÛŠÔ‚ğİ’è‚µ‚Ü‚·BƒŒƒxƒ‹•Ê‚Éİ’è‚·‚éê‡‚Íu:v‚ğg‚¢‚Ü‚·B(‚½‚¾‘¬“xŒ¸­‚Íupkeep_time‚ğg‚¢‚Ü‚·‚Ì‚Å’ˆÓ‚µ‚Ä‚­‚¾‚³‚¢B)
 
-¦•Ší‚Ì’Ç‰ÁŒø‰Ê‚É‚æ‚éó‘ÔˆÙí‚ÍMG_STONECURSE(Î‰»)AMG_FROSTDIVER(“€Œ‹)ANPC_STUNATTACK(ƒXƒ^ƒ“)ANPC_SLEEPATTACK(‡–°)ATF_POISON(“Å)ANPC_CURSEATTACK(ô‚¢)ANPC_SILENCEATTACK(’¾–Ù)ANPC_BLINDATTACK(ˆÃ•)ALK_HEADCRUSH(oŒŒ)‚Ìupkeep_time2‚ğg‚¢‚Ü‚·B(ƒŒƒxƒ‹‚Í7‚Å“K—p)
+¦•Ší‚Ì’Ç‰ÁŒø‰Ê‚É‚æ‚éó‘ÔˆÙí‚ÍˆÈ‰º‚ÌƒXƒLƒ‹‚Ìupkeep_time2‚ğg‚¢‚Ü‚·B
+@ƒŒƒxƒ‹‚Í7‚Å“K—p‚³‚ê‚Ü‚·B
+	MG_STONECURSE(Î‰»)
+	MG_FROSTDIVER(“€Œ‹)
+	NPC_STUNATTACK(ƒXƒ^ƒ“)
+	NPC_SLEEPATTACK(‡–°)
+	TF_POISON(“Å)
+	NPC_CURSEATTACK(ô‚¢)
+	NPC_SILENCEATTACK(’¾–Ù)
+	NPC_BLINDATTACK(ˆÃ•)
+	LK_HEADCRUSH(oŒŒ)
 ¦‹}ŠUŒ‚‚Ìê‡Å‘åƒŒƒxƒ‹‚Í1‚Å‚·‚ªƒoƒbƒVƒ…‚ÌƒŒƒxƒ‹‚É‚æ‚Á‚ÄˆÙíŠÔ‚ğ•ÏX‚Å‚«‚é‚Ì‚Å•¡”İ’è‚à‰Â”\‚Å‚·B
 ¦ƒ}ƒLƒVƒ}ƒCƒYƒpƒ[‚ÆƒNƒ[ƒLƒ“ƒO‚Ìupkeep_time‚ÍˆÛŠÔ‚Å‚Í‚È‚­SP‚ª1Œ¸‚éŠÔ‚Å‚·B
 
@@ -46,7 +57,6 @@ upkeep_time2:ƒXƒLƒ‹‚É‚æ‚Á‚Ä‹N‚±‚éó‘ÔˆÙí‚ÌˆÛŠÔ‚ğİ’è‚µ‚Ü‚·BƒŒƒxƒ‹•Ê‚Éİ’è‚
 ==========================================================================
 2. db/skill_db.txt
 --------------------------------------------------------------------------
-
 id,range,hit,inf,pl,nk,max,list_num,castcancel,cast_defence_rate,inf2,maxcount,skill_type,blow_count
 
 id: ƒXƒLƒ‹‚ÌID‚Å‚·B
@@ -71,7 +81,6 @@ blow_count: ƒXƒLƒ‹‚æ‚éƒmƒbƒNƒoƒbƒN‹——£‚Å‚·BƒŒƒxƒ‹•Ê‚Éİ’è‚·‚éê‡‚Íu:v‚ğg‚¢‚
 ==========================================================================
 3. db/skill_require_db.txt
 --------------------------------------------------------------------------
-
 id,list_hp,list_sp,list_hp_rate,list_sp_rate,list_zeny,list_weapon,state,spiritball,itemid1,amount1,itemid2,amount2,itemid3,amount3,itemid4,amount4,itemid5,amount5,itemid6,amount6,itemid7,amount7,itemid8,amount8,itemid9,amount9,itemid10,amount10
 
 id: ƒXƒLƒ‹‚ÌID‚Å‚·B
@@ -129,9 +138,36 @@ amount10: ã“¯
 
 
 ==========================================================================
-4. db/skill_unit_db.txt
+4. db/skill_tree.txt
 --------------------------------------------------------------------------
+Upper,JobNo,Skill-ID,MaxLv,PreSkill-ID-1,PreSkill-Lv-1,Œv5ŒÂ‚Ü‚ÅŒJ‚è•Ô‚µ,BaseLv,JobLv,Class
 
+Upper: “]¶ƒtƒ‰ƒOB‚½‚¾‚µbattle_auriga.conf‚Ìbaby_copy_skilltree‚ğyes‚É‚µ‚Ä‚¢‚½ê‡A—{q‚Ìİ’è‚Í–³‹‚³‚ê‚Ä’Êí‚Æ“¯ˆê‚É‚È‚è‚Ü‚·B
+	0-’Êí 1-“]¶ 2-—{q
+JobNo: E”Ô†
+Skill-ID: æ“¾ƒXƒLƒ‹ID
+MaxLv: æ“¾‰Â”\‚ÈƒXƒLƒ‹‚ÌÅ‘åƒŒƒxƒ‹B‚½‚¾‚µskill_db.txt‚ÌMaxLvˆÈ‰º‚É‚È‚è‚Ü‚·B
+PreSkill-ID-1: ‘O’ñƒXƒLƒ‹ID
+PreSkill-Lv-1: ‘O’ñƒXƒLƒ‹ƒŒƒxƒ‹
+PreSkill-ID-2: “¯ã
+PreSkill-Lv-2: “¯ã
+PreSkill-ID-3: “¯ã
+PreSkill-Lv-3: “¯ã
+PreSkill-ID-4: “¯ã
+PreSkill-Lv-4: “¯ã
+PreSkill-ID-5: “¯ã
+PreSkill-Lv-5: “¯ã
+BaseLv: ‘O’ñBaseƒŒƒxƒ‹
+JobLv: ‘O’ñJobƒŒƒxƒ‹
+Class: ƒNƒ‰ƒX‹æ•ªB‰ºˆÊ‚ÌƒXƒLƒ‹‚ğ‹K’èˆÈãæ‚ç‚È‚¢‚ÆãˆÊƒXƒLƒ‹‚ªæ‚ê‚Ü‚¹‚ñB
+	0-ƒm[ƒrƒX 1-‚PŸE 2-‚QŸE
+@¦«¿ãˆêŸ‚Ì“]EJOBƒŒƒxƒ‹‚ª“–‚Ä‚É‚È‚ç‚È‚¢‚½‚ß
+@@ƒmƒr‚ÍJOB10‚Ü‚Åã‚°‚«‚Á‚½‚à‚Ì‚Æ‚µ‚ÄŒvZ
+
+
+==========================================================================
+5. db/skill_unit_db.txt
+--------------------------------------------------------------------------
 ID,Unit1,Unit2,Layout,Range,Interval,Target,Flag
 
 ID : ƒXƒLƒ‹ID
@@ -166,10 +202,9 @@ Flag : ƒXƒLƒ‹ƒ†ƒjƒbƒg‚Ì«¿A‰ÁZ‚·‚é‚±‚Æ
 
 
 ==========================================================================
-5. db/pet_db.txt
+6. db/pet_db.txt
 --------------------------------------------------------------------------
-
-MobID,Name,JName,ItemID,EggID,AcceID,FoodID,Fullness,HungryDelay ,R_Hungry,R_Full,Intimate,Die,Capture,Speed,S_Performance,talk_convert_class,attack_rate,defence_attack_rate,change_target_rate,pet_script
+MobID,Name,JName,ItemID,EggID,AcceID,FoodID,Fullness,HungryDelay,R_Hungry,R_Full,Intimate,Die,Capture,Speed,S_Performance,talk_convert_class,attack_rate,defence_attack_rate,change_target_rate,pet_script
 
 MobID: ƒ‚ƒ“ƒXƒ^[ID‚Å‚·B
 Name: ‰pŒê–¼‘O(ƒ_ƒ~[)
@@ -195,13 +230,13 @@ pet_script: ƒyƒbƒg‚ğ‚Á‚Ä‚¢‚é“K—p‚³‚ê‚éƒXƒe[ƒ^ƒXƒ{[ƒiƒX‚ğİ’èB
 
 
 ==========================================================================
-6. db/packet_db.txt
+7. db/packet_db.txt
 --------------------------------------------------------------------------
+Num,Len,Cmd,Pos
+
 V‹K’Ç‰Á‚â•ÏX‚³‚ê‚½ƒpƒPƒbƒg’è‹`‚Íˆê”Ô‰º‚É’Ç‰Á‚µ‚Ä‚¢‚«‚Ü‚·B
 “ú•t‚ÌŒÃ‚¢ƒNƒ‰ƒCƒAƒ“ƒg‚ğg—p‚·‚éê‡‚ÍAV‚µ‚¢“ú•t‚Ì’è‹`‚ğíœ‚©ƒRƒƒ“ƒgƒAƒEƒg‚µ‚Ä‚­‚¾‚³‚¢B
 2004”N9Œ“_‚ÌjROƒNƒ‰ƒCƒAƒ“ƒg‚Ìê‡‚Íu//jRO‚Í‚±‚±‚Ü‚ÅvˆÈ‰º‚ğíœ‚©ƒRƒƒ“ƒgƒAƒEƒg‚µ‚È‚¯‚ê‚Îmap-server‚ÉŒq‚ª‚è‚Ü‚¹‚ñB
-
- Num,Len,Cmd,Pos
 
 Num: ƒpƒPƒbƒg”Ô†‚Å‚·(16i”)B
 Len: ƒpƒPƒbƒg’·‚Å‚·(10i”)B
@@ -210,7 +245,7 @@ Pos: clif.c“à‚ÌŠÖ”‚Åg—p‚³‚ê‚é•Ï”‚Ég‚¤€–Ú‚ÌƒpƒPƒbƒgˆÊ’u‚Å‚·B
 
 
 ==========================================================================
-7. db/item_db.txt		Qlæ AthenaWiki
+8. db/item_db.txt
 --------------------------------------------------------------------------
 ID,Name,Jname,Type,Price,Sell,Weight,ATK,DEF,Range,Slot,Job,Gender,Loc,wLV,eLV,View,Refine,{UseScript},{EquipScript}
 
@@ -320,7 +355,7 @@ ID,Name,Jname,Type,Price,Sell,Weight,ATK,DEF,Range,Slot,Job,Gender,Loc,wLV,eLV,V
 
 
 ==========================================================================
-8. db/item_db2.txt
+9. db/item_db2.txt
 --------------------------------------------------------------------------
 ID,Upper,Zone,Dropable,Storageable,Cartable,Dalay
 
@@ -351,7 +386,7 @@ Delay       = g—pŒã‚Éw’è‚µ‚½ŠÔƒfƒBƒŒƒC‚ğ•t‚¯‚éA’PˆÊ‚Íms
 
 
 ==========================================================================
-9. db/item_value_db.txt
+10. db/item_value_db.txt
 --------------------------------------------------------------------------
 ID,Name,Jname,Price,Sell,DC_Notflag,OC_Notflag
 
@@ -368,7 +403,7 @@ OC_Notflag : OC‰Â”\‚©‚Ç‚¤‚©	0‚Å‰ÂA1‚Å•s‰Â
 
 
 ==========================================================================
-10. db/mob_db.txt
+11. db/mob_db.txt
 --------------------------------------------------------------------------
 ID,Name,JName,LV,HP,SP,EXP,JEXP,Range1,ATK1,ATK2,DEF,MDEF,STR,AGI,VIT,INT,DEX,LUK,Range2,Range3,Scale,Race,Element,Mode,Speed,ADelay,aMotion,dMotion,Drop1id,Drop1per,Drop2id,Drop2per,Drop3id,Drop3per,Drop4id,Drop4per,Drop5id,Drop5per,Drop6id,Drop6per,Drop7id,Drop7per,Drop8id,Drop8per,Drop9id,Drop9per,Cardid,Cardper,MEXP,ExpPer,MVP1id,MVP1per,MVP2id,MVP2per,MVP3id,MVP3per
 
@@ -443,7 +478,7 @@ MVP1id(id),MVP1per,(per)`MVP3id(id),MVP3per,(per) : MVPƒhƒƒbƒvƒAƒCƒeƒ€‚Æ‚»‚ÌŠm
 
 
 ==========================================================================
-11. db/mob_skill_db.txt
+12. db/mob_skill_db.txt
 --------------------------------------------------------------------------
 MOB_ID,ƒ_ƒ~[•¶š—ñ,STATE,SKILL_ID,SKILL_LV,–œ•ª—¦,casttime,delay,–WŠQ‰Â”\,ƒ^[ƒQƒbƒg,ğŒƒ^ƒCƒv,ğŒ’l,’l1,’l2,’l3,’l4,’l5,g—pƒGƒ‚[ƒVƒ‡ƒ“
 
@@ -624,7 +659,7 @@ delay    : ƒXƒLƒ‹g—pŒã‚ÌƒfƒBƒŒƒCŠÔimsjA‚½‚¾‚µƒfƒBƒŒƒC’†‚Ég‚¦‚È‚¢‚Ì‚Í“¯‚¶ƒ
 		1131,ƒ‚[ƒhƒ`ƒFƒ“ƒW(ƒ‹[ƒg)—ƒWƒ‡[ƒJ[,idle,0,0,500,0,30000,no,modechange,always,0,self,0,151,,,
 
 ==========================================================================
-12. db/homun_db.txt
+13. db/homun_db.txt
 --------------------------------------------------------------------------
 Class,ViewClass,Name,JName,Lv,AcceID,FoodID,HP,SP,Str,Agi,Vit,Int,Dex,Luk,[Rate->]Base,HP_max,HP_min,SP_max,SP_min,Str,Agi,Vit,Int,Dex,Luk,aspd,Size,Race,Element,EvoClass,ExpTable,{homun_script}
 
@@ -655,8 +690,31 @@ EvoClass : i‰»Œã‚ÌƒNƒ‰ƒXID
 ExpTable : ŒoŒ±’lƒe[ƒuƒ‹”Ô†
 homun_script: ƒzƒ€ƒ“ƒNƒ‹ƒX‚ğ‚Á‚Ä‚¢‚é“K—p‚³‚ê‚éƒXƒe[ƒ^ƒXƒ{[ƒiƒX‚ğİ’è(–¢À‘•)
 
+
 ==========================================================================
-13. db/produce_db.txt
+14. db/homun_skill_tree.txt
+--------------------------------------------------------------------------
+Class,Skill-ID,MaxLv,PreSkill-ID-1,PreSkill-Lv-1,Œv5ŒÂ‚Ü‚ÅŒJ‚è•Ô‚µ,BaseLv,Intimate
+
+Class: Ragexe Sakexe‚Å’è‹`‚³‚ê‚½ID
+Skill-ID: æ“¾ƒXƒLƒ‹ID
+MaxLv: æ“¾‰Â”\‚ÈƒXƒLƒ‹‚ÌÅ‘åƒŒƒxƒ‹B‚½‚¾‚µskill_db.txt‚ÌMaxLvˆÈ‰º‚É‚È‚è‚Ü‚·B
+PreSkill-ID-1: ‘O’ñƒXƒLƒ‹ID
+PreSkill-Lv-1: ‘O’ñƒXƒLƒ‹ƒŒƒxƒ‹
+PreSkill-ID-2: “¯ã
+PreSkill-Lv-2: “¯ã
+PreSkill-ID-3: “¯ã
+PreSkill-Lv-3: “¯ã
+PreSkill-ID-4: “¯ã
+PreSkill-Lv-4: “¯ã
+PreSkill-ID-5: “¯ã
+PreSkill-Lv-5: “¯ã
+BaseLv: ‘O’ñBaseƒŒƒxƒ‹
+Intimate: •K—v‚Èe–§“x
+
+
+==========================================================================
+15. db/produce_db.txt
 --------------------------------------------------------------------------
 ID,ItemLV,RequireSkillid,RequireSkilllv,FixPer,MaterialID1,MaterialAmount1,MaterialID2,MaterialAmount2,MaterialID3,MaterialAmount3,MaterialID4,MaterialAmount4,MaterialID5,MaterialAmount5,MaterialID6,MaterialAmount6,MaterialID7,MaterialAmount7,MaterialID8,MaterialAmount8,MaterialID9,MaterialAmount9,MaterialID10,MaterialAmount10
 
@@ -704,8 +762,9 @@ MaterialAmount9 : “¯ã
 MaterialID10    : “¯ã
 MaterialAmount10: “¯ã
 
+
 ==========================================================================
-14. db/scdata_db.txt
+16. db/scdata_db.txt
 --------------------------------------------------------------------------
 ID,Name,SaveFlag,Releasable,Disable
 
@@ -733,6 +792,7 @@ Disable: ˆÈ‰º‚ÌğŒ‰º‚ÅƒXƒe[ƒ^ƒXˆÙíŠJn‚ğ–³Œø‚É‚·‚é‚È‚ç’l‚ğ‰ÁZ‚·‚é
 	 +4 = „‚ğ–Y‚ê‚È‚¢‚Å’†
 	 +8 = ‘¬“xŒ¸­’†
 	+16 = ƒSƒXƒyƒ‹‚Ì‘Só‘ÔˆÙí‘Ï«’†
+
 
 ==========================================================================
 EOF
