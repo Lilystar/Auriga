@@ -2814,7 +2814,7 @@ int parse_tologin(int fd)
 				// à√çÜâªÉçÉOÉCÉì
 				WFIFOW(login_fd,0)=0x272f;
 				memcpy(WFIFOP(login_fd,2),userid,24);
-				HMAC_MD5_Binary( passwd, strlen(passwd), RFIFOP(login_fd,4), RFIFOW(login_fd,2)-4, WFIFOP(login_fd,26) );
+				HMAC_MD5_Binary( passwd, strlen(passwd), RFIFOP(fd,4), RFIFOW(fd,2)-4, WFIFOP(login_fd,26) );
 				WFIFOL(login_fd,42)=0;
 				WFIFOL(login_fd,46)=4;	// à√çÜâªÇ… HMAC-MD5 ÇégÇ§
 				WFIFOL(login_fd,50)=0;
