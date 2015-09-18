@@ -533,13 +533,15 @@ delay    : ƒXƒLƒ‹g—pŒã‚ÌƒfƒBƒŒƒCŠÔimsjA‚½‚¾‚µƒfƒBƒŒƒC’†‚Ég‚¦‚È‚¢‚Ì‚Í“¯‚¶ƒ
 ğŒ: 		(ğŒƒ^ƒCƒv)        	(ğŒ’l‚Íw’è‚·‚é’l)
 	[íŒ^ : AI‚©‚ç‚ÌŒÄ‚Ño‚µ]
 		always            	–³ğŒ
+		myhpgtmaxrate     	©•ª‚ÌHP‚ªw’è“‚ğ’´‚¦‚Ä‚¢‚½‚ç
 		myhpltmaxrate     	©•ª‚ÌHP‚ªw’è“–¢–‚É‚È‚Á‚½‚ç
 		mystatuson        	©•ª‚ªƒXƒe[ƒ^ƒXˆÙí(ğŒ’l)‚ÉŠ|‚©‚Á‚Ä‚¢‚½‚ç
 		mystatusoff       	©•ª‚ªƒXƒe[ƒ^ƒXˆÙí(ğŒ’l)‚ÉŠ|‚©‚Á‚Ä‚¢‚È‚©‚Á‚½‚ç
+		friendhpgtmaxrate 	’‡ŠÔ‚ÌHP‚ªw’è“‚ğ’´‚¦‚Ä‚¢‚½‚çA”ÍˆÍ‚ÍüˆÍ8ƒZƒ‹ŒÅ’è
 		friendhpltmaxrate 	’‡ŠÔ‚ÌHP‚ªw’è“–¢–‚É‚È‚Á‚½‚çA”ÍˆÍ‚ÍüˆÍ8ƒZƒ‹ŒÅ’è
 		friendstatuson    	’‡ŠÔ‚ªƒXƒe[ƒ^ƒXˆÙí(ğŒ’l)‚ÉŠ|‚©‚Á‚Ä‚¢‚½‚çA”ÍˆÍ‚ÍüˆÍ8ƒZƒ‹ŒÅ’è
 		friendstatusoff   	’‡ŠÔ‚ªƒXƒe[ƒ^ƒXˆÙí(ğŒ’l)‚ÉŠ|‚©‚Á‚Ä‚¢‚È‚©‚Á‚½‚çA”ÍˆÍ‚ÍüˆÍ8ƒZƒ‹ŒÅ’è
-		attackpcgt        	UŒ‚PC‚ªw’è”‚ğ’´‚¦‚½‚ç
+		attackpcgt        	UŒ‚PC‚ªw’è”‚ğ’´‚¦‚Ä‚¢‚½‚ç
 		attackpcge        	UŒ‚PC‚ªw’è”ˆÈã‚É‚È‚Á‚½‚ç
 		slavelt           	‘è‰º”‚ªw’è”–¢–‚É‚È‚Á‚½‚ç
 		slavele           	‘è‰º”‚ªw’è”ˆÈ‰º‚É‚È‚Á‚½‚ç
