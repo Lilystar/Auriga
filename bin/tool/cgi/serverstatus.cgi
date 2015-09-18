@@ -65,7 +65,7 @@ my($checkping)="";			# NG のとき ping によるチェックを行うpingの種類
 
 my($cacheperiod) = 120;		# キャッシュ間隔(秒数)
 
-my($title) = "Athena Server Status";	# ページタイトル
+my($title) = "Auriga Server Status";	# ページタイトル
 
 my(@serverorder) = (			# 表示順
 	"login","char","map"
@@ -158,7 +158,7 @@ sub CheckServer
 	my(@dat)=<PIPE>;
 	close PIPE;
 	
-	if($dat[1]=~m/Athena/ && $dat[2]=~/server/){
+	if($dat[1]=~m/Auriga/ && $dat[2]=~/server/){
 		if($dat[2]=~/$i/ ){
 			$state=1;
 		}else{
