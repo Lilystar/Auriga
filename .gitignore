@@ -1,0 +1,16 @@
+# Directory
+log/
+save/
+
+# Other
+*.dll
+*.exe
+*.ilk
+*.info
+*.log
+*.map
+*.pdb
+
+# Windows
+Thumbs.db
+ehthumbs.db
