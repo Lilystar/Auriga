@@ -159,12 +159,6 @@ void pc_setstand(struct map_session_data *sd);
 int pc_calc_skilltree(struct map_session_data *sd);
 int pc_check_guild_skill_effective_range(struct map_session_data *sd);
 
-struct pc_base_job {
-	int job;	// E‹ÆA‚½‚¾‚µ“]¶E‚â—{qE‚Ìê‡‚ÍŒ³‚ÌE‹Æ‚ğ•Ô‚·(”pƒvƒŠ¨ƒvƒŠ)
-	int type;	// ƒmƒr 0, ˆêŸE 1, “ñŸE 2, ƒXƒpƒmƒr 3
-	int upper;	// ’Êí 0, “]¶ 1, —{q 2
-};
-
 #define pc_isupper(sd) (((sd)->status.class_ >= PC_CLASS_NV2) && ((sd)->status.class_ < PC_CLASS_NV3))
 #define pc_isbaby(sd) (((sd)->status.class_ >= PC_CLASS_NV3) && ((sd)->status.class_ <= PC_CLASS_SNV3))
 

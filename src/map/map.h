@@ -238,6 +238,12 @@ struct cell_xy {
 	short y;
 };
 
+struct pc_base_job {
+	short job;	// E‹ÆA‚½‚¾‚µ“]¶E‚â—{qE‚Ìê‡‚ÍŒ³‚ÌE‹Æ‚ğ•Ô‚·(”pƒvƒŠ¨ƒvƒŠ)
+	short type;	// ƒmƒr 0, ˆêŸE 1, “ñŸE 2, ƒXƒpƒmƒr 3
+	short upper;	// ’Êí 0, “]¶ 1, —{q 2
+};
+
 //Šg’£ƒI[ƒgƒXƒyƒ‹
 //EQUIP_AUTOSPELL_FLAG
 enum 	{
@@ -355,6 +361,8 @@ struct map_session_data {
 	int inchealhptick,inchealsptick,inchealspirithptick,inchealspiritsptick;
 
 	short view_class;
+	struct pc_base_job s_class;
+
 	short weapontype1,weapontype2;
 	int paramb[6],paramc[6],parame[6],paramcard[6];
 	int hit,flee,flee2,aspd,amotion,dmotion;
