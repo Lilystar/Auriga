@@ -38,6 +38,7 @@ enum {
 	WT_DOUBLE_DS,		// ’ZŒ•+•ĞèŒ•
 	WT_DOUBLE_DA,		// ’ZŒ•+•Ğè•€
 	WT_DOUBLE_SA,		// •ĞèŒ•+•Ğè•€
+	WT_MAX,			// Å‘å’l
 };
 
 #define pc_setdead(sd) ((sd)->state.dead_sit = 1)
