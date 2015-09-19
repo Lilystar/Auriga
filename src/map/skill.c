@@ -3864,7 +3864,7 @@ int skill_castend_nodamage_id( struct block_list *src, struct block_list *bl,int
 			clif_send_homstatus(hd->msd,0);
 		} else if(mcd) {
 			mcd->status.hp = mcd->max_hp;
-			clif_send_mercstatus(mcd->msd,0);
+			clif_mercupdatestatus(mcd->msd,SP_HP);
 		}
 		break;
 	case SM_ENDURE:			/* ƒCƒ“ƒfƒ…ƒA */
@@ -9367,11 +9367,11 @@ static int skill_check_condition2_merc(struct merc_data *mcd, struct skill_condi
 	if(type == 1) {
 		if(sp > 0) {				// SPÁ”ï
 			mcd->status.sp -= sp;
-			clif_send_mercstatus(msd,0);
+			clif_mercupdatestatus(msd,SP_SP);
 		}
 		if(hp > 0) {				// HPÁ”ï
 			mcd->status.hp -= hp;
-			clif_send_mercstatus(msd,0);
+			clif_mercupdatestatus(msd,SP_HP);
 		}
 		if(zeny > 0)				// ZenyÁ”ï
 			pc_payzeny(msd,zeny);

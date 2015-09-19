@@ -5221,7 +5221,8 @@ static int pc_dead(struct block_list *src,struct map_session_data *sd)
 		clif_send_petdata(sd,1,sd->pet.intimate);
 	}
 	if(sd->status.merc_id > 0 && sd->mcd) {
-		clif_disp_onlyself(sd->fd, msg_txt(191));	// —b•º‚ª“¦‘–‚µ‚Ü‚µ‚½B
+		//clif_disp_onlyself(sd->fd, msg_txt(191));	// —b•º‚ª“¦‘–‚µ‚Ü‚µ‚½B
+		clif_msgstringtable(sd, 0x4f5);
 		merc_delete_data(sd);
 	}
 
