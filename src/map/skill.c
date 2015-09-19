@@ -108,7 +108,7 @@ int SkillStatusChangeTable[MAX_SKILL] = {	/* status.h‚Ìenum‚ÌSC_***‚Æ‚ ‚í‚¹‚é‚±‚
 	/* 320- */
 	SC_ASSNCROS,SC_POEMBRAGI,SC_APPLEIDUN,-1,-1,SC_UGLYDANCE,-1,SC_HUMMING,SC_DONTFORGETME,SC_FORTUNE,
 	/* 330- */
-	SC_SERVICE4U,SC_SELFDESTRUCTION,-1,-1,-1,-1,-1,-1,-1,-1,
+	SC_SERVICE4U,SC_SELFDESTRUCTION,-1,-1,-1,SC_WE_FEMALE,-1,-1,-1,-1,
 	/* 340- */
 	-1,-1,SC_HOLDWEB,-1,-1,-1,-1,-1,-1,SC_EXPLOSIONSPIRITS,
 	/* 350- */
@@ -3215,7 +3215,7 @@ int skill_castend_nodamage_id( struct block_list *src, struct block_list *bl,int
 				int skill = pc_checkskill(sd,HP_MEDITATIO);
 				if(skill > 0)	// ƒƒfƒBƒ^ƒeƒBƒI
 					heal += heal * (skill * 2) / 100;
-				if(dstsd && sd->status.partner_id == dstsd->status.char_id && sd->s_class.job == 23 && sd->sex == 0)	// Ž©•ª‚à‘ÎÛ‚àPCA‘ÎÛ‚ªŽ©•ª‚Ìƒp[ƒgƒi[AŽ©•ª‚ªƒXƒpƒmƒrAŽ©•ª‚ªŠ‚È‚ç
+				if(dstsd && sd->status.partner_id == dstsd->status.char_id && sd->s_class.job == 23 && sd->sex == 0)
 					heal *= 2;	// ƒXƒpƒmƒr‚Ì‰Å‚ª’U“ß‚Éƒq[ƒ‹‚·‚é‚Æ2”{‚É‚È‚é
 			}
 			if(sc && sc->data[SC_KAITE].timer != -1) {	// ƒJƒCƒg
@@ -5133,6 +5133,13 @@ int skill_castend_nodamage_id( struct block_list *src, struct block_list *bl,int
 			gain_sp = gain_sp * abs(sp_rate) / 100;
 			clif_skill_nodamage(src,bl,skillid,gain_sp,1);
 			battle_heal(NULL,bl,0,gain_sp,0);
+
+			// ƒXƒpƒmƒr‚Ì‰Å‚ª’U“ß‚ÉŽg—p‚·‚é‚Æ10%‚ÌŠm—¦‚ÅƒXƒe[ƒ^ƒX•t—^
+			if(sd->s_class.job == 23 && sd->sex == 0 && atn_rand()%100 < 10) {
+				int sec = skill_get_time2(skillid,skilllv);
+				status_change_start(&sd->bl,SkillStatusChangeTable[skillid],skilllv,1,0,0,sec,0);
+				status_change_start(&dstsd->bl,SkillStatusChangeTable[skillid],skilllv,2,0,0,sec,0);
+			}
 		}
 		break;
 
