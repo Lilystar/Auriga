@@ -22,6 +22,7 @@ item_value_db.txt	ƒAƒCƒeƒ€‰¿Ši‚ÌƒI[ƒo[ƒ‰ƒCƒh
 mob_db.txt		ƒ‚ƒ“ƒXƒ^[‚Ìƒf[ƒ^‚ğİ’è
 mob_skill_db.txt	ƒ‚ƒ“ƒXƒ^[‚Ìg—p‚·‚éƒXƒLƒ‹‚ğİ’è
 homun_db.txt		ƒzƒ€ƒ“ƒNƒ‹ƒX‚Ìƒf[ƒ^‚ğİ’è
+homun_db2.txt		ƒzƒ€ƒ“ƒNƒ‹ƒX‚Ì¬’·ƒf[ƒ^‚ğİ’è
 homun_skill_tree.txt	ƒzƒ€ƒ“ƒNƒ‹ƒX‚ÌƒXƒLƒ‹ƒcƒŠ[‚ğİ’è
 produce_db.txt		»‘¢‚ÉŠÖ˜A‚·‚éƒf[ƒ^‚ğİ’è
 scdata_db.txt		ƒXƒe[ƒ^ƒXˆÙí‚Ìƒf[ƒ^‚ğİ’è
@@ -704,12 +705,12 @@ SP : ì¬’¼Œã‚ÌMSP‚Ì’l
 Str,Agi,Vit,Int,Dex,Luk : ì¬’¼Œã‚ÌƒXƒe[ƒ^ƒX‚Ì’l
 
 [Rate->] : ‚±‚±‚©‚çã¸ƒXƒe[ƒ^ƒX‚ÉŠÖ‚·‚é’l‚Ìİ’èBi‹æØ‚èj
-Base : ƒŒƒxƒ‹‚ª‚Pã‚ª‚Á‚½‚ÉAã¸‚·‚éƒXƒe[ƒ^ƒX‚ÌÅ‘å’l
-HP_max : ƒŒƒxƒ‹‚ª‚Pã‚ª‚Á‚½‚ÉAã¸‚·‚éHP‚ÌÅ‘å’l
-HP_min : ƒŒƒxƒ‹‚ª‚Pã‚ª‚Á‚½‚ÉAã¸‚·‚éHP‚ÌÅ’á’l
-SP_max : ƒŒƒxƒ‹‚ª‚Pã‚ª‚Á‚½‚ÉAã¸‚·‚éSP‚ÌÅ‘å’l
-SP_min : ƒŒƒxƒ‹‚ª‚Pã‚ª‚Á‚½‚ÉAã¸‚·‚éSP‚ÌÅ’á’l
-Str,Agi,Vit,Int,Dex,Luk : ƒŒƒxƒ‹‚ª‚Pã‚ª‚Á‚½‚ÉAã¸‚·‚éŠm—¦‚ğ•S•ª—¦‚Å•\‚µ‚½”’l
+Base : ƒŒƒxƒ‹‚ª‚Pã‚ª‚Á‚½‚ÉAã¸‚·‚éƒXƒe[ƒ^ƒX‚ÌÅ‘å’l	¦Œ»İ–¢g—p
+HP_max : ƒŒƒxƒ‹‚ª‚Pã‚ª‚Á‚½‚ÉAã¸‚·‚éHP‚ÌÅ‘å’l		¦Œ»İ–¢g—p
+HP_min : ƒŒƒxƒ‹‚ª‚Pã‚ª‚Á‚½‚ÉAã¸‚·‚éHP‚ÌÅ’á’l		¦Œ»İ–¢g—p
+SP_max : ƒŒƒxƒ‹‚ª‚Pã‚ª‚Á‚½‚ÉAã¸‚·‚éSP‚ÌÅ‘å’l		¦Œ»İ–¢g—p
+SP_min : ƒŒƒxƒ‹‚ª‚Pã‚ª‚Á‚½‚ÉAã¸‚·‚éSP‚ÌÅ’á’l		¦Œ»İ–¢g—p
+Str,Agi,Vit,Int,Dex,Luk : ƒŒƒxƒ‹‚ª‚Pã‚ª‚Á‚½‚ÉAã¸‚·‚éŠm—¦‚ğ•S•ª—¦‚Å•\‚µ‚½”’l	¦Œ»İ–¢g—p
 
 Aspd : ŒÅ—LAspdŒW”
 Size : ƒTƒCƒYidb/mob_db.txt‚Ì€‚ğQÆj
@@ -721,7 +722,36 @@ homun_script: ƒzƒ€ƒ“ƒNƒ‹ƒX‚ğ‚Á‚Ä‚¢‚é“K—p‚³‚ê‚éƒXƒe[ƒ^ƒXƒ{[ƒiƒX‚ğİ’è(–¢À‘
 
 
 ==========================================================================
-14. db/homun_skill_tree.txt
+14. db/homun_db2.txt
+--------------------------------------------------------------------------
+Class,MinHP,MaxHP,MinSP,MaxSP,MinStr,MaxStr,MinAgi,MaxAgi,MinVit,MaxVit,MinInt,MaxInt,MinDex,MaxDex,MinLuk,MaxLuk,EvoMinHP,EvoMaxHP,EvoMinSP,EvoMaxSP,EvoMinStr,EvoMaxStr,EvoMinAgi,EvoMaxAgi,EvoMinVit,EvoMaxVit,EvoMinInt,EvoMaxInt,EvoMinDex,EvoMaxDex,EvoMinLuk,EvoMaxLuk
+
+Class     : homun_db.txt‚Åw’è‚µ‚½ƒzƒ€ƒ“ƒNƒ‹ƒXID
+MinHP     : ƒŒƒxƒ‹‚ª‚Pã‚ª‚Á‚½‚Éã¸‚·‚éHP‚ÌÅ¬’l
+MaxHP     : ƒŒƒxƒ‹‚ª‚Pã‚ª‚Á‚½‚Éã¸‚·‚éHP‚ÌÅ‘å’l
+MinSP     : ƒŒƒxƒ‹‚ª‚Pã‚ª‚Á‚½‚Éã¸‚·‚éSP‚ÌÅ¬’l
+MaxSP     : ƒŒƒxƒ‹‚ª‚Pã‚ª‚Á‚½‚Éã¸‚·‚éSP‚ÌÅ‘å’l
+MinStr    : ƒŒƒxƒ‹‚ª‚Pã‚ª‚Á‚½‚Éã¸‚·‚éStr‚ÌÅ¬’lx10 (­”‘æ1ˆÊ‚Ü‚Åw’è)
+MaxStr    : ƒŒƒxƒ‹‚ª‚Pã‚ª‚Á‚½‚Éã¸‚·‚éStr‚ÌÅ‘å’lx10 (­”‘æ1ˆÊ‚Ü‚Åw’è)
+MinAgi    : ƒŒƒxƒ‹‚ª‚Pã‚ª‚Á‚½‚Éã¸‚·‚éAgi‚ÌÅ¬’lx10 (­”‘æ1ˆÊ‚Ü‚Åw’è)
+MaxAgi    : ƒŒƒxƒ‹‚ª‚Pã‚ª‚Á‚½‚Éã¸‚·‚éAgi‚ÌÅ‘å’lx10 (­”‘æ1ˆÊ‚Ü‚Åw’è)
+iˆÈ‰º“¯j
+MinVit,MaxVit,MinInt,MaxInt,MinDex,MaxDex,MinLuk,MaxLuk
+
+EvoMinHP  : ƒzƒ€ƒ“ƒNƒ‹ƒX‚ªi‰»‚µ‚½‚Éã¸‚·‚éHP‚ÌÅ¬’l
+EvoMaxHP  : ƒzƒ€ƒ“ƒNƒ‹ƒX‚ªi‰»‚µ‚½‚Éã¸‚·‚éHP‚ÌÅ‘å’l
+EvoMinSP  : ƒzƒ€ƒ“ƒNƒ‹ƒX‚ªi‰»‚µ‚½‚Éã¸‚·‚éSP‚ÌÅ¬’l
+EvoMaxSP  : ƒzƒ€ƒ“ƒNƒ‹ƒX‚ªi‰»‚µ‚½‚Éã¸‚·‚éSP‚ÌÅ‘å’l
+EvoMinStr : ƒzƒ€ƒ“ƒNƒ‹ƒX‚ªi‰»‚µ‚½‚Éã¸‚·‚éStr‚ÌÅ¬’l
+EvoMaxStr : ƒzƒ€ƒ“ƒNƒ‹ƒX‚ªi‰»‚µ‚½‚Éã¸‚·‚éStr‚ÌÅ‘å’l
+EvoMinAgi : ƒzƒ€ƒ“ƒNƒ‹ƒX‚ªi‰»‚µ‚½‚Éã¸‚·‚éAgi‚ÌÅ¬’l
+EvoMaxAgi : ƒzƒ€ƒ“ƒNƒ‹ƒX‚ªi‰»‚µ‚½‚Éã¸‚·‚éAgi‚ÌÅ‘å’l
+iˆÈ‰º“¯j
+EvoMinVit,EvoMaxVit,EvoMinInt,EvoMaxInt,EvoMinDex,EvoMaxDex,EvoMinLuk,EvoMaxLuk
+
+
+==========================================================================
+15. db/homun_skill_tree.txt
 --------------------------------------------------------------------------
 Class,Skill-ID,MaxLv,PreSkill-ID-1,PreSkill-Lv-1,Œv5ŒÂ‚Ü‚ÅŒJ‚è•Ô‚µ,BaseLv,Intimate
 
@@ -746,7 +776,7 @@ Intimate: •K—v‚Èe–§“x
 
 
 ==========================================================================
-15. db/produce_db.txt
+16. db/produce_db.txt
 --------------------------------------------------------------------------
 ID,ItemLV,RequireSkillid,RequireSkilllv,FixPer,MaterialID1,MaterialAmount1,MaterialID2,MaterialAmount2,MaterialID3,MaterialAmount3,MaterialID4,MaterialAmount4,MaterialID5,MaterialAmount5,MaterialID6,MaterialAmount6,MaterialID7,MaterialAmount7,MaterialID8,MaterialAmount8,MaterialID9,MaterialAmount9,MaterialID10,MaterialAmount10
 
@@ -796,7 +826,7 @@ MaterialAmount10: “¯ã
 
 
 ==========================================================================
-16. db/scdata_db.txt
+17. db/scdata_db.txt
 --------------------------------------------------------------------------
 ID,Name,SaveFlag,Releasable,Disable
 
@@ -827,7 +857,7 @@ Disable: ˆÈ‰º‚ÌğŒ‰º‚ÅƒXƒe[ƒ^ƒXˆÙíŠJn‚ğ–³Œø‚É‚·‚é‚È‚ç’l‚ğ‰ÁZ‚·‚é
 
 
 ==========================================================================
-17. db/job_db1.txt
+18. db/job_db1.txt
 --------------------------------------------------------------------------
 weight,hp,hp2,sp,aspd*22(‘fè,’ZŒ•,•ĞèŒ•,—¼èŒ•,•Ğè‘„,—¼è‘„,•Ğè•€,—¼è•€,•Ğè“İŠí,—¼è“İŠí,ñ,‹|,’Ü,ŠyŠí,•Ú,–{,ƒJƒ^[ƒ‹,ƒnƒ“ƒhƒKƒ“,ƒ‰ƒCƒtƒ‹,ƒVƒ‡ƒbƒgƒKƒ“,ƒKƒgƒŠƒ“ƒKƒ“,ƒOƒŒƒl[ƒhƒKƒ“,•—–‚è— Œ•)
 
