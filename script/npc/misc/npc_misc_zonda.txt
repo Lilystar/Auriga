@@ -392,15 +392,15 @@ OnTimer60000:
 		if($VoteKafraP >= 2) set '@warp2$,"ƒm[ƒOƒ[ƒh2‘w -> 4000z";
 		switch(select("‚¨‚à‚¿‚á•ª—ŞŠ -> 4000 z",'@warp1$,'@warp2$,"æ‚èÁ‚µ")) {
 		case 1:	//‚¨‚à‚¿‚á•ª—ŞŠ
-			set '@mapname$,"xmas_dun02.gat";
+			set '@mapname$,"xmas_dun02";
 			setarray '@warp,130,123;
 			break;
 		case 2:	//ƒAƒ‹ƒfƒoƒ‰ƒ“Œv“ƒ’n‰º3F
-			set '@mapname$,"alde_dun03.gat";
+			set '@mapname$,"alde_dun03";
 			setarray '@warp,265,22;
 			break;
 		case 3:	//ƒm[ƒOƒ[ƒh2‘w
-			set '@mapname$,"mag_dun02.gat";
+			set '@mapname$,"mag_dun02";
 			setarray '@warp,47,40;
 			break;
 		case 4: break;	//fall through
@@ -592,15 +592,15 @@ OnTimer60000:
 		if($VoteZondaP >= 2) set '@warp2$,"ƒOƒ‰ƒXƒgƒwƒCƒ€ŒÃé -> 4000z";
 		switch(select("ƒCƒYƒ‹[ƒhŠC’ê“´ŒA3‘w -> 4000 z",'@warp1$,'@warp2$,"æ‚èÁ‚µ")) {
 		case 1:	//ƒCƒYƒ‹[ƒhŠC’ê“´ŒA3‘w
-			set '@mapname$,"iz_dun02.gat";
+			set '@mapname$,"iz_dun02";
 			setarray '@warp,234,206;
 			break;
 		case 2:	//ƒAƒ‹ƒfƒoƒ‰ƒ“Œv“ƒ’nã3F
-			set '@mapname$,"c_tower3.gat";
+			set '@mapname$,"c_tower3";
 			setarray '@warp,64,143;
 			break;
 		case 3:	//ƒOƒ‰ƒXƒgƒwƒCƒ€ŒÃé
-			set '@mapname$,"glast_01.gat";
+			set '@mapname$,"glast_01";
 			setarray '@warp,368,303;
 			break;
 		case 4: break;	//fall through
@@ -632,8 +632,10 @@ yuno.gat,162,191,4	duplicate(ƒJƒvƒ‰“Š•[L•ñEˆõ#vt)	ƒJƒvƒ‰“Š•[L•ñEˆõ::ƒWƒ…ƒm[
 yuno.gat,153,191,6	duplicate(ƒWƒ‡ƒ“ƒ_“Š•[L•ñEˆõ#vt)	ƒWƒ‡ƒ“ƒ_“Š•[L•ñEˆõ::ƒWƒ…ƒm[		874
 prontera.gat,164,125,4	duplicate(ƒJƒvƒ‰“Š•[L•ñEˆõ#vt)	ƒJƒvƒ‰“Š•[L•ñEˆõ::ƒvƒƒ“ƒeƒ‰		116
 prontera.gat,147,125,6	duplicate(ƒWƒ‡ƒ“ƒ_“Š•[L•ñEˆõ#vt)	ƒWƒ‡ƒ“ƒ_“Š•[L•ñEˆõ::ƒvƒƒ“ƒeƒ‰	874
-morocc.gat,164,114,4	duplicate(ƒJƒvƒ‰“Š•[L•ñEˆõ#vt)	ƒJƒvƒ‰“Š•[L•ñEˆõ::ƒ‚ƒƒN		116
-morocc.gat,155,114,6	duplicate(ƒWƒ‡ƒ“ƒ_“Š•[L•ñEˆõ#vt)	ƒWƒ‡ƒ“ƒ_“Š•[L•ñEˆõ::ƒ‚ƒƒN		874
+//morocc.gat,164,114,4	duplicate(ƒJƒvƒ‰“Š•[L•ñEˆõ#vt)	ƒJƒvƒ‰“Š•[L•ñEˆõ::ƒ‚ƒƒN		116
+//morocc.gat,155,114,6	duplicate(ƒWƒ‡ƒ“ƒ_“Š•[L•ñEˆõ#vt)	ƒWƒ‡ƒ“ƒ_“Š•[L•ñEˆõ::ƒ‚ƒƒN		874
+moc_ruins.gat,104,133,3	duplicate(ƒJƒvƒ‰“Š•[L•ñEˆõ#vt)	ƒJƒvƒ‰“Š•[L•ñEˆõ::ƒ‚ƒƒN		116
+moc_ruins.gat,97,133,5	duplicate(ƒWƒ‡ƒ“ƒ_“Š•[L•ñEˆõ#vt)	ƒWƒ‡ƒ“ƒ_“Š•[L•ñEˆõ::ƒ‚ƒƒN		874
 geffen.gat,122,37,4	duplicate(ƒJƒvƒ‰“Š•[L•ñEˆõ#vt)	ƒJƒvƒ‰“Š•[L•ñEˆõ::ƒQƒtƒFƒ“		116
 geffen.gat,117,37,6	duplicate(ƒWƒ‡ƒ“ƒ_“Š•[L•ñEˆõ#vt)	ƒWƒ‡ƒ“ƒ_“Š•[L•ñEˆõ::ƒQƒtƒFƒ“		874
 payon.gat,158,182,4	duplicate(ƒJƒvƒ‰“Š•[L•ñEˆõ#vt)	ƒJƒvƒ‰“Š•[L•ñEˆõ::ƒtƒFƒCƒˆƒ“		116
