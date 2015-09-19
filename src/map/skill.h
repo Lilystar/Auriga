@@ -227,7 +227,7 @@ struct skill_condition {
 };
 
 int skill_check_condition(struct block_list *bl, int type);
-int skill_check_condition2(struct block_list *bl, struct skill_condition *sc, int type);
+int skill_check_condition2(struct block_list *bl, struct skill_condition *cnd, int type);
 
 // ƒAƒCƒeƒ€ì¬
 int skill_can_produce_mix(struct map_session_data *sd, int idx, int trigger);
