@@ -2329,7 +2329,7 @@ int login_httpd_auth_func( struct httpd_access* a, struct httpd_session_data* sd
 	const struct mmo_account *acc;
  	const char *p;
 
-	p = memchr(userid, '\0', 24);
+	p = (const char *)memchr(userid, '\0', 24);
 	if( p == NULL )	// 24ï∂éöà»è„ÇÕÇ†ÇËÇ¶Ç»Ç¢
 		return 0;
 
