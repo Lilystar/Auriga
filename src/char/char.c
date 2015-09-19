@@ -539,8 +539,10 @@ static int mmo_char_fromstr(char *str,struct mmo_chardata *p)
 
 	for(i = 0; str[next] && str[next] != '\t' && str[next] != '\n' && str[next] != '\r'; i++) {
 		set=sscanf(str+next,"%d,%d,%d,%d%n",&tmp_int[0],&tmp_int[1],&tmp_int[2],&tmp_int[3],&len);
-		if(set!=4)
-			return 0;
+		if(set!=4) {
+			// AthenaŒ`Ž®‚à—L‚è“¾‚é‚Ì‚Å¬Œ÷ˆµ‚¢‚É‚·‚é
+			return 1;
+		}
 		n = tmp_int[0];
 		if(n >= 0 && n < MAX_HOTKEYS) {
 			p->st.hotkey[n].type = (char)tmp_int[1];
