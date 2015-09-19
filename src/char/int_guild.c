@@ -1936,7 +1936,17 @@ int mapif_parse_GuildLeave(int fd,int guild_id,int account_id,int char_id,int fl
 
 	memcpy(&g2,g1,sizeof(struct guild));
 	for(i=0;i<MAX_GUILD;i++){
-		if(g2.member[i].account_id==account_id && g2.member[i].char_id==char_id){
+		if(g2.member[i].account_id == account_id && g2.member[i].char_id == char_id)
+		{
+			const struct mmo_chardata *cd = char_load(char_id);
+			if(cd) {
+				// ƒMƒ‹ƒhID‚ğ0‚É‰Šú‰»
+				struct mmo_charstatus st;
+				memcpy(&st, &cd->st, sizeof(st));
+				st.guild_id = 0;
+				char_save(&st);
+			}
+
 			if(flag){	// ’Ç•ú‚Ìê‡’Ç•úƒŠƒXƒg‚É“ü‚ê‚é
 				int j;
 				for(j=0;j<MAX_GUILDEXPLUSION;j++){
