@@ -3970,7 +3970,7 @@ static int mob_readskilldb(void)
 				}
 			}
 			if( j == sizeof(state)/sizeof(state[0]) ) {
-				ms->state = MSS_COMMANDONLY;	// –³Œø‚É‚·‚é
+				ms->state = MSS_DISABLE;	// –³Œø‚É‚·‚é
 				printf("mob_skill: unknown state %s line %d\n", sp[2], lineno);
 			}
 			ms->skill_id   = atoi(sp[3]);
