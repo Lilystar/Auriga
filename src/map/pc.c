@@ -6716,7 +6716,7 @@ void pc_equipitem(struct map_session_data *sd, int n, int pos)
 	// ‹|–î‘•”õ
 	if(pos == 0x8000) {
 		clif_arrowequip(sd,n);
-		clif_arrow_fail(sd,3);	// 3=–î‚ª‘•”õ‚Å‚«‚Ü‚µ‚½
+		clif_arrow_fail(sd,3);	// ‘•”õ‚Å‚«‚Ü‚µ‚½
 	} else {
 		clif_equipitemack(sd,n,pos,1);
 	}
