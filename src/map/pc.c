@@ -848,24 +848,15 @@ static int pc_isequip(struct map_session_data *sd,int n)
 				return 0;
 			if(item->wlv >= 4 && item->type == 4)
 			{
-				// •ĞèŒ• : 1100`1149
-				if(1100 <= item->nameid && item->nameid <= 1149)
-					return 1;
-				// ’ZŒ•   : 1200`1249
-				if(1200 <= item->nameid && item->nameid <= 1249)
-					return 1;
-				// ’ZŒ•   : 13000`13049?
-				if(13000 <= item->nameid && item->nameid <= 13049)
-					return 1;
-				// •Ğè•€ : 1300`1349
-				if(1300 <= item->nameid && item->nameid <= 1349)
-					return 1;
-				// “İŠí   : 1500`1549
-				if(1500 <= item->nameid && item->nameid <= 1549)
-					return 1;
-				// ñ     : 1600`1649
-				if(1600 <= item->nameid && item->nameid <= 1649)
-					return 1;
+				// Lv4‚Ì•Ší‚ğ‹–‰Â
+				switch(item->look) {
+					case WT_DAGGER:
+					case WT_1HSWORD:
+					case WT_1HAXE:
+					case WT_MACE:
+					case WT_STAFF:
+						return 1;
+				}
 			}
 		}
 		// “ªŠÖŒW
