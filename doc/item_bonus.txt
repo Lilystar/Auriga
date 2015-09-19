@@ -126,16 +126,16 @@ bAutoSpell,bAutoSelfSpell,bRevAutoSpell,bRevAutoSelfSpell‚Í16ŒÂ‚Ü‚Å—LŒø‚Å‚·B16‚
 
 
 E–hŒä–³Ž‹UŒ‚
-	bonus bIgnoreDefRace,n;				nŽí‘°‚É‘Î‚µ‚Ä–hŒä—Í–³Ž‹ƒ_ƒ[ƒW
-	bonus bIgnoreMDefRace,n;			nŽí‘°‚É‘Î‚µ‚Ä–‚–@–hŒä—Í–³Ž‹ƒ_ƒ[ƒW
+	bonus2 bIgnoreDefRace,n,x;				nŽí‘°‚É‘Î‚µ‚Äx%‚Ì–hŒä—Í–³Ž‹ƒ_ƒ[ƒW
+	bonus2 bIgnoreMDefRace,n,x;			nŽí‘°‚É‘Î‚µ‚Äx%‚Ì–‚–@–hŒä—Í–³Ž‹ƒ_ƒ[ƒW
 	bonus bDefRatioAtkRace,n;			nŽí‘°‚É‘Î‚µ‚Ä–hŒä—Í‚ª‚‚¯‚ê‚Î‚‚¢‚Ù‚Ç‘å‚«‚Èƒ_ƒ[ƒW‚ð—^‚¦‚é(–hŒä–³Ž‹)
 					0,–³Œ`@1,•sŽ€@2,“®•¨@3,A•¨@4,©’Ž@5,‹›ŠL@6,ˆ«–‚@7,lŠÔ@8,“VŽg@9,—³‘°@10,ƒ{ƒXƒ‚ƒ“ƒXƒ^[@11,ƒ{ƒXƒ‚ƒ“ƒXƒ^[ˆÈŠO(•’Ê‚Ìƒ‚ƒ“ƒXƒ^[AƒvƒŒƒCƒ„[‚àŠÜ‚Þ)
-	bonus bIgnoreDefEle,n;				n‘®«‚É‘Î‚µ‚Ä–hŒä—Í–³Ž‹ƒ_ƒ[ƒW
-	bonus bIgnoreMDefEle,n;				n‘®«‚É‘Î‚µ‚Ä–‚–@–hŒä—Í–³Ž‹ƒ_ƒ[ƒW
+	bonus2 bIgnoreDefEle,n,x;				n‘®«‚É‘Î‚µ‚Äx%‚Ì–hŒä—Í–³Ž‹ƒ_ƒ[ƒW
+	bonus2 bIgnoreMDefEle,n,x;				n‘®«‚É‘Î‚µ‚Äx%‚Ì–‚–@–hŒä—Í–³Ž‹ƒ_ƒ[ƒW
 	bonus bDefRatioAtkEle,n;			n‘®«‚É‘Î‚µ‚Ä–hŒä—Í‚ª‚‚¯‚ê‚Î‚‚¢‚Ù‚Ç‘å‚«‚Èƒ_ƒ[ƒW‚ð—^‚¦‚é(–hŒä–³Ž‹)
 					0,–³@1,…@2,“y@3,‰Î@4,•—@5,“Å@6,¹@7,ˆÅ@8,”O@9,•sŽ€
-	bonus bIgnoreDefEnemy,n;			“Gƒ^ƒCƒvn‚É‘Î‚µ‚Ä–hŒä—Í–³Ž‹ƒ_ƒ[ƒW
-	bonus bIgnoreMDefEnemy,n;			“Gƒ^ƒCƒvn‚É‘Î‚µ‚Ä–‚–@–hŒä—Í–³Ž‹ƒ_ƒ[ƒW
+	bonus2 bIgnoreDefEnemy,n,x;			“Gƒ^ƒCƒvn‚É‘Î‚µ‚Äx%‚Ì–hŒä—Í–³Ž‹ƒ_ƒ[ƒW
+	bonus2 bIgnoreMDefEnemy,n,x;			“Gƒ^ƒCƒvn‚É‘Î‚µ‚Äx%‚Ì–‚–@–hŒä—Í–³Ž‹ƒ_ƒ[ƒW
 	bonus bDefRatioAtkEnemy,n;			“Gƒ^ƒCƒvn‚É‘Î‚µ‚Ä–hŒä—Í‚ª‚‚¯‚ê‚Î‚‚¢‚Ù‚Ç‘å‚«‚Èƒ_ƒ[ƒW‚ð—^‚¦‚é(–hŒä–³Ž‹)
 					0,‚»‚Ì‘¼@1,ƒvƒŒƒCƒ„[@2,ƒ{ƒXˆÈŠO‚Ìƒ‚ƒ“ƒXƒ^[@3,ƒzƒ€ƒ“ƒNƒ‹ƒX
 
@@ -261,8 +261,8 @@ bAutoSpell,bAutoSelfSpell,bRevAutoSpell,bRevAutoSelfSpell‚Í16ŒÂ‚Ü‚Å—LŒø‚Å‚·B16‚
 	bonus bUnbreakableShield,n;			â‘Î‚É‚‚ª”j‰ó‚³‚ê‚È‚¢(n‚Í–³ˆÓ–¡)
 	bonus bLossEquipWhenDie,n;			Ž€–SŽžn%‚ÌŠm—¦‚Å‘•”õƒAƒCƒeƒ€‚ª‚È‚­‚È‚é(n‚Í–œ•ª—¦)
 	bonus bLossEquipWhenAttack,n;		UŒ‚Žžn%‚ÌŠm—¦‚Å‘•”õƒAƒCƒeƒ€‚ª‚È‚­‚È‚é(n‚Í–œ•ª—¦)
-	bonus bBreakMyEquipWhenAttack,n,x;	UŒ‚Žžn%‚ÌŠm—¦‚Å‘•”õƒAƒCƒeƒ€‚ª‰ó‚ê‚é(x‚Í–œ•ª—¦)
-	bonus bBreakMyEquipWhenHit,n;		UŒ‚‚ðŽó‚¯‚½Žžn%‚ÌŠm—¦‚Å‘•”õƒAƒCƒeƒ€‚ª‰ó‚ê‚é(x‚Í–œ•ª—¦)
+	bonus bBreakMyEquipWhenAttack,n;	UŒ‚Žžn%‚ÌŠm—¦‚Å‘•”õƒAƒCƒeƒ€‚ª‰ó‚ê‚é(n‚Í–œ•ª—¦)
+	bonus bBreakMyEquipWhenHit,n;		UŒ‚‚ðŽó‚¯‚½Žžn%‚ÌŠm—¦‚Å‘•”õƒAƒCƒeƒ€‚ª‰ó‚ê‚é(n‚Í–œ•ª—¦)
 
 
 Eó‘ÔˆÙí
