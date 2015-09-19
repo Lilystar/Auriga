@@ -2272,7 +2272,7 @@ static struct Damage battle_calc_weapon_attack(struct block_list *src,struct blo
 
 					if(battle_config.left_cardfix_to_right) {
 						// ¶èƒJ[ƒh•â³İ’è‚ ‚è
-						ignored_rate -= ignored_rate_;
+						ignored_rate -= 100 - ignored_rate_;
 						ignored_rate_ = 100;
 					}
 				}
