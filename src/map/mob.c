@@ -528,7 +528,7 @@ int mob_target(struct mob_data *md,struct block_list *bl,int dist)
 	}
 
 	if(mob_can_lock(md,bl)) {
-		if(bl->type == BL_PC || bl->type == BL_MOB || bl->type == BL_HOM)
+		if(bl->type == BL_PC || bl->type == BL_MOB || bl->type == BL_HOM || bl->type == BL_MERC)
 			md->target_id = bl->id;	// –WŠQ‚ª‚È‚©‚Á‚½‚Ì‚ÅƒƒbƒN
 		md->min_chase = dist + 13;
 		if(md->min_chase > 26)
@@ -916,8 +916,8 @@ static int mob_ai_sub_hard(struct mob_data *md,unsigned int tick)
 				unit_stop_walking(&md->bl,5);	// •às’†‚È‚ç’â~
 			return search_flag;
 		}
-	} else if(tbl->type == BL_PC || tbl->type == BL_MOB || tbl->type == BL_HOM) {
-		// ‘ÎÛ‚ªPCAMOBA‚à‚µ‚­‚ÍHOM
+	} else if(tbl->type == BL_PC || tbl->type == BL_MOB || tbl->type == BL_HOM || tbl->type == BL_MERC) {
+		// ‘ÎÛ‚ªPCAMOBAHOM‚à‚µ‚­‚ÍMERC
 		if(!mob_can_lock(md,tbl)) {
 			// ƒXƒLƒ‹‚È‚Ç‚É‚æ‚éô“G–WŠQ”»’è
 			mob_unlocktarget(md,tick);
@@ -3094,7 +3094,7 @@ int mobskill_use(struct mob_data *md,unsigned int tick,int event)
 
 	// ƒ^[ƒQƒbƒg‚Æƒ}ƒXƒ^[‚Ìî•ñæ“¾
 	target = map_id2bl(md->target_id);
-	if(target && target->type != BL_PC && target->type != BL_MOB && target->type != BL_HOM)
+	if(target && target->type != BL_PC && target->type != BL_MOB && target->type != BL_HOM && target->type != BL_MERC)
 		target = NULL;
 
 	master = map_id2bl(md->master_id);

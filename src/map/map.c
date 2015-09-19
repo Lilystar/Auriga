@@ -1545,6 +1545,22 @@ struct homun_data * map_id2hd(int id)
 }
 
 /*==========================================
+ * id”Ô†‚ÌMERC‚ğ’T‚·B‹‚È‚¯‚ê‚ÎNULL
+ *------------------------------------------
+ */
+struct merc_data * map_id2mcd(int id)
+{
+	struct block_list *bl;
+
+	if(id > 0) {
+		bl = (struct block_list *)numdb_search(id_db,id);
+		if(bl && bl->type == BL_MERC)
+			return (struct merc_data *)bl;
+	}
+	return NULL;
+}
+
+/*==========================================
  * id”Ô†‚ÌNPC‚ğ’T‚·B‹‚È‚¯‚ê‚ÎNULL
  *------------------------------------------
  */
