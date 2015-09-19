@@ -125,9 +125,9 @@ int SkillStatusChangeTable[MAX_SKILL] = {	/* status.hÇÃenumÇÃSC_***Ç∆Ç†ÇÌÇπÇÈÇ±Ç
 	/* 330- */
 	SC_SERVICE4U,SC_SELFDESTRUCTION,-1,-1,-1,SC_WE_FEMALE,-1,-1,-1,-1,
 	/* 340- */
-	-1,-1,SC_STOP,-1,-1,-1,-1,-1,-1,SC_EXPLOSIONSPIRITS,
+	-1,-1,SC_STOP,-1,-1,-1,-1,-1,SC_ELEMENTUNDEAD,SC_EXPLOSIONSPIRITS,
 	/* 350- */
-	SC_INCFLEE,SC_ELEMENTUNDEAD,SC_INVISIBLE,-1,-1,SC_AURABLADE,SC_PARRYING,SC_CONCENTRATION,SC_TENSIONRELAX,SC_BERSERK,
+	SC_INCFLEE,-1,-1,SC_INVISIBLE,-1,SC_AURABLADE,SC_PARRYING,SC_CONCENTRATION,SC_TENSIONRELAX,SC_BERSERK,
 	/* 360- */
 	-1,SC_ASSUMPTIO,SC_BASILICA,-1,-1,-1,SC_MAGICPOWER,-1,SC_SACRIFICE,SC_GOSPEL,
 	/* 370- */
@@ -881,19 +881,19 @@ int skill_additional_effect( struct block_list* src, struct block_list *bl,int s
 			pc_heal(dstsd,0,-sp);
 		}
 		break;
-	case NPC_BREAKARMOR:
-		if(dstsd && atn_rand()%100 < skilllv*10)
-			pc_break_equip(dstsd, EQP_ARMOR);
-		break;
-	case NPC_BREAKWEAPON:
+	case NPC_WEAPONBRAKER:
 		if(dstsd && atn_rand()%100 < skilllv*10)
 			pc_break_equip(dstsd, EQP_WEAPON);
 		break;
-	case NPC_BREAKHELM:
+	case NPC_ARMORBRAKE:
+		if(dstsd && atn_rand()%100 < skilllv*10)
+			pc_break_equip(dstsd, EQP_ARMOR);
+		break;
+	case NPC_HELMBRAKE:
 		if(dstsd && atn_rand()%100 < skilllv*10)
 			pc_break_equip(dstsd, EQP_HELM);
 		break;
-	case NPC_BREAKSIELD:
+	case NPC_SHIELDBRAKE:
 		if(dstsd && atn_rand()%100 < skilllv*10)
 			pc_break_equip(dstsd, EQP_SHIELD);
 		break;
@@ -2122,10 +2122,10 @@ int skill_castend_damage_id( struct block_list* src, struct block_list *bl,int s
 	case NPC_DARKNESSATTACK:
 	case NPC_TELEKINESISATTACK:
 	case NPC_UNDEADATTACK:
-	case NPC_BREAKARMOR:
-	case NPC_BREAKWEAPON:
-	case NPC_BREAKHELM:
-	case NPC_BREAKSIELD:
+	case NPC_WEAPONBRAKER:
+	case NPC_ARMORBRAKE:
+	case NPC_HELMBRAKE:
+	case NPC_SHIELDBRAKE:
 	case NPC_DARKCROSS:
 	case LK_SPIRALPIERCE:		/* ÉXÉpÉCÉâÉãÉsÉAÅ[ÉX */
 	case LK_HEADCRUSH:			/* ÉwÉbÉhÉNÉâÉbÉVÉÖ */
@@ -5067,7 +5067,7 @@ int skill_castend_nodamage_id( struct block_list *src, struct block_list *bl,int
 			mob_summonslave(md,ms->val,sizeof(ms->val)/sizeof(ms->val[0]),skilllv,(skillid == NPC_SUMMONSLAVE)? 1: 0);
 		}
 		break;
-	case NPC_RECALL:		/* éÊÇËä™Ç´åƒÇ—ñﬂÇµ */
+	case NPC_CALLSLAVE:		/* éÊÇËä™Ç´åƒÇ—ñﬂÇµ */
 		if(md) {
 			int mobcount;
 			md->recallcount       = 0;	// èâä˙âª
@@ -12064,7 +12064,10 @@ int skill_mobskill(int skillid)
 	if(NPC_PIERCINGATT <= skillid && skillid <= NPC_SUMMONMONSTER)
 		return 1;
 
-	if(NPC_DARKCROSS <= skillid && skillid <= NPC_RECALL)
+	if(NPC_DARKCROSS <= skillid && skillid <= NPC_RUN)
+		return 1;
+
+	if(NPC_EARTHQUAKE <= skillid && skillid <= NPC_WIDESOULDRAIN)
 		return 1;
 
 	if(skillid == NPC_SELFDESTRUCTION2)
