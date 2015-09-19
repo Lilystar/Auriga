@@ -13,10 +13,6 @@
 #include "chrif.h"
 #include "unit.h"
 
-#ifdef MEMWATCH
-#include "memwatch.h"
-#endif
-
 /*==========================================
  * æˆø—v¿‚ğ‘Šè‚É‘—‚é
  *------------------------------------------

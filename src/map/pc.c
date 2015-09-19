@@ -39,10 +39,6 @@
 #include "ranking.h"
 #include "merc.h"
 
-#ifdef MEMWATCH
-#include "memwatch.h"
-#endif
-
 #define PVP_CALCRANK_INTERVAL 1000	// PVPèáà åvéZÇÃä‘äu
 
 static int exp_table[16][MAX_LEVEL];

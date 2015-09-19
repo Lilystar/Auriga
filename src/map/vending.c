@@ -16,10 +16,6 @@
 #include "atcommand.h"
 #include "unit.h"
 
-#ifdef MEMWATCH
-#include "memwatch.h"
-#endif
-
 /*==========================================
  * ˜I“X•Â½
  *------------------------------------------
