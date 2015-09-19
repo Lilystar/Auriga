@@ -21,7 +21,6 @@ int unit_stop_walking(struct block_list *bl,int type);
 // ˆÊ’uˆÚ“®(‚«”ò‚Î‚µ‚È‚Ç)
 int unit_movepos(struct block_list *bl,int dst_x,int dst_y,int flag);
 int unit_setdir(struct block_list *bl,int dir);
-int unit_getdir(struct block_list *bl);
 
 // ‚»‚±‚Ü‚Å•às‚Å‚½‚Ç‚è’…‚¯‚é‚©‚Ì”»’è
 int unit_can_reach(struct block_list *bl,int x,int y);
