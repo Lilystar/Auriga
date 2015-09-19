@@ -1125,17 +1125,17 @@ OnInit:
 }
 
 -	script	’Ê˜H#turbo	-1,{
-	emotion 1;
+	emotion 1,"";
 	end;
 }
 
 -	script	³˜H#turbo	-1,{
-	emotion 0;
+	emotion 0,"";
 	end;
 }
 
 -	script	ƒqƒ“ƒg#turbo	-1,{
-	emotion 19;
+	emotion 19,"";
 	if(rand(4))
 		end;
 	if(strnpcinfo(1) == "ƒqƒ“ƒg1") emotion 0,"³˜H1#"+strnpcinfo(2);
