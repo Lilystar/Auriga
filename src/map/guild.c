@@ -22,6 +22,7 @@
 #include "clif.h"
 #include "status.h"
 #include "atcommand.h"
+#include "unit.h"
 
 #ifdef MEMWATCH
 #include "memwatch.h"
@@ -692,7 +693,7 @@ void guild_invite(struct map_session_data *sd, int account_id)
 {
 	struct map_session_data *tsd;
 	struct guild *g;
-	int i, ps, bx, by;
+	int i, ps;
 
 	nullpo_retv(sd);
 
@@ -711,11 +712,8 @@ void guild_invite(struct map_session_data *sd, int account_id)
 	// player must be on same map... (how to use mouse menu otherwise?)
 	if (sd->bl.m != tsd->bl.m)
 		return;
-	// and in visible area of member (same method of map_countnearpc)
-	bx = tsd->bl.x / BLOCK_SIZE;
-	by = tsd->bl.y / BLOCK_SIZE;
-	if (bx < sd->bl.x / BLOCK_SIZE - AREA_SIZE / BLOCK_SIZE - 1 || bx > sd->bl.x / BLOCK_SIZE + AREA_SIZE / BLOCK_SIZE + 1 ||
-	    by < sd->bl.y / BLOCK_SIZE - AREA_SIZE / BLOCK_SIZE - 1 || by > sd->bl.y / BLOCK_SIZE + AREA_SIZE / BLOCK_SIZE + 1)
+	// and in visible area of member
+	if (unit_distance(sd->bl.x,sd->bl.y,tsd->bl.x,tsd->bl.y) > AREA_SIZE)
 		return;
 
 	// GVG‚Å‚ÍŠ©—U‚Å‚«‚È‚¢
@@ -729,27 +727,28 @@ void guild_invite(struct map_session_data *sd, int account_id)
 		return;
 	}
 	if(!battle_config.invite_request_check) {
-		if (tsd->party_invite>0 || tsd->trade_partner || tsd->adopt_invite) {	// ‘Šè‚ªæˆø’†‚©‚Ç‚¤‚©
+		if (tsd->party_invite > 0 || tsd->trade_partner || tsd->adopt_invite) {	// ‘Šè‚ªæˆø’†‚©‚Ç‚¤‚©
 			clif_guild_inviteack(sd,1);
 			return;
 		}
 	}
-	if( tsd->status.guild_id>0 || tsd->guild_invite>0 ){	// ‘Šè‚ÌŠ‘®Šm”F
+	if(tsd->status.guild_id > 0 || tsd->guild_invite > 0) {	// ‘Šè‚ÌŠ‘®Šm”F
 		clif_guild_inviteack(sd,0);
 		return;
 	}
 
 	// ’èˆõŠm”F
-	for(i=0;i<g->max_member;i++)
-		if(g->member[i].account_id==0)
+	for(i=0; i<g->max_member; i++) {
+		if(g->member[i].account_id == 0)
 			break;
-	if(i==g->max_member){
+	}
+	if(i >= g->max_member) {
 		clif_guild_inviteack(sd,3);
 		return;
 	}
 
-	tsd->guild_invite=sd->status.guild_id;
-	tsd->guild_invite_account=sd->status.account_id;
+	tsd->guild_invite         = sd->status.guild_id;
+	tsd->guild_invite_account = sd->status.account_id;
 
 	clif_guild_invite(tsd,g);
 
@@ -766,42 +765,41 @@ void guild_reply_invite(struct map_session_data *sd, int guild_id, unsigned char
 
 	nullpo_retv(sd);
 
-	if(sd->guild_invite!=guild_id)	// Š©—U‚ÆƒMƒ‹ƒhID‚ªˆá‚¤
+	if(sd->guild_invite != guild_id)	// Š©—U‚ÆƒMƒ‹ƒhID‚ªˆá‚¤
 		return;
 
-	nullpo_retv(tsd= map_id2sd( sd->guild_invite_account ));
+	tsd = map_id2sd(sd->guild_invite_account);
 
-	if(flag==1){	// ³‘ø
+	if(flag == 1) {	// ³‘ø
 		struct guild_member m;
 		struct guild *g;
 		int i;
 
 		// ’èˆõŠm”F
-		if( (g=guild_search(tsd->status.guild_id))==NULL ){
-			sd->guild_invite=0;
-			sd->guild_invite_account=0;
+		if(tsd == NULL || (g = guild_search(tsd->status.guild_id)) == NULL) {
+			sd->guild_invite         = 0;
+			sd->guild_invite_account = 0;
 			return;
 		}
-		for(i=0;i<g->max_member;i++)
-			if(g->member[i].account_id==0)
+		for(i=0; i<g->max_member; i++) {
+			if(g->member[i].account_id == 0)
 				break;
-		if(i==g->max_member){
-			sd->guild_invite=0;
-			sd->guild_invite_account=0;
+		}
+		if(i >= g->max_member) {
+			sd->guild_invite         = 0;
+			sd->guild_invite_account = 0;
 			clif_guild_inviteack(tsd,3);
 			return;
 		}
 
 		// interI‚Ö’Ç‰Á—v‹
 		guild_makemember(&m,sd);
-		intif_guild_addmember( sd->guild_invite, &m );
-		return;
-	}else{		// ‹‘”Û
-		sd->guild_invite=0;
-		sd->guild_invite_account=0;
-		if(tsd==NULL)
-			return;
-		clif_guild_inviteack(tsd,1);
+		intif_guild_addmember(sd->guild_invite, &m);
+	} else {		// ‹‘”Û
+		sd->guild_invite         = 0;
+		sd->guild_invite_account = 0;
+		if(tsd)
+			clif_guild_inviteack(tsd,1);
 	}
 
 	return;
@@ -813,40 +811,43 @@ void guild_reply_invite(struct map_session_data *sd, int guild_id, unsigned char
  */
 void guild_member_added(int guild_id, int account_id, int char_id, unsigned char flag)
 {
-	struct map_session_data *sd = map_id2sd(account_id),*sd2;
+	struct map_session_data *sd, *sd2;
 	struct guild *g;
 
-	if( (g=guild_search(guild_id))==NULL )
+	if((g = guild_search(guild_id)) == NULL)
 		return;
 
-	if((sd==NULL || sd->guild_invite==0) && flag==0){
-		// ƒLƒƒƒ‰‘¤‚É“o˜^‚Å‚«‚È‚©‚Á‚½‚½‚ß’E‘Ş—v‹‚ğo‚·
-		char mes[40];
-		if(battle_config.error_log)
-			printf("guild: member added error %d is not online\n",account_id);
+	sd = map_id2sd(account_id);
+	if(sd == NULL || sd->guild_invite == 0) {
+		if(flag == 0) {
+			// ƒLƒƒƒ‰‘¤‚É“o˜^‚Å‚«‚È‚©‚Á‚½‚½‚ß’E‘Ş—v‹‚ğo‚·
+			char mes[40];
+			if(battle_config.error_log)
+				printf("guild: member added error %d is not online\n",account_id);
 
-		strncpy(mes, msg_txt(176), 40); // **“o˜^¸”s**
-		mes[39] = '\0';			// force \0 terminal
+			strncpy(mes, msg_txt(176), 40); // **“o˜^¸”s**
+			mes[39] = '\0';			// force \0 terminal
 
-		intif_guild_leave(guild_id, account_id,char_id, 0, mes);
+			intif_guild_leave(guild_id, account_id,char_id, 0, mes);
+		}
 		return;
 	}
-	sd->guild_invite=0;
-	sd->guild_invite_account=0;
+	sd->guild_invite         = 0;
+	sd->guild_invite_account = 0;
 
-	sd2=map_id2sd(sd->guild_invite_account);
+	sd2 = map_id2sd(sd->guild_invite_account);
 
-	if(flag==1){	// ¸”s
-		if( sd2!=NULL )
+	if(flag == 1) {	// ¸”s
+		if(sd2)
 			clif_guild_inviteack(sd2,3);
 		return;
 	}
 
 	// ¬Œ÷
-	sd->guild_sended = 0;
+	sd->guild_sended    = 0;
 	sd->status.guild_id = guild_id;
 
-	if( sd2!=NULL )
+	if(sd2)
 		clif_guild_inviteack(sd2,2);
 
 	// ‚¢‚¿‚¨‚¤‹£‡Šm”F
@@ -980,11 +981,11 @@ static void guild_send_xy_clear(struct guild *g)
 
 	nullpo_retv(g);
 
-	for(i=0; i < g->max_member; i++){
+	for(i=0; i < g->max_member; i++) {
 		struct map_session_data *sd;
-		if((sd = g->member[i].sd) != NULL){
-			sd->guild_x=-1;
-			sd->guild_y=-1;
+		if((sd = g->member[i].sd) != NULL) {
+			sd->guild_x = -1;
+			sd->guild_y = -1;
 		}
 	}
 
@@ -997,18 +998,18 @@ static void guild_send_xy_clear(struct guild *g)
  */
 static int guild_send_xy_timer_sub(void *key,void *data,va_list ap)
 {
-	struct guild *g=(struct guild *)data;
+	struct guild *g = (struct guild *)data;
 	int i;
 
 	nullpo_retr(0, g);
 
-	for(i=0; i < g->max_member; i++){
+	for(i=0; i < g->max_member; i++) {
 		struct map_session_data *sd;
 		if((sd = g->member[i].sd) != NULL) {
-			if(sd->guild_x!=sd->bl.x || sd->guild_y!=sd->bl.y){
+			if(sd->guild_x != sd->bl.x || sd->guild_y != sd->bl.y) {
 				clif_guild_xy(sd);
-				sd->guild_x=sd->bl.x;
-				sd->guild_y=sd->bl.y;
+				sd->guild_x = sd->bl.x;
+				sd->guild_y = sd->bl.y;
 			}
 		}
 	}
@@ -1018,7 +1019,7 @@ static int guild_send_xy_timer_sub(void *key,void *data,va_list ap)
 
 static int guild_send_xy_timer(int tid,unsigned int tick,int id,int data)
 {
-	numdb_foreach(guild_db,guild_send_xy_timer_sub,tick);
+	numdb_foreach(guild_db,guild_send_xy_timer_sub);
 
 	return 0;
 }
@@ -1195,7 +1196,10 @@ void guild_recv_message(int guild_id, int account_id, char *mes, int len)
  */
 void guild_change_memberposition(int guild_id, int account_id, int char_id, int idx)
 {
-	intif_guild_change_memberinfo(guild_id, account_id, char_id, GMI_POSITION, &idx,sizeof(idx));
+	if(idx < 0 || idx >= MAX_GUILDPOSITION)
+		return;
+
+	intif_guild_change_memberinfo(guild_id, account_id, char_id, GMI_POSITION, &idx, sizeof(idx));
 
 	return;
 }
@@ -1222,8 +1226,6 @@ void guild_change_position(int guild_id, int idx, int mode, int exp_mode, const 
 {
 	struct guild_position p;
 
-	if (guild_id == 0 || guild_search(guild_id) == NULL)
-		return;
 	if (idx < 0 || idx >= MAX_GUILDPOSITION)
 		return;
 
@@ -1250,10 +1252,13 @@ void guild_change_position(int guild_id, int idx, int mode, int exp_mode, const 
  */
 void guild_position_changed(int guild_id, int idx, struct guild_position *p)
 {
-	struct guild *g=guild_search(guild_id);
+	struct guild *g = guild_search(guild_id);
 
-	if(g==NULL)
+	if(g == NULL)
 		return;
+	if(idx < 0 || idx >= MAX_GUILDPOSITION)
+		return;
+
 	memcpy(&g->position[idx],p,sizeof(struct guild_position));
 	clif_guild_positionchanged(g,idx);
 
@@ -1301,20 +1306,11 @@ void guild_notice_changed(int guild_id, const char *mes1, const char *mes2)
  * ƒMƒ‹ƒhƒGƒ“ƒuƒŒƒ€•ÏX
  *------------------------------------------
  */
-void guild_change_emblem(struct map_session_data *sd, int zipbitmap_len, const char *data)
+void guild_change_emblem(int guild_id, int zipbitmap_len, const char *data)
 {
-	struct guild *g;
 	char dest_bitmap[4100]; // max possible (16/24 bits): 4086 (windows)-> (header1)14 + (header2)40 + (576 colors)2304 + (bitmap:24x24)1728 (no compression with palette)
 	unsigned long dest_bitmap_len;
 	unsigned int ncol;
-
-	nullpo_retv(sd);
-
-	// only guild master can change emblem.
-	if (sd->status.guild_id == 0 || (g = guild_search(sd->status.guild_id)) == NULL)
-		return;
-	if (strcmp(sd->status.name, g->master))
-		return;
 
 	// length of zipbitmap (client doesn't send bmp structure, but a zipped BMP)
 	if (zipbitmap_len < 0 || zipbitmap_len > 2000)
@@ -1450,7 +1446,7 @@ void guild_change_emblem(struct map_session_data *sd, int zipbitmap_len, const c
 		return;
 	}
 
-	intif_guild_emblem(sd->status.guild_id, (unsigned short)zipbitmap_len, data);
+	intif_guild_emblem(guild_id, (unsigned short)zipbitmap_len, data);
 
 	return;
 }
@@ -1588,17 +1584,26 @@ int guild_check_alliance(int guild_id1, int guild_id2, int flag)
  */
 void guild_reqalliance(struct map_session_data *sd, int account_id)
 {
-	struct map_session_data *tsd= map_id2sd(account_id);
+	struct map_session_data *tsd;
 	struct guild *g[2];
 	int i;
 
 	nullpo_retv(sd);
 
-	if(tsd==NULL || tsd->status.guild_id<=0)
+	tsd = map_id2sd(account_id);
+	if(tsd == NULL || tsd->status.guild_id <= 0)
 		return;
 
-	g[0]=guild_search(sd->status.guild_id);
-	g[1]=guild_search(tsd->status.guild_id);
+	// “¯‚¶ƒMƒ‹ƒh‚É‚Í‚Å‚«‚È‚¢
+	if(sd->status.guild_id == tsd->status.guild_id)
+		return;
+
+	// player must be on same map... (how to use mouse menu otherwise?)
+	if (sd->bl.m != tsd->bl.m)
+		return;
+	// and in visible area of member
+	if (unit_distance(sd->bl.x,sd->bl.y,tsd->bl.x,tsd->bl.y) > AREA_SIZE)
+		return;
 
 	// Uéí’†‚Å‚Í“¯–¿‚Å‚«‚È‚¢
 	if (!battle_config.allow_guild_alliance_in_agit) {
@@ -1606,30 +1611,34 @@ void guild_reqalliance(struct map_session_data *sd, int account_id)
 			return;
 	}
 
-	if(g[0]==NULL || g[1]==NULL)
+	g[0] = guild_search(sd->status.guild_id);
+	g[1] = guild_search(tsd->status.guild_id);
+
+	if(g[0] == NULL || g[1] == NULL)
 		return;
 
-	if( guild_get_alliance_count(g[0],0)>3 )	// “¯–¿”Šm”F
+	if(strcmp(sd->status.name, g[0]->master))	// ƒ}ƒXƒ^[‚©‚Ç‚¤‚©Šm”F
+		return;
+
+	if(guild_get_alliance_count(g[0],0) > 3)	// “¯–¿”Šm”F
 		clif_guild_allianceack(sd,4);
-	if( guild_get_alliance_count(g[1],0)>3 )
+	if(guild_get_alliance_count(g[1],0) > 3)
 		clif_guild_allianceack(sd,3);
 
-	if( tsd->guild_alliance>0 ){	// ‘Šè‚ª“¯–¿—v¿ó‘Ô‚©‚Ç‚¤‚©Šm”F
+	if(tsd->guild_alliance > 0) {	// ‘Šè‚ª“¯–¿—v¿ó‘Ô‚©‚Ç‚¤‚©Šm”F
 		clif_guild_allianceack(sd,1);
 		return;
 	}
 
-	for(i=0;i<MAX_GUILDALLIANCE;i++){	// ‚·‚Å‚É“¯–¿ó‘Ô‚©Šm”F
-		if( g[0]->alliance[i].guild_id==tsd->status.guild_id &&
-		    g[0]->alliance[i].opposition==0 )
-		{
+	for(i=0; i<MAX_GUILDALLIANCE; i++) {	// ‚·‚Å‚É“¯–¿ó‘Ô‚©Šm”F
+		if(g[0]->alliance[i].guild_id == tsd->status.guild_id && g[0]->alliance[i].opposition == 0) {
 			clif_guild_allianceack(sd,0);
 			return;
 		}
 	}
 
-	tsd->guild_alliance=sd->status.guild_id;
-	tsd->guild_alliance_account=sd->status.account_id;
+	tsd->guild_alliance         = sd->status.guild_id;
+	tsd->guild_alliance_account = sd->status.account_id;
 
 	clif_guild_reqalliance(tsd,sd->status.account_id,g[0]->name);
 
@@ -1645,56 +1654,55 @@ void guild_reply_reqalliance(struct map_session_data *sd, int account_id, int fl
 	struct map_session_data *tsd;
 
 	nullpo_retv(sd);
-	nullpo_retv(tsd = map_id2sd( account_id ));
 
-	if(sd->guild_alliance!=tsd->status.guild_id)	// Š©—U‚ÆƒMƒ‹ƒhID‚ªˆá‚¤
+	if((tsd = map_id2sd(account_id)) == NULL)
+		return;
+	if(sd->guild_alliance != tsd->status.guild_id)	// Š©—U‚ÆƒMƒ‹ƒhID‚ªˆá‚¤
 		return;
 
-	if(flag==1){
+	if(flag == 1) {
 		// ³‘ø
 		int i;
 		struct guild *g;
 
 		// “¯–¿”ÄŠm”F
-		if( (g=guild_search(sd->status.guild_id))==NULL ||
-			guild_get_alliance_count(g,0)>3 ){
+		if((g = guild_search(sd->status.guild_id)) == NULL || guild_get_alliance_count(g,0) > 3) {
 			clif_guild_allianceack(sd,4);
 			clif_guild_allianceack(tsd,3);
 			return;
 		}
-		if( (g=guild_search(tsd->status.guild_id))==NULL ||
-			guild_get_alliance_count(g,0)>3 ){
+		if((g = guild_search(tsd->status.guild_id)) == NULL || guild_get_alliance_count(g,0) > 3) {
 			clif_guild_allianceack(sd,3);
 			clif_guild_allianceack(tsd,4);
 			return;
 		}
 
 		// “G‘ÎŠÖŒW‚È‚ç“G‘Î‚ğ~‚ß‚é
-		if((g=guild_search(sd->status.guild_id)) == NULL)
+		if((g = guild_search(sd->status.guild_id)) == NULL)
 			return;
-		for(i=0;i<MAX_GUILDALLIANCE;i++){
-			if( g->alliance[i].guild_id==tsd->status.guild_id &&
-			    g->alliance[i].opposition==1 )
+		for(i=0; i<MAX_GUILDALLIANCE; i++) {
+			if(g->alliance[i].guild_id == tsd->status.guild_id && g->alliance[i].opposition == 1) {
 				intif_guild_alliance( sd->status.guild_id,tsd->status.guild_id,
 					sd->status.account_id,tsd->status.account_id,9 );
+			}
 		}
-		if((g=guild_search(tsd->status.guild_id)) == NULL)
+		if((g = guild_search(tsd->status.guild_id)) == NULL)
 			return;
-		for(i=0;i<MAX_GUILDALLIANCE;i++){
-			if( g->alliance[i].guild_id==sd->status.guild_id &&
-			    g->alliance[i].opposition==1 )
+		for(i=0; i<MAX_GUILDALLIANCE; i++) {
+			if(g->alliance[i].guild_id == sd->status.guild_id && g->alliance[i].opposition == 1) {
 				intif_guild_alliance( tsd->status.guild_id,sd->status.guild_id,
 					tsd->status.account_id,sd->status.account_id,9 );
+			}
 		}
 
 		// interI‚Ö“¯–¿—v¿
 		intif_guild_alliance( sd->status.guild_id,tsd->status.guild_id,
 			sd->status.account_id,tsd->status.account_id,0 );
-	}else{
+	} else {
 		// ‹‘”Û
-		sd->guild_alliance=0;
-		sd->guild_alliance_account=0;
-		if(tsd!=NULL)
+		sd->guild_alliance         = 0;
+		sd->guild_alliance_account = 0;
+		if(tsd)
 			clif_guild_allianceack(tsd,3);
 	}
 
@@ -1724,16 +1732,25 @@ void guild_delalliance(struct map_session_data *sd, int guild_id, int flag)
  * ƒMƒ‹ƒh“G‘Î
  *------------------------------------------
  */
-void guild_opposition(struct map_session_data *sd, int char_id)
+void guild_opposition(struct map_session_data *sd, int account_id)
 {
-	struct map_session_data *tsd=map_id2sd(char_id);
+	struct map_session_data *tsd;
 	struct guild *g;
 	int i;
 
 	nullpo_retv(sd);
 
-	g=guild_search(sd->status.guild_id);
-	if(g==NULL || tsd==NULL)
+	tsd = map_id2sd(account_id);
+	if(tsd == NULL || tsd->status.guild_id <= 0)
+		return;
+
+	// “¯‚¶ƒMƒ‹ƒh‚É‚Í‚Å‚«‚È‚¢
+	if(sd->status.guild_id == tsd->status.guild_id)
+		return;
+
+	if(sd->bl.m != tsd->bl.m)
+		return;
+	if(unit_distance(sd->bl.x,sd->bl.y,tsd->bl.x,tsd->bl.y) > AREA_SIZE)
 		return;
 
 	// Uéí’†‚Å‚Í“G‘Î‚Å‚«‚È‚¢
@@ -1742,12 +1759,17 @@ void guild_opposition(struct map_session_data *sd, int char_id)
 			return;
 	}
 
-	if( guild_get_alliance_count(g,1)>3 )	// “G‘Î”Šm”F
+	if((g = guild_search(sd->status.guild_id)) == NULL)
+		return;
+	if(strcmp(sd->status.name, g->master))	// ƒ}ƒXƒ^[‚©‚Ç‚¤‚©Šm”F
+		return;
+
+	if(guild_get_alliance_count(g,1) > 3)	// “G‘Î”Šm”F
 		clif_guild_oppositionack(sd,1);
 
-	for(i=0;i<MAX_GUILDALLIANCE;i++){	// ‚·‚Å‚ÉŠÖŒW‚ğ‚Á‚Ä‚¢‚é‚©Šm”F
-		if(g->alliance[i].guild_id==tsd->status.guild_id){
-			if(g->alliance[i].opposition==1){	// ‚·‚Å‚É“G‘Î
+	for(i=0; i<MAX_GUILDALLIANCE; i++) {	// ‚·‚Å‚ÉŠÖŒW‚ğ‚Á‚Ä‚¢‚é‚©Šm”F
+		if(g->alliance[i].guild_id == tsd->status.guild_id) {
+			if(g->alliance[i].opposition == 1) {	// ‚·‚Å‚É“G‘Î
 				clif_guild_oppositionack(sd,2);
 				return;
 			}
@@ -1878,18 +1900,20 @@ static int guild_broken_sub(void *key,void *data,va_list ap)
 
 void guild_broken(int guild_id, unsigned char flag)
 {
-	struct guild *g=guild_search(guild_id);
-	struct guild_castle *gc=NULL;
+	struct guild *g;
+	struct guild_castle *gc;
 	struct map_session_data *sd;
 	int i;
 
-	if(flag!=0 || g==NULL)
+	if(flag != 0)
+		return;
+	if((g = guild_search(guild_id)) == NULL)
 		return;
 
 	// Š—LÔ‚Ì”jŠü
-	for(i=0;i<MAX_GUILDCASTLE;i++){
-		if( (gc=guild_castle_search(i)) != NULL ){
-			if(gc->guild_id == guild_id){
+	for(i=0; i<MAX_GUILDCASTLE; i++) {
+		if((gc = guild_castle_search(i)) != NULL) {
+			if(gc->guild_id == guild_id) {
 				char name[50];
 				memcpy(name,gc->castle_event,24);
 				npc_event_do(strcat(name,"::OnGuildBreak"));
@@ -1897,15 +1921,15 @@ void guild_broken(int guild_id, unsigned char flag)
 		}
 	}
 
-	for(i=0;i<g->max_member;i++){	// ƒMƒ‹ƒh‰ğU‚ğ’Ê’m
-		if((sd=g->member[i].sd)!=NULL){
+	for(i=0; i<g->max_member; i++) {	// ƒMƒ‹ƒh‰ğU‚ğ’Ê’m
+		if((sd = g->member[i].sd) != NULL) {
 			if(sd->state.storage_flag == 2) {
 				// ƒMƒ‹ƒh‘qŒÉ‚ğŠJ‚¢‚Ä‚¢‚é‚È‚ç•Â‚¶‚é
 				sd->state.storage_flag = 0;
 				clif_storageclose(sd);
 			}
-			sd->status.guild_id=0;
-			sd->guild_sended=0;
+			sd->status.guild_id = 0;
+			sd->guild_sended    = 0;
 			clif_guild_broken(g->member[i].sd,0);
 		}
 	}
