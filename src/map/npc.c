@@ -1555,7 +1555,7 @@ static int npc_parse_script(char *w1,char *w2,char *w3,char *w4,char *first_line
 
 		while(curly_count > 0) {
 			// line ‚Ì’†‚É•¶š—ñ , {} ‚ªŠÜ‚Ü‚ê‚Ä‚¢‚é‚©’²¸
-			if(!fgets(line, 1020, fp))
+			if(!fgets(line, sizeof(line), fp))
 				break;
 			(*lines)++;
 			if( npc_parse_script_line(line, &curly_count, *lines) ) {
@@ -1778,7 +1778,7 @@ static int npc_parse_function(char *w1,char *w2,char *w3,char *w4,char *first_li
 	srclen = strlen(srcbuf);
 
 	while(curly_count > 0) {
-		if(!fgets(line,1020,fp))
+		if(!fgets(line,sizeof(line),fp))
 			break;
 		(*lines)++;
 		if( npc_parse_script_line(line, &curly_count, *lines) ) {
