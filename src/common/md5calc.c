@@ -261,7 +261,7 @@ void MD5_String(const char * string, char * output)
 // ˆÈ‘O‚Æ‚ÌŒİŠ·«‚Ì‚½‚ß
 void MD5_String2binary( const char * string, char * output)
 {
-	MD5_Binary(string, strlen(string), output);
+	MD5_Binary(string, (int)strlen(string), output);
 }
 
 // HMAC-MD5
