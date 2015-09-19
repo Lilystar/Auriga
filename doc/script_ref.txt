@@ -2786,6 +2786,11 @@ AurigaNPCScript
 
 			€–S‚µ‚Ä‚¢‚½‚ç‚P‚ğA‚»‚¤‚Å‚È‚¯‚ê‚Î‚O‚ğ•Ô‚µ‚Ü‚·
 
+		checkcastingŠÖ”
+			checkcasting()
+
+			‰r¥‚µ‚Ä‚¢‚½‚ç‚P‚ğA‚»‚¤‚Å‚È‚¯‚ê‚Î‚O‚ğ•Ô‚µ‚Ü‚·
+
 		adoptionŠÖ”
 			adoption(<parent1>[,<parent2>])
 
