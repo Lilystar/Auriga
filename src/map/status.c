@@ -7315,7 +7315,7 @@ int status_readdb(void) {
 
 		sp_coefficient = atoi(split[3]);
 		if(sp_coefficient >= 0) {
-			for(j = 1; j < MAX_LEVEL; j++) {
+			for(j = 1; j <= MAX_LEVEL; j++) {
 				// Šî–{SP = 10 + BaseLevel * JobŒW”
 				job_db[i].sp_base[j-1] = (1000 + j * sp_coefficient) / 100;
 			}
