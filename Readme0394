@@ -1,4 +1,17 @@
 ----------------------------------------
+//0450 [2008/02/02] by Rayce
+
+・PACKETVER 9以降の番号を１つズラし、2007-05-21aSakexeを挿入（clif.c, pc.c）
+	最新のPACKETVERは 13 → 14 に変更されています
+
+・2007-05-21aSakexe以降のクライアントで、map_auriga.confの packet_parse_time を
+　1以上に設定しないとMAPサーバにログインできない問題を修正（clif.c）
+	merged from eA, thx a lot!!
+
+・キャラクター作成時の失敗メッセージを修正（char.c）
+・doc/client_packet.txt更新
+
+----------------------------------------
 //0449 [2008/01/31] by Rayce
 
 ・戦場チャットの下準備（clif.c）

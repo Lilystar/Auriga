@@ -3042,7 +3042,7 @@ static int pc_checkitemlimit(struct map_session_data *sd, int idx, unsigned int 
 		char output[256];
 		struct item_data *data = sd->inventory_data[idx];
 
-#if PACKETVER >= 9
+#if PACKETVER >= 10
 		if(itemdb_isequip2(data)) {
 			// ‹­‰»‘•”õƒAƒCƒeƒ€‚Ìíœ
 			pc_delitem(sd, idx, sd->status.inventory[idx].amount, 1);
