@@ -720,9 +720,13 @@ void guild_invite(struct map_session_data *sd, int account_id)
 			return;
 	}
 
+	if(tsd->state.waitingdisconnect) {	// ‘ŠŽè‚ªØ’f‘Ò‚¿
+		clif_guild_inviteack(sd,1);
+		return;
+	}
 	if(!battle_config.invite_request_check) {
 		if (tsd->party_invite>0 || tsd->trade_partner || tsd->adopt_invite) {	// ‘ŠŽè‚ªŽæˆø’†‚©‚Ç‚¤‚©
-			clif_guild_inviteack(sd,0);
+			clif_guild_inviteack(sd,1);
 			return;
 		}
 	}

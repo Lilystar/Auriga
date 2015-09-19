@@ -54,7 +54,7 @@ static char race_name[11][5] = {{"無形"},{"不死"},{"動物"},{"植物"},{"昆虫"},{""
 struct status_change dummy_sc_data[MAX_STATUSCHANGE];
 static struct scdata_db scdata_db[MAX_STATUSCHANGE];	// ステータス異常データベース
 
-static int StatusIconChangeTable[] = {
+static int StatusIconChangeTable[MAX_STATUSCHANGE] = {
 	/* 0- */
 	SI_PROVOKE,SI_ENDURE,SI_TWOHANDQUICKEN,SI_CONCENTRATE,SI_BLANK,SI_CLOAKING,SI_ENCPOISON,SI_POISONREACT,SI_QUAGMIRE,SI_ANGELUS,
 	/* 10- */

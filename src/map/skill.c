@@ -40,239 +40,89 @@
 #define SKILLUNITTIMER_INVERVAL	100
 
 /* スキル番号＝＞ステータス異常番号変換テーブル */
-int SkillStatusChangeTable[] = {	/* status.hのenumのSC_***とあわせること */
+int SkillStatusChangeTable[MAX_SKILL] = {	/* status.hのenumのSC_***とあわせること */
 	/* 0- */
-	-1,-1,-1,-1,-1,-1,
-	SC_PROVOKE,			/* プロボック */
-	SC_MAGNUM,			/* マグナムブレイク */
-	1,-1,
+	-1,-1,-1,-1,-1,-1,SC_PROVOKE,SC_MAGNUM,SC_ENDURE,-1,
 	/* 10- */
-	SC_SIGHT,			/* サイト */
-	-1,
-	SC_SAFETYWALL,		/* セーフティーウォール */
-	-1,-1,
-	SC_FREEZE,			/* フロストダイバー */
-	SC_STONE,			/* ストーンカース */
-	-1,-1,-1,
+	SC_SIGHT,-1,SC_SAFETYWALL,-1,-1,SC_FREEZE,SC_STONE,-1,-1,-1,
 	/* 20- */
-	-1,-1,-1,-1,
-	SC_RUWACH,			/* ルアフ */
-	SC_PNEUMA,			/* ニューマ */
-	-1,-1,-1,
-	SC_INCREASEAGI,		/* 速度増加 */
+	-1,-1,-1,-1,SC_RUWACH,SC_PNEUMA,-1,-1,-1,SC_INCREASEAGI,
 	/* 30- */
-	SC_DECREASEAGI,		/* 速度減少 */
-	-1,
-	SC_SIGNUMCRUCIS,	/* シグナムクルシス */
-	SC_ANGELUS,			/* エンジェラス */
-	SC_BLESSING,		/* ブレッシング */
-	-1,-1,-1,-1,-1,
+	SC_DECREASEAGI,-1,SC_SIGNUMCRUCIS,SC_ANGELUS,SC_BLESSING,-1,-1,-1,-1,-1,
 	/* 40- */
-	-1,-1,-1,-1,-1,
-	SC_CONCENTRATE,		/* 集中力向上 */
-	SC_DOUBLE,-1,-1,-1,
+	-1,-1,-1,-1,-1,SC_CONCENTRATE,SC_DOUBLE,-1,-1,-1,
 	/* 50- */
-	-1,
-	SC_HIDING,			/* ハイディング */
-	-1,-1,-1,-1,-1,-1,-1,-1,
+	-1,SC_HIDING,-1,-1,-1,-1,-1,-1,-1,-1,
 	/* 60- */
-	SC_TWOHANDQUICKEN,	/* 2HQ */
-	SC_AUTOCOUNTER,
-	-1,-1,-1,-1,
-	SC_IMPOSITIO,		/* インポシティオマヌス */
-	SC_SUFFRAGIUM,		/* サフラギウム */
-	SC_ASPERSIO,		/* アスペルシオ */
-	SC_BENEDICTIO,		/* 聖体降福 */
+	SC_TWOHANDQUICKEN,SC_AUTOCOUNTER,-1,-1,-1,-1,SC_IMPOSITIO,SC_SUFFRAGIUM,SC_ASPERSIO,SC_BENEDICTIO,
 	/* 70- */
-	-1,
-	SC_SLOWPOISON,
-	-1,
-	SC_KYRIE,			/* キリエエレイソン */
-	SC_MAGNIFICAT,		/* マグニフィカート */
-	SC_GLORIA,			/* グロリア */
-	SC_SILENCE,			/* レックスディビーナ */
-	-1,
-	SC_AETERNA,			/* レックスエーテルナ */
-	-1,
+	-1,SC_SLOWPOISON,-1,SC_KYRIE,SC_MAGNIFICAT,SC_GLORIA,SC_SILENCE,-1,SC_AETERNA,-1,
 	/* 80- */
 	-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,
 	/* 90- */
-	-1,-1,
-	SC_QUAGMIRE,		/* クァグマイア */
-	-1,-1,-1,-1,-1,-1,-1,
+	-1,-1,SC_QUAGMIRE,-1,-1,-1,-1,-1,-1,-1,
 	/* 100- */
 	-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,
 	/* 110- */
-	-1,
-	SC_ADRENALINE,		/* アドレナリンラッシュ */
-	SC_WEAPONPERFECTION,/* ウェポンパーフェクション */
-	SC_OVERTHRUST,		/* オーバートラスト */
-	SC_MAXIMIZEPOWER,	/* マキシマイズパワー */
-	-1,-1,-1,-1,-1,
+	-1,SC_ADRENALINE,SC_WEAPONPERFECTION,SC_OVERTHRUST,SC_MAXIMIZEPOWER,-1,-1,-1,-1,-1,
 	/* 120- */
 	-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,
 	/* 130- */
-	-1,
-	-1,-1,-1,-1,
-	SC_CLOAKING,		/* クローキング */
-	SC_STAN,			/* ソニックブロー */
-	-1,
-	SC_ENCPOISON,		/* エンチャントポイズン */
-	SC_POISONREACT,		/* ポイズンリアクト */
+	-1,-1,-1,-1,-1,SC_CLOAKING,SC_STAN,-1,SC_ENCPOISON,SC_POISONREACT,
 	/* 140- */
-	SC_POISON,			/* ベノムダスト */
-	SC_SPLASHER,		/* ベナムスプラッシャー */
-	-1,
-	SC_TRICKDEAD,		/* 死んだふり */
-	-1,-1,SC_AUTOBERSERK,-1,-1,-1,
+	SC_POISON,SC_SPLASHER,-1,SC_TRICKDEAD,-1,-1,SC_AUTOBERSERK,-1,-1,-1,
 	/* 150- */
-	-1,-1,-1,-1,-1,
-	SC_LOUD,			/* ラウドボイス */
-	-1,
-	SC_ENERGYCOAT,		/* エナジーコート */
-	-1,-1,
+	-1,-1,-1,-1,-1,SC_LOUD,-1,SC_ENERGYCOAT,-1,-1,
 	/* 160- */
 	-1,-1,SC_ELEMENTWATER,SC_ELEMENTGROUND,SC_ELEMENTFIRE,SC_ELEMENTWIND,SC_ELEMENTPOISON,SC_ELEMENTHOLY,SC_ELEMENTELEKINESIS,SC_ELEMENTDARK,
 	/* 170- */
-	-1,-1,-1,
-	SC_SELFDESTRUCTION,
-	-1,-1,-1,-1,-1,-1,
+	-1,-1,-1,SC_SELFDESTRUCTION,-1,-1,-1,-1,-1,-1,
+	/* 180- */
 	-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,
+	/* 190- */
 	-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,
 	/* 200- */
-	-1,SC_KEEPING,
-	-1,-1,
-	SC_BARRIER,
-	SC_NPC_DEFENDER,-1,
-	SC_HALLUCINATION,
-	-1,-1,
+	-1,SC_KEEPING,-1,-1,SC_BARRIER,SC_NPC_DEFENDER,-1,SC_HALLUCINATION,-1,-1,
 	/* 210- */
-	-1,-1,-1,-1,-1,
-	SC_STRIPWEAPON,
-	SC_STRIPSHIELD,
-	SC_STRIPARMOR,
-	SC_STRIPHELM,
-	-1,
+	-1,-1,-1,-1,-1,SC_STRIPWEAPON,SC_STRIPSHIELD,SC_STRIPARMOR,SC_STRIPHELM,-1,
 	/* 220- */
-	SC_GRAFFITI,
-	-1,-1,-1,-1,-1,-1,-1,-1,-1,
+	SC_GRAFFITI,-1,-1,-1,-1,-1,-1,-1,-1,-1,
 	/* 230- */
-	-1,-1,-1,-1,
-	SC_CP_WEAPON,
-	SC_CP_SHIELD,
-	SC_CP_ARMOR,
-	SC_CP_HELM,
-	-1,-1,
+	-1,-1,-1,-1,SC_CP_WEAPON,SC_CP_SHIELD,SC_CP_ARMOR,SC_CP_HELM,-1,-1,
 	/* 240- */
-	-1,-1,-1,-1,-1,-1,-1,-1,-1,
-	SC_AUTOGUARD,
+	-1,-1,-1,-1,-1,-1,-1,-1,-1,SC_AUTOGUARD,
 	/* 250- */
-	-1,-1,
-	SC_REFLECTSHIELD,
-	-1,-1,
-	SC_DEVOTION,
-	SC_PROVIDENCE,
-	SC_DEFENDER,
-	SC_SPEARSQUICKEN,
-	-1,
+	-1,-1,SC_REFLECTSHIELD,-1,-1,SC_DEVOTION,SC_PROVIDENCE,SC_DEFENDER,SC_SPEARSQUICKEN,-1,
 	/* 260- */
-	-1,-1,-1,-1,-1,-1,-1,-1,
-	SC_STEELBODY,
-	SC_BLADESTOP_WAIT,
+	-1,-1,-1,-1,-1,-1,-1,-1,SC_STEELBODY,SC_BLADESTOP_WAIT,
 	/* 270- */
-	SC_EXPLOSIONSPIRITS,
-	SC_EXTREMITYFIST,
-	-1,-1,-1,-1,
-	SC_MAGICROD,
-	-1,-1,-1,
+	SC_EXPLOSIONSPIRITS,SC_EXTREMITYFIST,-1,-1,-1,-1,SC_MAGICROD,-1,-1,-1,
 	/* 280- */
-	SC_FLAMELAUNCHER,
-	SC_FROSTWEAPON,
-	SC_LIGHTNINGLOADER,
-	SC_SEISMICWEAPON,
-	-1,
-	SC_VOLCANO,
-	SC_DELUGE,
-	SC_VIOLENTGALE,
-	-1,-1,
+	SC_FLAMELAUNCHER,SC_FROSTWEAPON,SC_LIGHTNINGLOADER,SC_SEISMICWEAPON,-1,SC_VOLCANO,SC_DELUGE,SC_VIOLENTGALE,-1,-1,
 	/* 290- */
 	-1,-1,-1,-1,SC_REVERSEORCISH,-1,-1,-1,-1,-1,
 	/* 300- */
-	-1,-1,-1,-1,-1,-1,
-	SC_LULLABY,
-	SC_RICHMANKIM,
-	SC_ETERNALCHAOS,
-	SC_DRUMBATTLE,
+	-1,-1,-1,-1,-1,-1,SC_LULLABY,SC_RICHMANKIM,SC_ETERNALCHAOS,SC_DRUMBATTLE,
 	/* 310- */
-	SC_NIBELUNGEN,
-	SC_ROKISWEIL,
-	SC_INTOABYSS,
-	SC_SIEGFRIED,
-	-1,-1,-1,
-	SC_DISSONANCE,
-	-1,
-	SC_WHISTLE,
+	SC_NIBELUNGEN,SC_ROKISWEIL,SC_INTOABYSS,SC_SIEGFRIED,-1,-1,-1,SC_DISSONANCE,-1,SC_WHISTLE,
 	/* 320- */
-	SC_ASSNCROS,
-	SC_POEMBRAGI,
-	SC_APPLEIDUN,
-	-1,-1,
-	SC_UGLYDANCE,
-	-1,
-	SC_HUMMING,
-	SC_DONTFORGETME,
-	SC_FORTUNE,
+	SC_ASSNCROS,SC_POEMBRAGI,SC_APPLEIDUN,-1,-1,SC_UGLYDANCE,-1,SC_HUMMING,SC_DONTFORGETME,SC_FORTUNE,
 	/* 330- */
-	SC_SERVICE4U,
-	SC_SELFDESTRUCTION,
-	-1,-1,-1,-1,-1,-1,-1,-1,
+	SC_SERVICE4U,SC_SELFDESTRUCTION,-1,-1,-1,-1,-1,-1,-1,-1,
 	/* 340- */
 	-1,-1,SC_HOLDWEB,-1,-1,-1,-1,-1,-1,SC_EXPLOSIONSPIRITS,
 	/* 350- */
-	SC_INCFLEE,
-	SC_ELEMENTUNDEAD,
-	SC_INVISIBLE,
-	-1,-1,
-	SC_AURABLADE,
-	SC_PARRYING,
-	SC_CONCENTRATION,
-	SC_TENSIONRELAX,
-	SC_BERSERK,
+	SC_INCFLEE,SC_ELEMENTUNDEAD,SC_INVISIBLE,-1,-1,SC_AURABLADE,SC_PARRYING,SC_CONCENTRATION,SC_TENSIONRELAX,SC_BERSERK,
 	/* 360- */
-	-1,
-	SC_ASSUMPTIO,
-	SC_BASILICA,
-	-1,-1,-1,
-	SC_MAGICPOWER,
-	-1,
-	SC_SACRIFICE,
-	SC_GOSPEL,
+	-1,SC_ASSUMPTIO,SC_BASILICA,-1,-1,-1,SC_MAGICPOWER,-1,SC_SACRIFICE,SC_GOSPEL,
 	/* 370- */
-	-1,SC_TIGERFIST,-1,-1,-1,-1,-1,-1,
-	SC_EDP,
-	-1,
+	-1,SC_TIGERFIST,-1,-1,-1,-1,-1,-1,SC_EDP,-1,
 	/* 380- */
-	SC_TRUESIGHT,
-	-1,-1,
-	SC_WINDWALK,
-	SC_MELTDOWN,
-	-1,-1,
-	SC_CARTBOOST,
-	-1,SC_CHASEWALK,
+	SC_TRUESIGHT,-1,-1,SC_WINDWALK,SC_MELTDOWN,-1,-1,SC_CARTBOOST,-1,SC_CHASEWALK,
 	/* 390- */
-	SC_REJECTSWORD,
-	-1,-1,-1,-1,-1,
-	SC_MARIONETTE,
-	-1,
-	SC_HEADCRUSH,
-	SC_JOINTBEAT,
+	SC_REJECTSWORD,-1,-1,-1,-1,-1,SC_MARIONETTE,-1,SC_HEADCRUSH,SC_JOINTBEAT,
 	/* 400- */
-	-1,-1,
-	SC_MINDBREAKER,
-	SC_MEMORIZE,
-	SC_FOGWALL,
-	SC_SPIDERWEB,
-	-1,-1,SC_BABY,-1,
+	-1,-1,SC_MINDBREAKER,SC_MEMORIZE,SC_FOGWALL,SC_SPIDERWEB,-1,-1,SC_BABY,-1,
 	/* 410- */
 	-1,SC_RUN,SC_READYSTORM,-1,SC_READYDOWN,-1,SC_READYTURN,-1,SC_READYCOUNTER,-1,
 	/* 420- */
@@ -293,18 +143,27 @@ int SkillStatusChangeTable[] = {	/* status.hのenumのSC_***とあわせること */
 	-1,-1,-1,-1,SC_HIGH,SC_ONEHAND,-1,-1,-1,-1,
 	/* 500- */
 	-1,SC_FLING,-1,-1,SC_MADNESSCANCEL,SC_ADJUSTMENT,SC_INCREASING,-1,-1,-1,
+	/* 510- */
 	-1,-1,-1,SC_DISARM,-1,-1,-1,SC_GATLINGFEVER,-1,SC_FULLBUSTER,
+	/* 520- */
 	-1,-1,-1,-1,-1,-1,-1,SC_TATAMIGAESHI,SC_HIDING,-1,
+	/* 530- */
 	-1,SC_UTSUSEMI,SC_BUNSINJYUTSU,-1,-1,-1,-1,-1,SC_SUITON,-1,
+	/* 540- */
 	-1,-1,-1,SC_NEN,-1,-1,-1,-1,-1,-1,
+	/* 550- */
 	-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,
 	-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,
 	-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,
 	-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,
 	-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,
 	/* 600- */
-	-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,
-	-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,
+	-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,
+	-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,
+	-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,
+	-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,
+	-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,
+	/* 650- */
 	-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,
 	/* 660- */
 	-1,-1,-1,SC_SILENCE,SC_FREEZE,SC_BLEED,SC_STONE,SC_CONFUSION,SC_SLEEP,SC_SIGHT,
@@ -314,41 +173,54 @@ int SkillStatusChangeTable[] = {	/* status.hのenumのSC_***とあわせること */
 	-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,
 	-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,
 	/* 700- */
-	-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,
-	-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,
-	-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,
-	-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,
+	-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,
+	-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,
+	-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,
+	-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,
+	-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,
+	-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,
+	-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,
+	-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,
+	-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,
+	-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,
 	/* 800- */
-	-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,
-	-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,
-	-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,
-	-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,
+	-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,
+	-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,
+	-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,
+	-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,
+	-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,
+	-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,
+	-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,
+	-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,
+	-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,
+	-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,
 	/* 900- */
-	-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,
-	-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,
-	-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,
-	-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,
+	-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,
+	-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,
+	-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,
+	-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,
+	-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,
+	-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,
+	-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,
+	-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,
+	-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,
+	-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,
 	/* 1000- */
 	-1,-1,SC_SHRINK,-1,-1,SC_CLOSECONFINE,SC_SIGHTBLASTER,-1,SC_ELEMENTWATER,-1,
 	/* 1010- */
 	-1,SC_WINKCHARM,-1,-1,-1,-1,-1,SC_ELEMENTGROUND,SC_ELEMENTFIRE,SC_ELEMENTWIND,
-	/* 1020- */
-	-1,-1,-1,-1,-1,-1,-1,-1,
-	/* 1030- */
-	-1,-1,-1,-1,-1,-1,-1,-1,
-	-1,-1,-1,-1,-1,-1,-1,-1,
 };
 
 /* (スキル番号 - HOM_SKILLID)＝＞ステータス異常番号変換テーブル */
-int HomSkillStatusChangeTable[] = {	/* status.hのenumのSC_***とあわせること */
+int HomSkillStatusChangeTable[MAX_HOMSKILL] = {	/* status.hのenumのSC_***とあわせること */
 	/* 0- */
 	-1,SC_AVOID,-1,SC_CHANGE,-1,SC_DEFENCE,-1,SC_BLOODLUST,-1,SC_FLEET,
 	/* 10- */
-	SC_SPEED,-1,-1,-1,-1,-1,-1,-1,-1,-1,
+	SC_SPEED,-1,-1,-1,-1,-1,
 };
 
 /* (スキル番号 - MERC_SKILLID)＝＞ステータス異常番号変換テーブル */
-int MercSkillStatusChangeTable[] = {	/* status.hのenumのSC_***とあわせること */
+int MercSkillStatusChangeTable[MAX_MERCSKILL] = {	/* status.hのenumのSC_***とあわせること */
 	/* 0- */
 	-1,SC_MAGNUM,-1,SC_PARRYING,SC_REFLECTSHIELD,SC_BERSERK,SC_DOUBLE,-1,-1,-1,
 	/* 10- */
@@ -360,11 +232,11 @@ int MercSkillStatusChangeTable[] = {	/* status.hのenumのSC_***とあわせること */
 };
 
 /* (スキル番号 - GUILD_SKILLID)＝＞ステータス異常番号変換テーブル */
-int GuildSkillStatusChangeTable[] = {	/* status.hのenumのSC_***とあわせること */
+int GuildSkillStatusChangeTable[MAX_GUILDSKILL] = {	/* status.hのenumのSC_***とあわせること */
 	/* 0- */
 	-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,
 	/* 10- */
-	SC_BATTLEORDER,SC_REGENERATION,-1,-1,-1,-1,-1,-1,-1,-1,
+	SC_BATTLEORDER,SC_REGENERATION,-1,-1,-1,-1,
 };
 
 /* スキルデータベース */
@@ -414,17 +286,17 @@ static struct skill_unit_layout *skill_get_unit_layout(int skillid,int skilllv,s
 	int pos = skill_get_unit_layout_type(skillid,skilllv);
 	int dir;
 
-	if (pos!=-1)
+	if(pos != -1)
 		return &skill_unit_layout[pos];
 
-	if (src->x==x && src->y==y)
-		dir = 2;
+	if(src->x == x && src->y == y)
+		dir = 6;
 	else
 		dir = map_calc_dir(src,x,y);
 
-	if (skillid==MG_FIREWALL)
+	if(skillid == MG_FIREWALL)
 		return &skill_unit_layout[firewall_unit_pos+dir];
-	else if (skillid==WZ_ICEWALL)
+	else if(skillid == WZ_ICEWALL)
 		return &skill_unit_layout[icewall_unit_pos+dir];
 
 	printf("unknown unit layout for skill %d, %d\n",skillid,skilllv);
