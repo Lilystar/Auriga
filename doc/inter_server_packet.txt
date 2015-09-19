@@ -182,11 +182,11 @@ S 303B <len>.w <guild_id>.l <position>.l <struct guild_position>.?B
 	ƒMƒ‹ƒh–ğE•ÏX—v‹
 R 383B <len>.w <guild_id>.l <position>.l <struct guild_position>.?B
 	ƒMƒ‹ƒh–ğE•ÏX’Ê’m
-S 303C <guild_id>.l <skill_num>.l <account_id>.l
+S 303C <guild_id>.l <skill_num>.l <account_id>.l <level>.l <flag>.B
 	ƒMƒ‹ƒhƒXƒLƒ‹Š„‚èU‚è
 R 383C <guild_id>.l <skill_num>.l <account_id>.l <flag>.l
 	ƒMƒ‹ƒhƒXƒLƒ‹Š„‚èU‚è(skill_num==0‚Å¸”s)
-S 303D <guild_id1>.l <guild_id2>.l <account_id1>.l <account_id2>.l <flag>.B
+S 303D <guild_id1>.l <guild_id2>.l <account_id1>.l <account_id2>.l <flag>.l
 	ƒMƒ‹ƒh“¯–¿/“G‘Î—v‹
 	flag=0 “¯–¿ / 1 “G‘Î / 8 “¯–¿‰ğœ / 9 “G‘Î‰ğœ
 R 383D <guild_id1>.l <guild_id2>.l <account_id1>.l <account_id2>.l <flag>.B <name1>.24B <name2>.24B
