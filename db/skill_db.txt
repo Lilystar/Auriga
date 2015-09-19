@@ -525,7 +525,7 @@
 522,0,0,0,0,0,10,0,no,0,0,0,none,0	//NJ_TOBIDOUGU#“Š±C—û#
 523,9,6,1,0,0,10,1,no,0,0,0,weapon,0	//NJ_SYURIKEN#Žè— Œ•“Š‚°#
 524,9,8,1,0,0,5,3,no,0,0,0,weapon,0	//NJ_KUNAI#‹ê–³“Š‚°#
-525,9,8,1,0,0,5,3:3:4:4:5,no,0,0,0,weapon,0	//NJ_HUUMA#•—–‚Žè— Œ•“Š‚°#
+525,9,8,1,0,0,5,3:3:4:4:5,yes,0,0,0,weapon,0	//NJ_HUUMA#•—–‚Žè— Œ•“Š‚°#
 526,9,6,1,0,0,10,1,no,0,0,0,weapon,0	//NJ_ZENYNAGE#‘K“Š‚°#
 527,0,6,4,0,0,5,1,no,0,0,0,weapon,3	//NJ_TATAMIGAESHI#ô•Ô‚µ#
 528,-1,6,1,0,0,10,1,no,0,0,0,weapon,0	//NJ_KASUMIKIRI#‰àŽa‚è#
