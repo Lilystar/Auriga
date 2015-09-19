@@ -91,7 +91,7 @@ bAutoSpell,bAutoSelfSpell,bRevAutoSpell,bRevAutoSelfSpell‚Í16ŒÂ‚Ü‚Å—LŒø‚Å‚·B16‚
 	bonus bSPGainValue,n				“G‚ğ“|‚µ‚½‚Æ‚«ASP‚ğn‰ñ•œ
 	bonus2 bItemHealRate,n,x;			ƒAƒCƒeƒ€g—pnƒOƒ‹[ƒv‚Ì‰ñ•œŒø‰Ê+x%
 					1:ƒ|[ƒVƒ‡ƒ“ 2:ƒn[ƒu 3:ˆ¹ 4:¼Ş­°½ 5:‚É‚­ 6:‚³‚µ‚İ@(item_group_db.txtQÆ)
-	bonus2 bSPVanis,n,x;				•¨—UŒ‚n%‚ÌŠm—¦‚Å“G‚ÌŒ»SP‚ğx%Á¸‚³‚¹‚é (n‚Æx‚Í‰ÁZ)
+	bonus2 bSPVanish,n,x;				•¨—UŒ‚n%‚ÌŠm—¦‚Å“G‚ÌŒ»SP‚ğx%Á¸‚³‚¹‚é (n‚Æx‚Í‰ÁZ)
 	bonus2 bRaise,n,x;					€–Sn%‚ÌŠm—¦‚ÅMaxHP‚Ìx%‚Å‘h¶(n‚Í–œ•ª—¦)
 	bonus3 bRaise,n,x,y;				€–Sn%‚ÌŠm—¦‚ÅMaxHP/SP‚Ìx/y%‚Å‘h¶(n‚Í–œ•ª—¦)
 	bonus2 bHPDrainRate,n,x;			“G‚É—^‚¦‚½ƒ_ƒ[ƒW‚ğn%Šm—¦‚Åx%‚ğHP‚É‹zûB(n‚Æx‚Í+‚³‚ê‚é)
