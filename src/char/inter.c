@@ -543,7 +543,7 @@ int inter_log(const char *fmt, ...)
 //--------------------------------------------------------
 
 // ƒZ[ƒu
-int inter_sync()
+int inter_sync(void)
 {
 	status_sync();
 	pet_sync();
