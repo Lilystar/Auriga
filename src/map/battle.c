@@ -614,6 +614,7 @@ static int battle_calc_damage(struct block_list *src,struct block_list *bl,int d
 				asflag += EAS_MISC;
 		}
 		skill_bonus_autospell(&tsd->bl,src,asflag,tick,0);
+		pc_activeitem_start(tsd,asflag);
 	}
 
 	// PC‚Ìó‘ÔˆÙí”½Œ‚
@@ -2763,6 +2764,7 @@ static struct Damage battle_calc_weapon_attack(struct block_list *src,struct blo
 			asflag += EAS_SKILL;
 
 		skill_bonus_autospell(src,target,asflag,gettick(),0);
+		pc_activeitem_start((struct map_session_data *)src,asflag);
 	}
 
 	/* 36D‘¾—z‚ÆŒŽ‚Æ¯‚Ì—Z‡ HP2%Á”ï */
@@ -3218,6 +3220,7 @@ static struct Damage battle_calc_magic_attack(struct block_list *bl,struct block
 			asflag += EAS_MAGIC;
 
 		skill_bonus_autospell(bl,target,asflag,gettick(),0);
+		pc_activeitem_start((struct map_session_data *)bl,EAS_MAGIC);
 	}
 
 	/* 14D–‚–@‚Å‚àHP/SP‰ñ•œ(ŒŽŒõŒ•‚È‚Ç) */
@@ -3426,6 +3429,7 @@ static struct Damage battle_calc_misc_attack(struct block_list *bl,struct block_
 			asflag += EAS_MISC;
 
 		skill_bonus_autospell(bl,target,asflag,gettick(),0);
+		pc_activeitem_start((struct map_session_data *)bl,asflag);
 	}
 
 	/* 11Dmisc‚Å‚àHP/SP‰ñ•œ(ŒŽŒõŒ•‚È‚Ç) */
@@ -3660,6 +3664,7 @@ int battle_weapon_attack( struct block_list *src,struct block_list *target,unsig
 			asflag += EAS_SHORT;
 
 		skill_bonus_autospell(src,target,asflag,gettick(),0);
+		pc_activeitem_start((struct map_session_data *)src,asflag);
 	}
 
 	if(sd && src != target && wd.flag&BF_WEAPON && (wd.damage > 0 || wd.damage2 > 0))

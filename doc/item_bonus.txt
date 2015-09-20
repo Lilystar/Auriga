@@ -253,6 +253,29 @@ bAutoSpell,bAutoSelfSpell,bRevAutoSpell,bRevAutoSelfSpell‚Í16ŒÂ‚Ü‚Å—LŒø‚Å‚·B16‚
 						bonus4 bAutoSpell,19,3,2500,EAS_ATTACK|EAS_NOSP;
 
 
+EƒI[ƒgƒAƒNƒeƒBƒuƒAƒCƒeƒ€
+@¦ˆê’è‚ÌŠm—¦‚ÅƒAƒCƒeƒ€‚ðŠˆ«ó‘Ô‚É‚µ‚Ü‚·BŠˆ«‰»‚µ‚½ƒAƒCƒeƒ€‚Ícheckactiveitem()‚Åó‘Ô‚ªŽæ“¾‰Â”\‚Å‚·B
+	bonus3 bAutoActiveWeapon,n,x,y:		•¨—UŒ‚ŽžAƒAƒCƒeƒ€n‚ðx%Šm—¦(–œ•ª—¦)‚Åy•b(ms)‚ÌŠÔAŠˆ«‰»ó‘Ô‚É‚µ‚Ü‚·B
+	bonus3 bAutoActiveMagic,n,x,y:		–‚–@UŒ‚ŽžAƒAƒCƒeƒ€n‚ðx%Šm—¦(–œ•ª—¦)‚Åy•b(ms)‚ÌŠÔAŠˆ«‰»ó‘Ô‚É‚µ‚Ü‚·B
+	bonus3 bRevAutoActiveWeapon,n,x,y:	•¨—ƒ_ƒ[ƒW‚ðŽó‚¯‚½ŽžAƒAƒCƒeƒ€n‚ðx%Šm—¦(–œ•ª—¦)‚Åy•b(ms)‚ÌŠÔAŠˆ«‰»ó‘Ô‚É‚µ‚Ü‚·B
+	bonus3 bRevAutoActiveMagic,n,x,y:	–‚–@ƒ_ƒ[ƒW‚ðŽó‚¯‚½ŽžAƒAƒCƒeƒ€n‚ðx%Šm—¦(–œ•ª—¦)‚Åy•b(ms)‚ÌŠÔAŠˆ«‰»ó‘Ô‚É‚µ‚Ü‚·B
+	bonus4 bAutoActiveItem,n,x,y,z:		z‚ÌðŒ‚ÅƒAƒCƒeƒ€n‚ðx%Šm—¦(–œ•ª—¦)‚Åy•b(ms)‚ÌŠÔAŠˆ«‰»ó‘Ô‚É‚µ‚Ü‚·B
+						ðŒz‚Í‰º‹L‚ðŽQÆB
+						“®ì1FŽw’è‚µ‚È‚¢ê‡‚ÍUŒ‚
+						    EAS_ATTACK			UŒ‚iƒ_ƒ[ƒW‚ð—^‚¦‚½‚Æ‚«j
+						    EAS_REVENGE			”½Œ‚iƒ_ƒ[ƒW‚ðŽó‚¯‚½‚Æ‚«j
+						“®ì2FŽw’è‚µ‚È‚¢ê‡‚Í•¨—UŒ‚
+						    EAS_WEAPON			•¨—UŒ‚‚ð‚µ‚½‚Æ‚«/Žó‚¯‚½‚Æ‚«
+						    EAS_SHORT			‹ß‹——£•¨—UŒ‚‚ð‚µ‚½‚Æ‚«/Žó‚¯‚½‚Æ‚«
+							EAS_LONG			‰“‹——£•¨—UŒ‚‚ð‚µ‚½‚Æ‚«/Žó‚¯‚½‚Æ‚«
+							EAS_MAGIC			–‚–@UŒ‚‚ð‚µ‚½‚Æ‚«/Žó‚¯‚½‚Æ‚«
+							EAS_MISC			miscUŒ‚iã©E‘éE‰Î‰Š•r“™j‚ð‚µ‚½‚Æ‚«/Žó‚¯‚½‚Æ‚«
+						“®ì3FŽw’è‚µ‚È‚¢ê‡‚Í’ÊíUŒ‚
+							EAS_NORMAL			’ÊíUŒ‚‚ð‚µ‚½‚Æ‚«/Žó‚¯‚½‚Æ‚«
+							EAS_SKILL			ƒXƒLƒ‹UŒ‚‚ð‚µ‚½‚Æ‚«/Žó‚¯‚½‚Æ‚«
+							¦EAS_MAGICEEAS_MISC‚ðŽw’è‚µ‚Ä‚¢‚éê‡‚É‚Í–³Ž‹‚³‚ê‚Ü‚·
+
+
 E‘•”õŠÖ˜A
 	bonus bBreakWeaponRate,n;			ƒvƒŒƒCƒ„[‘ÎÛUŒ‚‚Ìê‡An%‚ÌŠm—¦‚Å‘ÎÛ‚Ì•Ší‚ð”j‰ó(n‚Í–œ•ª—¦BŠm—¦‚Í+‚³‚ê‚é)
 	bonus bBreakArmorRate,n;			ƒvƒŒƒCƒ„[‘ÎÛUŒ‚‚Ìê‡An%‚ÌŠm—¦‚Å‘ÎÛ‚ÌŠZ‚ð”j‰ó(n‚Í–œ•ª—¦BŠm—¦‚Í+‚³‚ê‚é)
