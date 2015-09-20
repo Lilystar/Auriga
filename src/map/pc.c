@@ -8783,8 +8783,11 @@ int pc_read_motd(void)
 			memcpy(motd + pos, buf, len);
 			pos += len;
 		}
-		motd = (char *)aRealloc(motd, pos + 1);
-		motd[pos] = '\0';	// ––”ö‚É \0 ‚ð2‚Â‘±‚¯‚é
+
+		if(size > 0) {
+			motd = (char *)aRealloc(motd, pos + 1);	// k¬ˆ—
+			motd[pos] = '\0';	// ––”ö‚É \0 ‚ð2‚Â‘±‚¯‚é
+		}
 
 		fclose(fp);
 	}
