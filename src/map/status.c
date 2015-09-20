@@ -1520,7 +1520,7 @@ L_RECALC:
 	// Ž©‘R‰ñ•œHP
 	sd->nhealhp = 1 + (sd->paramc[2]/5) + (sd->status.max_hp/200);
 	if((skill = pc_checkskill(sd,SM_RECOVERY)) > 0) {	// HP‰ñ•œ—ÍŒüã
-		sd->nshealhp = skill*5 + (sd->status.max_hp*skill/500);
+		sd->nshealhp = skill*5 + (sd->status.max_hp*(2*skill/1000));
 		if(sd->nshealhp > 0x7fff)
 			sd->nshealhp = 0x7fff;
 	}
