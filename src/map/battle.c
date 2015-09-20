@@ -2192,22 +2192,36 @@ static struct Damage battle_calc_weapon_attack(struct block_list *src,struct blo
 			if(src_sd && t_def1 < 1000000)
 			{
 				int mask = (1<<t_race) | ( (t_mode&0x20)? (1<<10): (1<<11) );
-
-				// bDefRatioATKŒn
-				if( !calc_flag.idef && (src_sd->def_ratio_atk_ele & (1<<t_ele) || src_sd->def_ratio_atk_race & mask || src_sd->def_ratio_atk_enemy & (1<<t_enemy)) ) {
-					wd.damage = (wd.damage * (t_def1 + t_def2))/100;
-					calc_flag.idef = 1;
-				}
-				if( calc_flag.lh ) {
-					if( !calc_flag.idef_ && (src_sd->def_ratio_atk_ele_ & (1<<t_ele) || src_sd->def_ratio_atk_race_ & mask || src_sd->def_ratio_atk_enemy_ & (1<<t_enemy)) ) {
-						wd.damage2 = (wd.damage2 * (t_def1 + t_def2))/100;
-						calc_flag.idef_ = 1;
-						if(!calc_flag.idef && battle_config.left_cardfix_to_right) {
+				
+				
+				/* bDefRatioATKŒnŒø‰Ê‚ÍbIgnoreDefŒnŒø‰Ê‚ª‚ ‚éê‡–³Ž‹‚³‚ê‚é‚½‚ß‚±‚±‚Å‚à—L–³‚ð”»’è */
+				
+				// ‰EŽè‚ÉbIgnoreDefŒn‚ÌŒø‰Ê‚ª‚È‚¢
+				if(src_sd->ignore_def_ele[t_ele] == 0 && src_sd->ignore_def_race[t_race] == 0 && src_sd->ignore_def_enemy[t_enemy] ==0 && (!(t_mode & 0x20) && src_sd->ignore_def_race[RCT_BOSS] ==0) &&
+				    // battle_config.left_cardfix_to_right‚ª—LŒø‚©‚Â¶Žè‚ÉbIgnoreDefŒn‚ÌŒø‰Ê‚ª‚È‚¢
+				    (!battle_config.left_cardfix_to_right || (src_sd->ignore_def_ele_[t_ele] == 0 && src_sd->ignore_def_race_[t_race] == 0 && src_sd->ignore_def_enemy_[t_enemy] ==0 && (!(t_mode & 0x20) && src_sd->ignore_def_race_[RCT_BOSS] ==0) )))
+					// bDefRatioATKŒn
+					if( !calc_flag.idef && (src_sd->def_ratio_atk_ele & (1<<t_ele) || src_sd->def_ratio_atk_race & mask || src_sd->def_ratio_atk_enemy & (1<<t_enemy)) ) 
+						if( skill_num != ASC_BREAKER || !calc_flag.idef_){
 							wd.damage = (wd.damage * (t_def1 + t_def2))/100;
 							calc_flag.idef = 1;
 						}
-					}
-				}
+				// ¶Žè‚ÉbIgnoreDefŒn‚ÌŒø‰Ê‚ª‚È‚¢
+				if(src_sd->ignore_def_ele_[t_ele] == 0 && src_sd->ignore_def_race_[t_race] == 0 && src_sd->ignore_def_enemy_[t_enemy] ==0 && (!(t_mode & 0x20) || src_sd->ignore_def_race_[RCT_BOSS] ==0) &&
+				    // battle_config.left_cardfix_to_right‚ª—LŒø‚©‚Â‰EŽè‚ÉbIgnoreDefŒn‚ÌŒø‰Ê‚ª‚È‚¢
+				    (!battle_config.left_cardfix_to_right || (src_sd->ignore_def_ele[t_ele] == 0 && src_sd->ignore_def_race[t_race] == 0 && src_sd->ignore_def_enemy[t_enemy] ==0 && (!(t_mode & 0x20) && src_sd->ignore_def_race[RCT_BOSS] ==0) )))
+					// bDefRatioATKŒn‚ð¶Žè‚à“K—p‚·‚éê‡
+					if( calc_flag.lh || skill_num == ASC_BREAKER )
+						if( !calc_flag.idef_ && (src_sd->def_ratio_atk_ele_ & (1<<t_ele) || src_sd->def_ratio_atk_race_ & mask || src_sd->def_ratio_atk_enemy_ & (1<<t_enemy)) &&
+						     // “Á’èƒXƒLƒ‹‚Å‚È‚¢
+						     (skill_num != ASC_BREAKER || (!calc_flag.idef && battle_config.left_cardfix_to_right)) ){
+							wd.damage2 = (wd.damage2 * (t_def1 + t_def2))/100;
+							calc_flag.idef_ = 1;
+							if(!calc_flag.idef && battle_config.left_cardfix_to_right) {
+								wd.damage = (wd.damage * (t_def1 + t_def2))/100;
+								calc_flag.idef = 1;
+							}
+						}
 			}
 			break;
 		}
@@ -3875,6 +3889,10 @@ int battle_skill_attack(int attack_type,struct block_list* src,struct block_list
 
 	if(flag & 0x01000000) {	// ƒGƒtƒFƒNƒg‚¾‚¯o‚µ‚Äƒ_ƒ[ƒW‚È‚µ‚ÅI—¹
 		clif_skill_damage(dsrc, bl, tick, status_get_amotion(src), 0, -1, 1, skillid, lv, type);
+		if(skillid == MO_EXTREMITYFIST){ // ˆ¢C—…‚Ìê‡SP‚ð0‚É‚·‚é
+			sd->status.sp = 0;
+			clif_updatestatus(sd,SP_SP);
+		}
 		return -1;
 	}
 
@@ -4836,7 +4854,7 @@ int battle_config_read(const char *cfgName)
 		{ "magic_defense_type",                 &battle_config.magic_defense_type,                 0        },
 		{ "player_skill_reiteration",           &battle_config.pc_skill_reiteration,               0        },
 		{ "monster_skill_reiteration",          &battle_config.monster_skill_reiteration,          0        },
-		{ "player_skill_nofootset",             &battle_config.pc_skill_nofootset,                 0        },
+		{ "player_skill_nofootset",             &battle_config.pc_skill_nofootset,                 1        },
 		{ "monster_skill_nofootset",            &battle_config.monster_skill_nofootset,            0        },
 		{ "player_cloak_check_type",            &battle_config.pc_cloak_check_type,                0        },
 		{ "monster_cloak_check_type",           &battle_config.monster_cloak_check_type,           1        },
@@ -5181,6 +5199,8 @@ int battle_config_read(const char *cfgName)
 		{ "pvp_send_guild_xy",                  &battle_config.pvp_send_guild_xy,   	           1        },
 		{ "mvpitem_weight_limit",               &battle_config.mvpitem_weight_limit,   	           50       },
 		{ "roki_item_autospell",               	&battle_config.roki_item_autospell,   	           0  	    },
+		{ "trap_splash_on",               	&battle_config.trap_splash_on,   	           0  	    },
+		{ "firepillar_splash_on",              	&battle_config.firepillar_splash_on,   	           0  	    },
 		{ NULL,                                 NULL,                                              1        },
 
 	};
