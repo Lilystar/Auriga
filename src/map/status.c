@@ -1810,25 +1810,10 @@ L_RECALC:
 			aspd_rate -= sd->sc.data[i].val2;
 
 		// HIT/FLEE•Ï‰»Œn
-		if(battle_config.whistle_perfect_flee) {	// Š®‘S‰ñ”ðã¸‚ ‚è
-
-			if(sd->sc.data[SC_WHISTLE].timer != -1) {  // Œû“J
-				sd->flee  += sd->sc.data[SC_WHISTLE].val1+sd->sc.data[SC_WHISTLE].val2+(sd->sc.data[SC_WHISTLE].val3>>16);
-				sd->flee2 += (sd->sc.data[SC_WHISTLE].val1+sd->sc.data[SC_WHISTLE].val2+(sd->sc.data[SC_WHISTLE].val3&0xffff)) * 10;
-			} else if(sd->sc.data[SC_WHISTLE_].timer != -1) {  // Œû“J
-				sd->flee  += sd->sc.data[SC_WHISTLE].val1+sd->sc.data[SC_WHISTLE].val2+(sd->sc.data[SC_WHISTLE].val3>>16);
-				sd->flee2 += (sd->sc.data[SC_WHISTLE_].val1+sd->sc.data[SC_WHISTLE_].val2+(sd->sc.data[SC_WHISTLE_].val3&0xffff)) * 10;
-			}
-
-		} else {		//Š®‘S‰ñ”ðã¸‚È‚µ
-
-			if(sd->sc.data[SC_WHISTLE].timer != -1) {  // Œû“J
-				sd->flee  += sd->sc.data[SC_WHISTLE].val1+sd->sc.data[SC_WHISTLE].val2+(sd->sc.data[SC_WHISTLE].val3);
-			} else if(sd->sc.data[SC_WHISTLE_].timer != -1) {  // Œû“J
-
-				sd->flee  += sd->sc.data[SC_WHISTLE_].val1+sd->sc.data[SC_WHISTLE_].val2+(sd->sc.data[SC_WHISTLE_].val3);
-			}
-
+		if(sd->sc.data[SC_WHISTLE].timer != -1) {  // Œû“J
+			sd->flee += sd->sc.data[SC_WHISTLE].val1 + sd->sc.data[SC_WHISTLE].val2 + sd->sc.data[SC_WHISTLE].val3;
+		} else if(sd->sc.data[SC_WHISTLE_].timer != -1) {  // Œû“J
+			sd->flee += sd->sc.data[SC_WHISTLE_].val1 + sd->sc.data[SC_WHISTLE_].val2 + sd->sc.data[SC_WHISTLE_].val3;
 		}
 
 		if(sd->sc.data[SC_HUMMING].timer != -1) {  // ƒnƒ~ƒ“ƒO
@@ -2747,7 +2732,7 @@ int status_get_flee(struct block_list *bl)
 
 	if(sc && bl->type != BL_HOM) {
 		if(sc->data[SC_WHISTLE].timer != -1 && bl->type != BL_PC)
-			flee += flee*(sc->data[SC_WHISTLE].val1+sc->data[SC_WHISTLE].val2+(sc->data[SC_WHISTLE].val3>>16))/100;
+			flee += sc->data[SC_WHISTLE].val1 + sc->data[SC_WHISTLE].val2 + sc->data[SC_WHISTLE].val3;
 		if(sc->data[SC_BLIND].timer != -1 && bl->type != BL_PC)
 			flee -= flee*25/100;
 		if(sc->data[SC_WINDWALK].timer != -1 && bl->type != BL_PC)		// ƒEƒBƒ“ƒhƒEƒH[ƒN
@@ -2837,11 +2822,9 @@ int status_get_hit(struct block_list *bl)
 int status_get_flee2(struct block_list *bl)
 {
 	int flee2 = 1;
-	struct status_change *sc;
 
 	nullpo_retr(1, bl);
 
-	sc = status_get_sc(bl);
 	if(bl->type == BL_PC && (struct map_session_data *)bl) {
 		flee2 = status_get_luk(bl) + 10;
 		flee2 += ((struct map_session_data *)bl)->flee2 - (((struct map_session_data *)bl)->paramc[5] + 10);
@@ -2849,10 +2832,6 @@ int status_get_flee2(struct block_list *bl)
 		flee2 = status_get_luk(bl)+1;
 	}
 
-	if(sc) {
-		if(sc->data[SC_WHISTLE].timer != -1 && bl->type != BL_PC)
-			flee2 += (sc->data[SC_WHISTLE].val1+sc->data[SC_WHISTLE].val2+(sc->data[SC_WHISTLE].val3&0xffff))*10;
-	}
 	if(flee2 < 1) flee2 = 1;
 	return flee2;
 }
