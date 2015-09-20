@@ -63,7 +63,7 @@ OnMinute00:
 	set '@day,gettime(4);
 	set '@hour,gettime(3);
 	if('weekday & (1<<'@day)) {
-		if('st_time['@day+1] == 0 && 'ed_time['@day+1]) {
+		if('st_time['@day+1] == 0 && 'ed_time['@day+1] == 0) {
 			set '@st_time,'st_time;
 			set '@ed_time,'ed_time;
 		}
