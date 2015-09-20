@@ -27,7 +27,8 @@ bAutoSpell,bAutoSelfSpell,bRevAutoSpell,bRevAutoSelfSpell‚Í16ŒÂ‚Ü‚Å—LŒø‚Å‚·B16‚
 	bonus bMatk,n;						–‚–@UŒ‚—Í1+nA–‚–@UŒ‚—Í2+n
 	bonus bMatk1,n;						–‚–@UŒ‚—Í1+n
 	bonus bMatk2,n;						–‚–@UŒ‚—Í2+n
-	bonus bMatkRate,n;					–‚–@UŒ‚—Í+n%
+	bonus bMatkRate,n;					–‚–@UŒ‚—Í+n%(ñ•â³ˆÈŠO)
+	bonus bMatk2Rate,n;					–‚–@UŒ‚—Í+n%(ñ•â³)
 	bonus bDef,n;						–hŒä—Í+n
 	bonus bDefRate,n;					–hŒä—¦+n%(‘•”õ)
 	bonus bDef2Rate,n;					–hŒä—¦+n%(vit‚É‚æ‚é•¨)
@@ -60,7 +61,7 @@ bAutoSpell,bAutoSelfSpell,bRevAutoSpell,bRevAutoSelfSpell‚Í16ŒÂ‚Ü‚Å—LŒø‚Å‚·B16‚
 	bonus bFixMaxHP,n;					Å‘åHP‚ğn‚ÉŒÅ’è
 	bonus bFixMaxSP,n;					Å‘åSP‚ğn‚ÉŒÅ’è
 	bonus bFixBaseAtk,n;				UŒ‚—Í‚ğn‚ÉŒÅ’è
-	bonus bFixMatk,n;					–‚–@UŒ‚—Í‚ğn‚ÉŒÅ’è
+	bonus bFixMatk,n;					–‚–@UŒ‚—Í‚ğn‚ÉŒÅ’è(MATKæZŒnŒø‰Ê‚Í‰e‹¿—L‚è)
 	bonus bFixDef,n;					–hŒä—Í‚ğn‚ÉŒÅ’è(‘•”õ)
 	bonus bFixMdef,n;					–‚–@–hŒä—Í‚ğn‚ÉŒÅ’è(‘•”õ)
 	bonus bFixHit,n;					–½’†—Í‚ğn‚ÉŒÅ’è
