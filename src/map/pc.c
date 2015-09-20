@@ -1958,8 +1958,10 @@ int pc_bonus(struct map_session_data *sd,int type,int val)
 			sd->special_state.no_gemstone = 1;
 		break;
 	case SP_INFINITE_ENDURE:
-		if(sd->state.lr_flag != 2)
+		if(sd->state.lr_flag != 2) {
 			sd->special_state.infinite_endure = 1;
+			clif_status_load(sd, SI_ENDURE, 1);
+		}
 		break;
 	case SP_UNBREAKABLE_WEAPON:
 		if(sd->state.lr_flag != 2)
@@ -5073,7 +5075,7 @@ int pc_damage(struct block_list *src,struct map_session_data *sd,int damage)
 	}
 
 	// •à‚¢‚Ä‚¢‚½‚ç‘«‚ðŽ~‚ß‚é
-	if((sd->sc.data[SC_ENDURE].timer == -1 || map[sd->bl.m].flag.gvg) && sd->sc.data[SC_BERSERK].timer == -1 && !sd->special_state.infinite_endure && !unit_isrunning(&sd->bl))
+	if((sd->sc.data[SC_ENDURE].timer == -1 || !sd->special_state.infinite_endure || map[sd->bl.m].flag.gvg) && sd->sc.data[SC_BERSERK].timer == -1 && !unit_isrunning(&sd->bl))
 		unit_stop_walking(&sd->bl,battle_config.pc_hit_stop_type);
 
 	// ‰‰‘t/ƒ_ƒ“ƒX‚Ì’†’f
