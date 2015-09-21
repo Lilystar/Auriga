@@ -301,6 +301,7 @@ bAutoSpell,bAutoSelfSpell,bRevAutoSpell,bRevAutoSelfSpell‚Í16ŒÂ‚Ü‚Å—LŒø‚Å‚·B16‚
 	bonus2 bAddEff2,e,n;				n%‚ÌŠm—¦‚ÅŽ©•ª‚Éó‘ÔˆÙíe•t—^(n‚Í–œ•ª—¦)
 	bonus2 bAddEffShort,e,n;			‹ß‹——£•¨—UŒ‚ŽžAn%‚ÌŠm—¦‚ÅUŒ‚‘ÎÛ‚Éó‘ÔˆÙíe•t—^(n‚Í–œ•ª—¦)
 	bonus2 bAddEffLong,e,n;				‰“‹——£•¨—UŒ‚ŽžAn%‚ÌŠm—¦‚ÅUŒ‚‘ÎÛ‚Éó‘ÔˆÙíe•t—^(n‚Í–œ•ª—¦)
+	bonus2 bAddEffMagic,e,n;			–‚–@UŒ‚ŽžAn%‚ÌŠm—¦‚ÅUŒ‚‘ÎÛ‚Éó‘ÔˆÙíe•t—^(n‚Í–œ•ª—¦)
 	bonus3 bAddEffSkill,n,x,y;			ƒXƒLƒ‹n‚ÅUŒ‚ŽžAy%‚ÌŠm—¦‚ÅUŒ‚‘ÎÛ‚Éó‘ÔˆÙíx•t—^(y‚Í–œ•ª—¦)
 	bonus2 bResEff,e,n;					ó‘ÔˆÙíe‚Ì‘Ï«+n%(n‚Í–œ•ª—¦)
 					Eff_Blind		ˆÃ•			Eff_Sleep		‡–°
