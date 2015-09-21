@@ -1266,6 +1266,10 @@ int unit_skilluse_id2(struct block_list *src, int target_id, int skill_num, int 
 	tick = gettick();
 	clif_skillcasting(src, src->id, target_id, 0, 0, skill_num,casttime);
 
+#ifndef PRE_RENEWAL
+	forcecast = 1;		// ‰r¥”½‰ž—p
+#endif
+
 	if( casttime > 0 || forcecast ) { /* ‰r¥‚ª•K—v */
 		/* ‰r¥”½‰žƒ‚ƒ“ƒXƒ^[ */
 		if(src_sd && target_md && status_get_mode(&target_md->bl)&MD_CASTSENSOR && target_md->ud.attacktimer == -1 && src_sd->invincible_timer == -1) {
