@@ -312,7 +312,7 @@ void party_invite(struct map_session_data *sd, struct map_session_data *tsd)
 		return;
 	}
 	if(!battle_config.invite_request_check) {
-		if(tsd->guild_invite > 0 || tsd->trade_partner || tsd->adopt_invite) {	// ‘Šè‚ªæˆø’†‚©‚Ç‚¤‚©
+		if(tsd->guild_invite > 0 || tsd->trade.partner || tsd->adopt_invite) {	// ‘Šè‚ªæˆø’†‚©‚Ç‚¤‚©
 			clif_party_inviteack(sd,tsd->status.name,1);
 			return;
 		}
