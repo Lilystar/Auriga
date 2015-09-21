@@ -937,13 +937,13 @@ struct merc_data {
 };
 
 struct booking_data {
-	int id;
+	unsigned int id;
 	char name[24];
 	unsigned int time;
 	int lv;
 	int map;
 	int job[6];
-};	
+};
 
 struct map_data {
 	char name[24];
