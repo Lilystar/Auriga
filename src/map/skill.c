@@ -13952,7 +13952,7 @@ int skill_castfix(struct block_list *bl, int skillid, int casttime, int fixedtim
 
 			/* \˜Z–é */
 			if(sc->data[SC_IZAYOI].timer != -1 && skillid > 521 && skillid < 545)
-				reduce_time -= 50;
+				reduce_time += 50;
 		}
 
 		// ƒJ[ƒh‚É‚æ‚é‰r¥ŠÔ‘Œ¸Œø‰Ê
@@ -14003,7 +14003,7 @@ int skill_castfix(struct block_list *bl, int skillid, int casttime, int fixedtim
 	}
 	/* \˜Z–é */
 	if(sc && sc->data[SC_IZAYOI].timer != -1 && skillid > 521 && skillid < 545)
-		reduce_time = 0;
+		fixedtime = 0;
 	if(fixedtime < 0)
 		fixedtime = 0;
 

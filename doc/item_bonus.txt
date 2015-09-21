@@ -13,13 +13,13 @@ bAutoSpell,bAutoSelfSpell,bRevAutoSpell,bRevAutoSelfSpell‚Í16ŒÂ‚Ü‚Å—LŒø‚Å‚·B16‚
 	bonus bLuk,n;						LUK+n
 	bonus bMaxHP,n;						Å‘åHP+n
 	bonus bMaxSP,n;						Å‘åSP+n
-	bonus bMaxHPrate,n;					Å‘åHP+n% 
+	bonus bMaxHPrate,n;					Å‘åHP+n%
 	bonus bMaxSPrate,n;					Å‘åSP+n%
 	bonus bAtk,n;						UŒ‚—Í+n
 	bonus bAtk2,n;						UŒ‚—Í2+n
-	bonus bAtkRate						UŒ‚—Í+n%
-	bonus2 bWeaponAtk,n,x;				ƒ^ƒCƒvn‚Ì•Ší‚ğ‘•”õ‚µ‚Ä‚¢‚é‚Æ‚«‚ÉUŒ‚—Í+xB
-	bonus2 bWeaponAtkRate,n,x;			ƒ^ƒCƒvn‚Ì•Ší‚ğ‘•”õ‚µ‚Ä‚¢‚é‚Æ‚«‚ÉUŒ‚—Í+x%B
+	bonus bAtkRate,n;					UŒ‚—Í+n%
+	bonus2 bWeaponAtk,n,x;				ƒ^ƒCƒvn‚Ì•Ší‚ğ‘•”õ‚µ‚Ä‚¢‚é‚Æ‚«‚ÉUŒ‚—Í+x
+	bonus2 bWeaponAtkRate,n,x;			ƒ^ƒCƒvn‚Ì•Ší‚ğ‘•”õ‚µ‚Ä‚¢‚é‚Æ‚«‚ÉUŒ‚—Í+x%
 					0,‘fè	1,’ZŒ•	2,•ĞèŒ•@3,—¼èŒ•@4,•Ğè‘„@5,—¼è‘„	6,•Ğè•€@7,—¼è•€@8,“İŠí@9,—¼è“İŠí@10,ñ@11,‹|@12,ƒiƒbƒNƒ‹@13,ŠyŠí@14,•Ú@15,–{@16,ƒJƒ^[ƒ‹
 					17,ƒnƒ“ƒhƒKƒ“@18,ƒ‰ƒCƒtƒ‹@19,ƒVƒ‡ƒbƒgƒKƒ“@20,ƒKƒgƒŠƒ“ƒOƒKƒ“@21,ƒOƒŒƒl[ƒhƒ‰ƒ“ƒ`ƒƒ[@22,è— Œ•
 					23,’ZŒ•+’ZŒ•@24,•ĞèŒ•+•ĞèŒ•@25,•Ğè•€+•Ğè•€@26,’ZŒ•+•ĞèŒ•@27,’ZŒ•+•Ğè•€@28,•ĞèŒ•+•Ğè•€
@@ -88,21 +88,21 @@ bAutoSpell,bAutoSelfSpell,bRevAutoSpell,bRevAutoSelfSpell‚Í16ŒÂ‚Ü‚Å—LŒø‚Å‚·B16‚
 	bonus bHPRatePenaltyUnrig,n;		‘•”õ‰ğœMaxHP‚Ìn%Á”ï
 	bonus bSPRatePenaltyUnrig,n;		‘•”õ‰ğœMaxSP‚Ìn%Á”ï
 	bonus bRestartFullRecover,n;		•œŠˆ‚µ‚½HP‚ÆSP‚ğ‘S‚Ä‰ñ•œ(n‚Í–³ˆÓ–¡)
-	bonus bHPGainValue,n				“G‚ğ“|‚µ‚½‚Æ‚«AHP‚ğn‰ñ•œ
-	bonus bSPGainValue,n				“G‚ğ“|‚µ‚½‚Æ‚«ASP‚ğn‰ñ•œ
+	bonus bHPGainValue,n;				“G‚ğ“|‚µ‚½‚Æ‚«AHP‚ğn‰ñ•œ
+	bonus bSPGainValue,n;				“G‚ğ“|‚µ‚½‚Æ‚«ASP‚ğn‰ñ•œ
 	bonus2 bItemHealRate,n,x;			ƒAƒCƒeƒ€g—pnƒOƒ‹[ƒv‚Ì‰ñ•œŒø‰Ê+x%
 					1:ƒ|[ƒVƒ‡ƒ“ 2:ƒn[ƒu 3:ˆ¹ 4:¼Ş­°½ 5:‚É‚­ 6:‚³‚µ‚İ 7:ƒAƒCƒXƒNƒŠ[ƒ€@(item_group_db.txtQÆ)
 	bonus2 bSPVanish,n,x;				•¨—UŒ‚n%‚ÌŠm—¦‚Å“G‚ÌŒ»SP‚ğx%Á¸‚³‚¹‚é (n‚Æx‚Í‰ÁZ)
 	bonus2 bRaise,n,x;					€–Sn%‚ÌŠm—¦‚ÅMaxHP‚Ìx%‚Å‘h¶(n‚Í–œ•ª—¦)
 	bonus3 bRaise,n,x,y;				€–Sn%‚ÌŠm—¦‚ÅMaxHP/SP‚Ìx/y%‚Å‘h¶(n‚Í–œ•ª—¦)
-	bonus2 bHPDrainRate,n,x;			“G‚É—^‚¦‚½ƒ_ƒ[ƒW‚ğn%Šm—¦‚Åx%‚ğHP‚É‹zûB(n‚Æx‚Í+‚³‚ê‚é)
-	bonus2 bSPDrainRate,n,x;			“G‚É—^‚¦‚½ƒ_ƒ[ƒW‚ğn%Šm—¦‚Åx%‚ğSP‚É‹zûB(n‚Æx‚Í+‚³‚ê‚é)
-	bonus2 bHPDrainValue,n,x;			“G‚É—^‚¦‚½ƒ_ƒ[ƒW‚ğn%Šm—¦‚Åx‚ğHP‚É‹zûB(n‚Æx‚Í+‚³‚ê‚é)
-	bonus2 bSPDrainValue,n,x;			“G‚É—^‚¦‚½ƒ_ƒ[ƒW‚ğn%Šm—¦‚Åx‚ğSP‚É‹zûB(n‚Æx‚Í+‚³‚ê‚é)
+	bonus2 bHPDrainRate,n,x;			“G‚É—^‚¦‚½ƒ_ƒ[ƒW‚ğn%Šm—¦‚Åx%‚ğHP‚É‹zû(n‚Æx‚Í+‚³‚ê‚é)
+	bonus2 bSPDrainRate,n,x;			“G‚É—^‚¦‚½ƒ_ƒ[ƒW‚ğn%Šm—¦‚Åx%‚ğSP‚É‹zû(n‚Æx‚Í+‚³‚ê‚é)
+	bonus2 bHPDrainValue,n,x;			“G‚É—^‚¦‚½ƒ_ƒ[ƒW‚ğn%Šm—¦‚Åx‚ğHP‚É‹zû(n‚Æx‚Í+‚³‚ê‚é)
+	bonus2 bSPDrainValue,n,x;			“G‚É—^‚¦‚½ƒ_ƒ[ƒW‚ğn%Šm—¦‚Åx‚ğSP‚É‹zû(n‚Æx‚Í+‚³‚ê‚é)
 	bonus2 bHPPenaltyTime,n,x;			nƒ~ƒŠ•b‚²‚Æ‚Éx‚¸‚Â‚g‚oŒ¸­
 	bonus2 bSPPenaltyTime,n,x;			nƒ~ƒŠ•b‚²‚Æ‚Éx‚¸‚Â‚r‚oŒ¸­
-	bonus3 bDefeatHPDrainValue,n,x,y;	ní‘°‚ğ“|‚µ‚½x%Šm—¦‚Åy‚ğHP‚É‹zûB(x‚Æy‚Í+‚³‚ê‚é)
-	bonus3 bDefeatSPDrainValue,n,x,y;	ní‘°‚ğ“|‚µ‚½x%Šm—¦‚Åy‚ğSP‚É‹zûB(x‚Æy‚Í+‚³‚ê‚é)
+	bonus3 bDefeatHPDrainValue,n,x,y;	ní‘°‚ğ“|‚µ‚½x%Šm—¦‚Åy‚ğHP‚É‹zû(x‚Æy‚Í+‚³‚ê‚é)
+	bonus3 bDefeatSPDrainValue,n,x,y;	ní‘°‚ğ“|‚µ‚½x%Šm—¦‚Åy‚ğSP‚É‹zû(x‚Æy‚Í+‚³‚ê‚é)
 					0,–³Œ`@1,•s€@2,“®•¨@3,A•¨@4,©’@5,‹›ŠL@6,ˆ«–‚@7,lŠÔ@8,“Vg@9,—³‘°@10,‘Sí‘°
 
 
@@ -186,9 +186,9 @@ bAutoSpell,bAutoSelfSpell,bRevAutoSpell,bRevAutoSelfSpell‚Í16ŒÂ‚Ü‚Å—LŒø‚Å‚·B16‚
 
 
 Eƒ_ƒ[ƒW”½Ë
-	bonus bShortWeaponDamageReturn,n;	‹ß‹——£•¨—UŒ‚‚Ìn%‚ğ“G‚É’µ‚Ë•Ô‚·(ƒ_ƒ[ƒW‚ÍŒ¸‚ç‚È‚¢Bn‚Í+‚³‚ê‚éB)
-	bonus bLongWeaponDamageReturn,n;	‰“‹——£•¨—UŒ‚‚Ìn%‚ğ“G‚É’µ‚Ë•Ô‚·(ƒ_ƒ[ƒW‚ÍŒ¸‚ç‚È‚¢Bn‚Í+‚³‚ê‚éB)
-	bonus bMagicDamageReturn,n;			–‚–@UŒ‚‚ğn%‚ÌŠm—¦‚Å“G‚É’µ‚Ë•Ô‚·(ƒ_ƒ[ƒW‚ÍŒ¸‚ç‚È‚¢Bn‚Í+‚³‚ê‚éB)
+	bonus bShortWeaponDamageReturn,n;	‹ß‹——£•¨—UŒ‚‚Ìn%‚ğ“G‚É’µ‚Ë•Ô‚·(ƒ_ƒ[ƒW‚ÍŒ¸‚ç‚È‚¢Bn‚Í+‚³‚ê‚é)
+	bonus bLongWeaponDamageReturn,n;	‰“‹——£•¨—UŒ‚‚Ìn%‚ğ“G‚É’µ‚Ë•Ô‚·(ƒ_ƒ[ƒW‚ÍŒ¸‚ç‚È‚¢Bn‚Í+‚³‚ê‚é)
+	bonus bMagicDamageReturn,n;			–‚–@UŒ‚‚ğn%‚ÌŠm—¦‚Å“G‚É’µ‚Ë•Ô‚·(ƒ_ƒ[ƒW‚ÍŒ¸‚ç‚È‚¢Bn‚Í+‚³‚ê‚é)
 
 
 EƒXƒLƒ‹ŠÖ˜A
@@ -269,7 +269,7 @@ bAutoSpell,bAutoSelfSpell,bRevAutoSpell,bRevAutoSelfSpell‚Í16ŒÂ‚Ü‚Å—LŒø‚Å‚·B16‚
 	bonus3 bRevAutoActiveMagic,n,x,y;	–‚–@ƒ_ƒ[ƒW‚ğó‚¯‚½AƒAƒCƒeƒ€n‚ğx%Šm—¦(–œ•ª—¦)‚Åy•b(ms)‚ÌŠÔAŠˆ«‰»ó‘Ô‚É‚µ‚Ü‚·B
 	bonus4 bAutoActiveSkill,n,x,y,z;	ƒXƒLƒ‹ng—pAƒAƒCƒeƒ€x‚ğy%Šm—¦(–œ•ª—¦)‚Åz•b(ms)‚ÌŠÔAŠˆ«‰»ó‘Ô‚É‚µ‚Ü‚·B
 	bonus4 bAutoActiveItem,n,x,y,z;		z‚ÌğŒ‚ÅƒAƒCƒeƒ€n‚ğx%Šm—¦(–œ•ª—¦)‚Åy•b(ms)‚ÌŠÔAŠˆ«‰»ó‘Ô‚É‚µ‚Ü‚·B
-						ğŒz‚Í‰º‹L‚ğQÆB
+						ğŒz‚Í‰º‹L‚ğQÆ
 						“®ì1Fw’è‚µ‚È‚¢ê‡‚ÍUŒ‚
 						    EAS_ATTACK			UŒ‚iƒ_ƒ[ƒW‚ğ—^‚¦‚½‚Æ‚«j
 						    EAS_REVENGE			”½Œ‚iƒ_ƒ[ƒW‚ğó‚¯‚½‚Æ‚«j
@@ -338,8 +338,6 @@ bAutoSpell,bAutoSelfSpell,bRevAutoSpell,bRevAutoSelfSpell‚Í16ŒÂ‚Ü‚Å—LŒø‚Å‚·B16‚
 
 
 E’Ç‰ÁŒoŒ±’l
-	bonus2 bExpRate,n,x;				ní‘°‚ğ“|‚µ‚½x%‚ÌŒoŒ±‘‰Á
-	bonus2 bJobRate,n,x;				ní‘°‚ğ“|‚µ‚½x%‚ÌŒoŒ±‘‰Á
 	bonus2 bExpRate,n,x;				ní‘°‚ğ“|‚µ‚½x%‚ÌŒoŒ±‘‰Á(x‚Í+‚³‚ê‚é)
 	bonus2 bJobRate,n,x;				ní‘°‚ğ“|‚µ‚½x%‚ÌŒoŒ±‘‰Á(x‚Í+‚³‚ê‚é)
 					0,–³Œ`@1,•s€@2,“®•¨@3,A•¨@4,©’@5,‹›ŠL@6,ˆ«–‚@7,lŠÔ@8,“Vg@9,—³‘°@10,‘Sí‘°
