@@ -654,7 +654,7 @@ static int pet_performance(struct map_session_data *sd)
  * —‘‚É–ß‚·
  *------------------------------------------
  */
-static int pet_return_egg(struct map_session_data *sd)
+int pet_return_egg(struct map_session_data *sd)
 {
 	struct item tmp_item;
 	int flag;
