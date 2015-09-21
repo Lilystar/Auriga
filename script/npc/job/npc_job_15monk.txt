@@ -10,7 +10,7 @@
 //------------------------------------------
 
 prt_monk.gat,59,247,4	script	Cs‘m	120,6,2,{
-	if(Class == Job_Monk) {
+	if(Job == Job_Monk) {
 		mes "[“sŒì•{ˆõ]";
 		mes "¹ƒJƒs[ƒgƒŠƒiC“¹‰@‚É‚¢‚ç‚µ‚½";
 		mes "‚±‚Æ‚ğŠ½Œ}‚µ‚Ü‚·B";
@@ -27,7 +27,7 @@ prt_monk.gat,59,247,4	script	Cs‘m	120,6,2,{
 		mes "„‚É–¼‘O‚ÆJobLv‚ğ’ñ¦‚µ‚Ä‚©‚ç";
 		mes "“ü‚Á‚Ä‚¢‚½‚¾‚«‚Ü‚·B";
 		next;
-		if(Upper == 1) {
+		if(Upper == UPPER_HIGH) {
 			mes "[“sŒì•{ˆõ]";
 			mes "‚ cc";
 			mes "\‚µ–ó‚²‚´‚¢‚Ü‚¹‚ñI";
@@ -63,7 +63,7 @@ prt_monk.gat,59,247,4	script	Cs‘m	120,6,2,{
 		setarray '@word$,"ƒ‚ƒ“ƒN’B‚ÌCsp‚ğŒ©‚æ‚¤‚Æ","ƒ‚ƒ“ƒN‚É‚È‚ë‚¤‚Æ","C—ûê‚Å‹x‚İ‚É";
 		break;
 	case 1:
-		if(Class == Job_Acolyte && JobLevel >= 40) {
+		if(Job == Job_Acolyte && JobLevel >= 40) {
 			mes "[“sŒì•{ˆõ]";
 			mes "‚Ç‚¤‚Å‚·‚©H";
 			mes "‰½‚©l‚¦‚ª•Ï‚í‚è‚Ü‚µ‚½‚©H";
@@ -99,7 +99,7 @@ prt_monk.gat,59,247,4	script	Cs‘m	120,6,2,{
 		set CHANGE_MO,1;
 		close;
 	case 2:
-		if(Class != Job_Acolyte) {
+		if(Job != Job_Acolyte) {
 			mes "[“sŒì•{ˆõ]";
 			mes "‚Í‚ÍA‚¨‚à‚µ‚ë‚¢ç’k‚ğŒ¾‚¢‚Ü‚·‚ËB";
 			close;
@@ -147,7 +147,7 @@ prt_monk.gat,59,247,4	script	Cs‘m	120,6,2,{
 		close;
 	}
 OnTouch:
-	if(Class == Job_Monk)
+	if(Job == Job_Monk)
 		end;
 	switch(CHANGE_MO) {
 	case 0:
@@ -196,7 +196,7 @@ monk_in.gat,99,58,4	script	’·˜V	60,{
 		mes "ŠFÁ”ï‚µ‚Ä—ˆ‚È‚³‚¢B";
 		close;
 	}
-	if(Class == Job_Monk) {
+	if(Job == Job_Monk) {
 		mes "[–³ŠU’·˜V]";
 		mes "Cs‚Í‘±‚¯‚Ä‚¢‚é‚©H";
 		mes "í‚É¸i‚ğS‚ª‚¯‚é‚æ‚¤‚ÉB";
@@ -212,7 +212,7 @@ monk_in.gat,99,58,4	script	’·˜V	60,{
 		mes "‹C‚ğ‚Â‚¯‚é‚Ì‚¶‚áB";
 		close;
 	}
-	if(Class != Job_Acolyte) {
+	if(Job != Job_Acolyte) {
 		mes "[–³ŠU’·˜V]";
 		mes "‘Š’k‚ª‚ ‚é‚È‚çAƒvƒƒ“ƒeƒ‰‘å¹“°‚Ö";
 		mes "s‚­‚ª‚æ‚¢B‚±‚±‚Í‘Š’kŠ‚Å‚Í‚È‚¢B";
@@ -624,7 +624,7 @@ monk_in.gat,99,58,4	script	’·˜V	60,{
 		next;
 		set '@itemid,(JobLevel >= 50)? 1804: 1801;
 		unequip;
-		jobchange 15;
+		jobchange job_Monk;
 		set CHANGE_MO,0;
 		mes "[–³ŠU’·˜V]";
 		mes "“]EŠ®—¹‚¾B";
