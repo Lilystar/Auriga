@@ -931,6 +931,7 @@ int unit_skilluse_id2(struct block_list *src, int target_id, int skill_num, int 
 	case MO_COMBOFINISH:		/* –Ò—´Œ */
 	case CH_TIGERFIST:		/* •šŒÕŒ */
 	case CH_CHAINCRUSH:		/* ˜A’Œ•öŒ‚ */
+	case SR_FALLENEMPIRE:	/* ‘å“Z•öx */
 		target_id = src_ud->attacktarget;
 		break;
 	case MO_CHAINCOMBO:		/* ˜A‘Å¶ */
@@ -944,6 +945,11 @@ int unit_skilluse_id2(struct block_list *src, int target_id, int skill_num, int 
 		break;
 	case MO_EXTREMITYFIST:		/* ˆ¢C—…”e–PŒ */
 		if(sc && sc->data[SC_COMBO].timer != -1 && (sc->data[SC_COMBO].val1 == MO_COMBOFINISH || sc->data[SC_COMBO].val1 == CH_CHAINCRUSH) )
+			target_id = src_ud->attacktarget;
+		break;
+	case SR_TIGERCANNON:	/* åj–C */
+	case SR_GATEOFHELL:		/* —…™‹”j™€Œ‚ */
+		if(sc && sc->data[SC_COMBO].timer != -1 && sc->data[SC_COMBO].val1 == SR_FALLENEMPIRE)
 			target_id = src_ud->attacktarget;
 		break;
 	case WE_MALE:
@@ -1032,6 +1038,7 @@ int unit_skilluse_id2(struct block_list *src, int target_id, int skill_num, int 
 		case TK_TURNKICK:
 		case TK_COUNTER:
 		case GC_WEAPONCRUSH:
+		case SR_FALLENEMPIRE:
 			break;
 		case MO_EXTREMITYFIST:
 		case TK_JUMPKICK:
@@ -1100,6 +1107,13 @@ int unit_skilluse_id2(struct block_list *src, int target_id, int skill_num, int 
 	case ST_CHASEWALK:	/* ƒ`ƒFƒCƒXƒEƒH[ƒN */
 		if(sc && sc->data[SC_CHASEWALK].timer != -1)
 			casttime = 0;
+		break;
+	case SR_TIGERCANNON:	/* åj–C */
+	case SR_GATEOFHELL:		/* —…™‹”j™€Œ‚ */
+		if(sc && sc->data[SC_COMBO].timer != -1 && sc->data[SC_COMBO].val1 == SR_FALLENEMPIRE) {
+			casttime = 0;
+		}
+		forcecast = 1;
 		break;
 	}
 
@@ -1505,6 +1519,9 @@ int unit_can_move(struct block_list *bl)
 		    sc->data[SC_MAGNETICFIELD].timer != -1 ||		// ƒ}ƒOƒlƒeƒBƒbƒNƒtƒB[ƒ‹ƒh
 		    sc->data[SC__MANHOLE].timer != -1 ||	// ƒ}ƒ“ƒz[ƒ‹
 		    sc->data[SC_SITDOWN_FORCE].timer != -1 ||	// “]“|
+		    sc->data[SC_FALLENEMPIRE].timer != -1 ||	// ‘å“Z•öx
+		    sc->data[SC_CURSEDCIRCLE_USER].timer != -1 ||	// Žô”›w(Žg—pŽÒ)
+		    sc->data[SC_CURSEDCIRCLE].timer != -1 ||	// Žô”›w
 		    sc->data[SC_NETHERWORLD].timer != -1 ||	// ’n–‚Ì‰Ì
 		    sc->data[SC_DEEP_SLEEP].timer != -1 ||	// ˆÀ‚ç‚¬‚ÌŽqŽç‰S
 		    sc->data[SC_VACUUM_EXTREME].timer != -1	// ƒoƒLƒ…[ƒ€ƒGƒNƒXƒgƒŠ[ƒ€
@@ -1603,6 +1620,8 @@ static int unit_attack_timer_sub(int tid,unsigned int tick,int id,void *data)
 		   sc->data[SC_WHITEIMPRISON].timer != -1 ||
 		   sc->data[SC__SHADOWFORM].timer != -1 ||
 		   sc->data[SC__MANHOLE].timer != -1 ||
+		   sc->data[SC_CURSEDCIRCLE_USER].timer != -1 ||
+		   sc->data[SC_CURSEDCIRCLE].timer != -1 ||
 		   sc->data[SC_DEEP_SLEEP].timer != -1)
 			return 0;
 	}
