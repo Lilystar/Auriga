@@ -2714,7 +2714,7 @@ int skill_castend_id(int tid, unsigned int tick, int id, void *data)
 					fail_flag = 0;
 					break;
 				case SA_SPELLBREAKER:
-					if(map[src->m].flag.nopenalty)	// ŠX’†‚Ì‚İPC‚É—LŒø
+					if(map[src->m].flag.town)	// ŠX’†‚Ì‚İPC‚É—LŒø
 						fail_flag = 0;
 					break;
 			}
@@ -7371,7 +7371,7 @@ int skill_castend_nodamage_id( struct block_list *src, struct block_list *bl,int
 		}
 		break;
 	case BS_GREED:			/* æÃ—~ */
-		if( sd && !map[src->m].flag.nopenalty && !map[src->m].flag.pvp && !map[src->m].flag.gvg ) {	// ŠXEPvPEGvG‚Å‚Íg—p•s‰Â
+		if( sd && !map[src->m].flag.town && !map[src->m].flag.pvp && !map[src->m].flag.gvg ) {	// ŠXEPvPEGvG‚Å‚Íg—p•s‰Â
 			struct party *p = NULL;
 			if(sd->status.party_id > 0)
 				p = party_search(sd->status.party_id);
