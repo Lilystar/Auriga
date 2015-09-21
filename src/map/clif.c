@@ -4860,7 +4860,7 @@ void clif_equiplist(struct map_session_data *sd)
 		}
 		WFIFOL(fd,n*28+24)=sd->status.inventory[i].limit;
 		WFIFOW(fd,n*28+28)=0;
-		WFIFOW(fd,n*28+30)=0;
+		WFIFOW(fd,n*28+30)=sd->inventory_data[i]->look;
 		n++;
 	}
 	if(n){
@@ -5206,7 +5206,7 @@ static void clif_storageequiplist_sub(const int fd, struct item *item, int idx, 
 		}
 		WFIFOL(fd,len+20)=item[i].limit;
 		WFIFOW(fd,len+24)=0;
-		WFIFOW(fd,len+26)=0;
+		WFIFOW(fd,len+26)=id->look;
 		len += 28;
 	}
 #endif
@@ -9528,7 +9528,7 @@ void clif_cart_equiplist(struct map_session_data *sd)
 		}
 		WFIFOL(fd,n*28+24)=sd->status.cart[i].limit;
 		WFIFOW(fd,n*28+28)=0;
-		WFIFOW(fd,n*28+30)=0;
+		WFIFOW(fd,n*28+30)=id->look;
 		n++;
 	}
 	if(n){
