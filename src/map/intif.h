@@ -94,6 +94,12 @@ void intif_request_mercdata(int account_id, int char_id, int merc_id);
 void intif_save_mercdata(int account_id, struct mmo_mercstatus *m);
 void intif_delete_mercdata(int account_id, int char_id, int merc_id);
 
+// ¸—ìŠÖ˜A
+void intif_create_elem(int account_id, int char_id, struct mmo_elemstatus *e);
+void intif_request_elemdata(int account_id, int char_id, int elem_id);
+void intif_save_elemdata(int account_id, struct mmo_elemstatus *e);
+void intif_delete_elemdata(int account_id, int char_id, int elem_id);
+
 // ƒ[ƒ‹ŠÖ˜A
 int intif_mailbox(int char_id);
 int intif_sendmail(struct mail_data *md);
