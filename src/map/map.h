@@ -369,8 +369,7 @@ struct map_session_data {
 		unsigned tk_doridori_hp : 1;
 		unsigned tk_doridori_sp : 1;
 		unsigned show_equip : 1;
-		unsigned vending : 1;
-		unsigned buyingstore : 1;
+		unsigned store : 2;	// 0:‰½‚àŠJ‚¢‚Ä‚¢‚È‚¢, 1:˜I“X‚ğŠJ‚¢‚Ä‚¢‚é, 2:w”ƒ˜I“X‚ğŠJ‚¢‚Ä‚¢‚é
 	} state;
 	struct {
 		unsigned restart_full_recover : 1;
