@@ -73,6 +73,7 @@ static char race_name[11][5] = {{"無形"},{"不死"},{"動物"},{"植物"},{"昆虫"},{""
 struct status_change_data dummy_sc_data[MAX_STATUSCHANGE];
 #endif
 
+static int status_calc_amotion_pc(struct map_session_data *sd);	// PC用amotion計算
 static struct scdata_db scdata_db[MAX_STATUSCHANGE];	// ステータス異常データベース
 
 static int StatusIconChangeTable[MAX_STATUSCHANGE] = {
@@ -85,7 +86,7 @@ static int StatusIconChangeTable[MAX_STATUSCHANGE] = {
 	/* 30- */
 	SI_LOUD,SI_ENERGYCOAT,SI_BLANK,SI_BLANK,SI_BLANK,SI_BLANK,SI_BLANK,SI_SPEEDPOTION0,SI_SPEEDPOTION1,SI_SPEEDPOTION2,
 	/* 40- */
-	SI_SPEEDPOTION3,SI_BLANK,SI_BLANK,SI_BLANK,SI_BLANK,SI_BLANK,SI_BLANK,SI_BLANK,SI_BLANK,SI_BLANK,
+	SI_BLANK,SI_BLANK,SI_BLANK,SI_BLANK,SI_BLANK,SI_BLANK,SI_BLANK,SI_BLANK,SI_BLANK,SI_BLANK,
 	/* 50- */
 	SI_STRIPWEAPON,SI_STRIPSHIELD,SI_STRIPARMOR,SI_STRIPHELM,SI_CP_WEAPON,SI_CP_SHIELD,SI_CP_ARMOR,SI_CP_HELM,SI_AUTOGUARD,SI_REFLECTSHIELD,
 	/* 60- */
@@ -287,7 +288,7 @@ int status_calc_pc(struct map_session_data* sd,int first)
 	int b_tigereye, b_endure;
 	struct skill b_skill[MAX_PCSKILL];
 	int i,blv,calc_val,idx;
-	int skill,aspd_rate,wele,wele_,def_ele,refinedef;
+	int skill,wele,wele_,def_ele,refinedef;
 	int pele,pdef_ele;
 	int str,dstr,dex;
 	int calclimit = 2; // 初回はuse script込みで実行
@@ -469,7 +470,9 @@ L_RECALC:
 	sd->star_       = 0;
 	sd->overrefine_ = 0;
 
-	sd->aspd_rate    = 100;
+	sd->aspd_add     = 0;
+	sd->aspd_rate    = 0;
+	sd->aspd_add_rate= 0;
 	sd->speed_rate   = 100;
 	sd->hprecov_rate = 100;
 	sd->sprecov_rate = 100;
@@ -517,7 +520,7 @@ L_RECALC:
 	memset(sd->monster_drop_itemrate,0,sizeof(sd->monster_drop_itemrate));
 	sd->sp_gain_value = 0;
 	sd->hp_gain_value = 0;
-	sd->speed_add_rate = sd->aspd_add_rate = 100;
+	sd->speed_add_rate = 0;
 	sd->double_add_rate = sd->perfect_hit_add = sd->get_zeny_add_num = sd->get_zeny_add_num2 = 0;
 	sd->splash_range = sd->splash_add_range = 0;
 	memset(&sd->hp_drain,0,sizeof(sd->hp_drain));
@@ -751,10 +754,8 @@ L_RECALC:
 	sd->get_zeny_num = (sd->get_zeny_num + sd->get_zeny_add_num > 100) ? 100 : (sd->get_zeny_num + sd->get_zeny_add_num);
 	sd->get_zeny_num2 = (sd->get_zeny_num2 + sd->get_zeny_add_num2 > 100) ? 100 : (sd->get_zeny_num2 + sd->get_zeny_add_num2);
 	sd->splash_range += sd->splash_add_range;
-	if(sd->speed_add_rate != 100)
-		sd->speed_rate += sd->speed_add_rate - 100;
-	if(sd->aspd_add_rate != 100)
-		sd->aspd_rate += sd->aspd_add_rate - 100;
+	if(sd->speed_add_rate != 0)
+		sd->speed_rate += sd->speed_add_rate;
 
 	// 武器ATKサイズ補正
 	for(i=0; i<MAX_SIZE_FIX; i++) {
@@ -1354,41 +1355,20 @@ L_RECALC:
 		sd->mdef2 = (sd->mdef2*sd->mdef2_rate)/100;
 	if(sd->mdef2 < 1) sd->mdef2 = 1;
 
-	// 二刀流 ASPD 修正
-	if(sd->status.weapon < WT_MAX)
-		sd->aspd += job_db[sd->s_class.job].aspd_base[sd->status.weapon]-(sd->paramc[1]*4+sd->paramc[4])*job_db[sd->s_class.job].aspd_base[sd->status.weapon]/1000;
-	else
-		sd->aspd += (
-			(job_db[sd->s_class.job].aspd_base[sd->weapontype1]-(sd->paramc[1]*4+sd->paramc[4])*job_db[sd->s_class.job].aspd_base[sd->weapontype1]/1000) +
-			(job_db[sd->s_class.job].aspd_base[sd->weapontype2]-(sd->paramc[1]*4+sd->paramc[4])*job_db[sd->s_class.job].aspd_base[sd->weapontype2]/1000)
-			) * 140 / 200;
-
-	aspd_rate = sd->aspd_rate;
-
-	// 攻撃速度増加
-
-	// アドバンスドブック
-	if(sd->weapontype1 == WT_BOOK && (skill = pc_checkskill(sd,SA_ADVANCEDBOOK)) > 0)
-	{
-		aspd_rate -= skill/2;
-	}
 	// シングルアクション
 	if(sd->status.weapon >= WT_HANDGUN && sd->status.weapon <= WT_GRENADE && (skill = pc_checkskill(sd,GS_SINGLEACTION)) > 0)
 	{
-		aspd_rate -= skill/2;
 		sd->hit += skill*2;
 	}
 	// 太陽と月と星の悪魔
 	if((skill = pc_checkskill(sd,SG_DEVIL)) > 0 && sd->status.job_level >= 50)
 	{
-		aspd_rate -= skill*3;
 		clif_status_load(sd,SI_DEVIL,1);
 	}
 
 	// 太陽と月と星の融合
 	if(sd && sd->sc.data[SC_FUSION].timer != -1)
 	{
-		aspd_rate -= 20;
 		sd->perfect_hit += 100;
 	}
 
@@ -1705,6 +1685,10 @@ L_RECALC:
 		sd->matk1 = sd->matk1 * sd->matk_rate / 100;
 		sd->matk2 = sd->matk2 * sd->matk_rate / 100;
 	}
+	// amotionの計算
+	sd->amotion = status_calc_amotion_pc(sd);
+	sd->aspd = sd->amotion<<1;
+
 	// スキルやステータス異常による残りのパラメータ補正
 	if(sd->sc.count > 0) {
 		// 太陽の安楽 DEF増加
@@ -1716,11 +1700,6 @@ L_RECALC:
 		if(sd->sc.data[SC_MOON_COMFORT].timer != -1 && (sd->bl.m == sd->feel_index[1] || sd->sc.data[SC_MIRACLE].timer != -1))
 			sd->flee += (sd->status.base_level + sd->status.dex + sd->status.luk)/10;
 			//sd->flee += (sd->status.base_level + sd->status.dex + sd->status.luk + sd->paramb[4] + sd->paramb[5])/10;
-
-		// 星の安楽
-		if(sd->sc.data[SC_STAR_COMFORT].timer != -1 && (sd->bl.m == sd->feel_index[2] || sd->sc.data[SC_MIRACLE].timer != -1))
-			aspd_rate -= (sd->status.base_level + sd->status.dex + sd->status.luk)/10;
-			//aspd_rate += (sd->status.base_level + sd->status.dex + sd->status.luk + sd->paramb[0] + sd->paramb[4] + sd->paramb[5])/10;
 
 		// クローズコンファイン
 		if(sd->sc.data[SC_CLOSECONFINE].timer != -1)
@@ -1845,70 +1824,18 @@ L_RECALC:
 			sd->def2  += (sd->def2 * (10 + 5 * sd->sc.data[SC_NEUTRALBARRIER].val1)) / 100;
 			sd->mdef2 += (sd->mdef2 * (10 + 5 * sd->sc.data[SC_NEUTRALBARRIER].val1)) / 100;
 		}
-		// ASPD/移動速度変化系
-		if(sd->sc.data[SC_TWOHANDQUICKEN].timer != -1 && sd->sc.data[SC_QUAGMIRE].timer == -1 && sd->sc.data[SC_DONTFORGETME].timer == -1 && sd->sc.data[SC_DECREASEAGI].timer == -1)	// 2HQ
-			aspd_rate -= sd->sc.data[SC_TWOHANDQUICKEN].val2;
 
-		if(sd->sc.data[SC_ONEHAND].timer != -1 && sd->sc.data[SC_QUAGMIRE].timer == -1 && sd->sc.data[SC_DONTFORGETME].timer == -1 && sd->sc.data[SC_DECREASEAGI].timer == -1)	// 1HQ
-			aspd_rate -= 30;
-
-		if(sd->sc.data[SC_ADRENALINE2].timer != -1 && sd->sc.data[SC_TWOHANDQUICKEN].timer == -1 && sd->sc.data[SC_ONEHAND].timer == -1 &&
-			sd->sc.data[SC_QUAGMIRE].timer == -1 && sd->sc.data[SC_DONTFORGETME].timer == -1 && sd->sc.data[SC_DECREASEAGI].timer == -1) {	// アドレナリンラッシュ2
-			if(sd->sc.data[SC_ADRENALINE2].val2 || !battle_config.party_skill_penalty)
-				aspd_rate -= 30;
-			else
-				aspd_rate -= 25;
-		}else if(sd->sc.data[SC_ADRENALINE].timer != -1 && sd->sc.data[SC_TWOHANDQUICKEN].timer == -1 && sd->sc.data[SC_ONEHAND].timer == -1 &&
-			sd->sc.data[SC_QUAGMIRE].timer == -1 && sd->sc.data[SC_DONTFORGETME].timer == -1 && sd->sc.data[SC_DECREASEAGI].timer == -1) {	// アドレナリンラッシュ
-			if(sd->sc.data[SC_ADRENALINE].val2 || !battle_config.party_skill_penalty)
-				aspd_rate -= 30;
-			else
-				aspd_rate -= 25;
-		}
-		if(sd->sc.data[SC_SPEARQUICKEN].timer != -1 && sd->sc.data[SC_ADRENALINE].timer == -1 && sd->sc.data[SC_ADRENALINE2].timer == -1 &&
-			sd->sc.data[SC_TWOHANDQUICKEN].timer == -1 && sd->sc.data[SC_ONEHAND].timer == -1 &&
-			sd->sc.data[SC_QUAGMIRE].timer == -1 && sd->sc.data[SC_DONTFORGETME].timer == -1 && sd->sc.data[SC_DECREASEAGI].timer == -1)	// スピアクィッケン
-			aspd_rate -= sd->sc.data[SC_SPEARQUICKEN].val2;
-
-		if(sd->sc.data[SC_ASSNCROS].timer != -1 && // 夕陽のアサシンクロス
-		   sd->sc.data[SC_TWOHANDQUICKEN].timer == -1 && sd->sc.data[SC_ONEHAND].timer == -1 &&
-		   sd->sc.data[SC_ADRENALINE].timer == -1 && sd->sc.data[SC_ADRENALINE2].timer == -1 &&
-		   sd->sc.data[SC_SPEARQUICKEN].timer == -1 && sd->sc.data[SC_DONTFORGETME].timer == -1 && sd->status.weapon != WT_BOW && !(sd->status.weapon >= WT_HANDGUN && sd->status.weapon <= WT_GRENADE))
-				aspd_rate -= 5+sd->sc.data[SC_ASSNCROS].val1+sd->sc.data[SC_ASSNCROS].val2+sd->sc.data[SC_ASSNCROS].val3;
-		else if(sd->sc.data[SC_ASSNCROS_].timer != -1 && // 夕陽のアサシンクロス
-		        sd->sc.data[SC_TWOHANDQUICKEN].timer == -1 && sd->sc.data[SC_ONEHAND].timer == -1 &&
-		        sd->sc.data[SC_ADRENALINE].timer == -1 && sd->sc.data[SC_ADRENALINE2].timer == -1 &&
-		        sd->sc.data[SC_SPEARQUICKEN].timer == -1 && sd->sc.data[SC_DONTFORGETME].timer == -1 && sd->status.weapon != WT_BOW && !(sd->status.weapon >= WT_HANDGUN && sd->status.weapon <= WT_GRENADE))
-				aspd_rate -= 5+sd->sc.data[SC_ASSNCROS_].val1+sd->sc.data[SC_ASSNCROS_].val2+sd->sc.data[SC_ASSNCROS_].val3;
-
+		// 移動速度変化系
 		if(sd->sc.data[SC_DONTFORGETME].timer != -1) {		// 私を忘れないで
-			aspd_rate += sd->sc.data[SC_DONTFORGETME].val1*3 + sd->sc.data[SC_DONTFORGETME].val2 + (sd->sc.data[SC_DONTFORGETME].val3>>16);
 			sd->speed = sd->speed*(100+sd->sc.data[SC_DONTFORGETME].val1*2 + sd->sc.data[SC_DONTFORGETME].val2 + (sd->sc.data[SC_DONTFORGETME].val3&0xffff))/100;
 		} else if(sd->sc.data[SC_DONTFORGETME_].timer != -1) {		// 私を忘れないで
-			aspd_rate += sd->sc.data[SC_DONTFORGETME_].val1*3 + sd->sc.data[SC_DONTFORGETME_].val2 + (sd->sc.data[SC_DONTFORGETME_].val3>>16);
 			sd->speed = sd->speed*(100+sd->sc.data[SC_DONTFORGETME_].val1*2 + sd->sc.data[SC_DONTFORGETME_].val2 + (sd->sc.data[SC_DONTFORGETME_].val3&0xffff))/100;
 		}
 
 		if(sd->sc.data[SC_GRAVITATION].timer != -1)
 		{
-			aspd_rate += sd->sc.data[SC_GRAVITATION].val1*5;
 			if(battle_config.player_gravitation_type)
 				sd->speed = sd->speed*(100+sd->sc.data[SC_GRAVITATION].val1*5)/100;
-
-		}
-		if(sd->sc.data[SC_BERSERK].timer != -1) {
-			aspd_rate -= 30;
-		}
-		if(sd->sc.data[SC_POISONPOTION].timer != -1) {
-			aspd_rate -= 25;
-		}
-		if(sd->sc.data[i = SC_SPEEDPOTION3].timer != -1 ||
-		   sd->sc.data[i = SC_SPEEDPOTION2].timer != -1 ||
-		   sd->sc.data[i = SC_SPEEDPOTION1].timer != -1 ||
-		   sd->sc.data[i = SC_SPEEDPOTION0].timer != -1)	// 増速ポーション
-			aspd_rate -= sd->sc.data[i].val2;
-		if(sd->sc.data[SC_EISIR].timer != -1) {		//ファイティングスピリット
-			aspd_rate -= pc_checkskill(sd,RK_RUNEMASTERY);
 		}
 
 		// HIT/FLEE変化系
@@ -1956,9 +1883,6 @@ L_RECALC:
 		if(sd->sc.data[SC_FLING].timer != -1) {		// フライング
 			sd->def = sd->def * (100 - 5*sd->sc.data[SC_FLING].val1)/100;
 		}
-		if(sd->sc.data[SC_MADNESSCANCEL].timer != -1) {	// マッドネスキャンセラー
-			aspd_rate    -= 20;
-		}
 		if(sd->sc.data[SC_ADJUSTMENT].timer != -1) {	// アジャストメント
 			sd->hit  -= 30;
 			sd->flee += 30;
@@ -1967,7 +1891,6 @@ L_RECALC:
 			sd->hit += 20;
 		}
 		if(sd->sc.data[SC_GATLINGFEVER].timer != -1) {	// ガトリングフィーバー
-			aspd_rate    -= sd->sc.data[SC_GATLINGFEVER].val1*2;
 			sd->flee     -= sd->sc.data[SC_GATLINGFEVER].val1*5;
 			sd->speed    = (sd->speed * 135) / 100;
 		}
@@ -2032,11 +1955,9 @@ L_RECALC:
 					sd->speed += (sd->speed * 50)/100;
 					break;
 				case 1:		// 手首
-					sd->aspd -= (sd->aspd * 25)/100;
 					break;
 				case 2:		// 膝
 					sd->speed += (sd->speed * 30)/100;
-					sd->aspd  -= (sd->aspd * 10)/100;
 					break;
 				case 3:		// 肩
 					sd->def2 -= (sd->def2 * 50)/100;
@@ -2092,11 +2013,9 @@ L_RECALC:
 		if(sd->sc.data[SC_STEELBODY].timer != -1) {	// 金剛
 			sd->def = 90;
 			sd->mdef = 90;
-			aspd_rate += 25;
 			sd->speed = (sd->speed * 135) / 100;
 		}
 		if(sd->sc.data[SC_DEFENDER].timer != -1) {	// ディフェンダー
-			sd->aspd += (25 - sd->sc.data[SC_DEFENDER].val1*5);
 			sd->speed = (sd->speed * (155 - sd->sc.data[SC_DEFENDER].val1*5)) / 100;
 		}
 		if(sd->sc.data[SC_ENCPOISON].timer != -1)
@@ -2107,7 +2026,6 @@ L_RECALC:
 			if(sd->sc.data[SC_LONGINGFREEDOM].timer != -1) {
 				if(sd->sc.data[SC_LONGINGFREEDOM].val1 < 5) {
 					sd->speed = sd->speed * (200-20*sd->sc.data[SC_LONGINGFREEDOM].val1)/100;
-					sd->aspd  = sd->aspd * (200-20*sd->sc.data[SC_LONGINGFREEDOM].val1)/100;
 				}
 			} else {
 				int lesson_ba = pc_checkskill(sd,BA_MUSICALLESSON);
@@ -2135,21 +2053,6 @@ L_RECALC:
 			sd->hit  = sd->hit * 80/100;
 			sd->flee = sd->flee * 80/100;
 		}
-		// ハルシネーションウォーク(ペナルティ)
-		if(sd->sc.data[SC_HALLUCINATIONWALK2].timer != -1)
-			aspd_rate = aspd_rate * 2;
-		// パラライズ
-		if(sd->sc.data[SC_PARALIZE].timer != -1) {
-			sd->aspd  = sd->aspd + 10;
-			sd->flee  = sd->flee * 90 / 100;
-			sd->speed = sd->speed * 2;
-		}
-		// フロストミスティ
-		if(sd->sc.data[SC_FROSTMISTY].timer != -1) {
-			sd->def2 = sd->def2 * 90 / 100;
-			sd->speed = sd->speed * 150 / 100;
-			aspd_rate += 15;
-		}
 	}
 	// テコンランカーボーナス
 	if(sd->status.class_ == PC_CLASS_TK && sd->status.base_level >= 90 && ranking_get_pc_rank(sd,RK_TAEKWON) > 0)
@@ -2160,13 +2063,6 @@ L_RECALC:
 
 	if(sd->speed_rate != 100)
 		sd->speed = sd->speed*sd->speed_rate/100;
-
-	if(aspd_rate != 100)
-		sd->aspd = sd->aspd*aspd_rate/100;
-	if(pc_isriding(sd))							// 騎兵修練
-		sd->aspd = sd->aspd*(100 + 10*(5 - pc_checkskill(sd,KN_CAVALIERMASTERY)))/ 100;
-	if(pc_isdragon(sd))							// ドラゴントレーニング
-		sd->aspd = sd->aspd*(100 + 10*(5 - pc_checkskill(sd,RK_DRAGONTRAINING)))/ 100;
 
 	// MATK乗算処理(杖補正)
 	if(sd->matk2_rate != 100) {
@@ -2208,15 +2104,10 @@ L_RECALC:
 	if(sd->fix_status.flee > 0) {
 		sd->flee = sd->fix_status.flee;
 	}
-	if(sd->fix_status.aspd >= 10 && sd->fix_status.aspd <= 199) {
-		sd->aspd = 2000 - sd->fix_status.aspd * 10;
-	}
 	if(sd->fix_status.speed > MIN_WALK_SPEED && sd->fix_status.speed <= MAX_WALK_SPEED) {
 		sd->speed = sd->fix_status.speed;
 	}
 
-	if(sd->speed < 1)
-		sd->speed = 1;
 	if(sd->aspd < battle_config.max_aspd)
 		sd->aspd = battle_config.max_aspd;
 
@@ -2232,7 +2123,8 @@ L_RECALC:
 		if(sd->aspd < battle_config.pvp_max_aspd)
 			sd->aspd = battle_config.pvp_max_aspd;
 	}
-	sd->amotion = sd->aspd;
+	if(sd->speed < 1)
+		sd->speed = 1;
 	sd->dmotion = 800-sd->paramc[1]*4;
 	if(sd->dmotion < 400)
 		sd->dmotion = 400;
@@ -2387,6 +2279,232 @@ L_RECALC:
 	}
 
 	return 0;
+}
+
+/*==========================================
+ * PCのamotionを計算して返す
+ * 戻りは整数で1以上
+ *------------------------------------------
+ */
+static int status_calc_amotion_pc(struct map_session_data *sd)
+{
+	double base_amotion;
+	double amotion   = 0;
+	int ferver_bonus = 0;
+	int comfort_bonus= 0;
+	int haste_val1   = 0;
+	int haste_val2   = 0;
+	int slow_val     = 0;
+	int bonus_rate   = 0;
+	int skilllv;
+	int tmp;
+
+	nullpo_retr(0, sd);
+
+	/* ASPD固定ボーナス */
+	if(sd->fix_status.aspd) {
+		int fix_aspd = 2000 - sd->fix_status.aspd*10;
+		return (fix_aspd < 100)? 100:fix_aspd;
+	}
+
+	/* 基本ASPDの計算 */
+	if(sd->status.weapon < WT_MAX)	// 片手の場合は値をそのまま取得
+		base_amotion = job_db[sd->s_class.job].aspd_base[sd->status.weapon];
+	else	// 2刀の場合は2刀用の計算を行う
+		base_amotion = (job_db[sd->s_class.job].aspd_base[sd->weapontype1] + job_db[sd->s_class.job].aspd_base[sd->weapontype2]) * 140 / 200;
+
+	/* 基本ASPDに各パラメータのボーナスを適用 */
+	if(pc_isriding(sd))	// 騎兵修練
+		base_amotion = base_amotion - 1000 * (50+10*pc_checkskill(sd,KN_CAVALIERMASTERY)) / 100 - (base_amotion * sd->paramc[4] / 1000) - (base_amotion * sd->paramc[1] / 250) + 1000;
+	else if(pc_isdragon(sd))	// ドラゴントレーニング
+		base_amotion = base_amotion - 1000 * (50+10*pc_checkskill(sd,RK_DRAGONTRAINING)) / 100 - (base_amotion * sd->paramc[4] / 1000) - (base_amotion * sd->paramc[1] / 250) + 1000;
+	else	// 騎乗していない
+		base_amotion = base_amotion - (base_amotion * sd->paramc[4] / 1000) - (base_amotion * sd->paramc[1] / 250);
+
+	/* ボーナスADD_ASPDの計算 */
+	amotion = base_amotion + sd->aspd_add;
+
+	/* amotionが変化する状態異常の計算 */
+	if(sd->sc.count > 0) {
+		/* amotionが増加するステータスの計算 */
+
+		// 私を忘れないで
+		if(sd->sc.data[SC_DONTFORGETME].timer != -1) {
+			slow_val = sd->sc.data[SC_DONTFORGETME].val1;
+		}
+
+		// 金剛
+		if(sd->sc.data[SC_STEELBODY].timer != -1) {
+			if(slow_val < 25)
+				slow_val = 25;
+		}
+
+		// ジョイントビート
+		if(sd->sc.data[SC_JOINTBEAT].timer != -1) {
+			switch (sd->sc.data[SC_JOINTBEAT].val4) {
+				case 1:		// 手首
+					if(slow_val < 25)
+						slow_val = 25;
+					break;
+				case 2:		// 膝
+					if(slow_val < 10)
+						slow_val = 10;
+					break;
+			}
+		}
+
+		// グラビテーションフィールド
+		if(sd->sc.data[SC_GRAVITATION].timer != -1) {
+			int penalty = sd->sc.data[SC_GRAVITATION].val1*5;
+			if(slow_val < penalty)
+				slow_val = penalty;
+		}
+
+		// 踊り/演奏
+		if(sd->sc.data[SC_DANCING].timer != -1 && sd->sc.data[SC_BARDDANCER].timer == -1) {
+			if(sd->sc.data[SC_LONGINGFREEDOM].timer != -1) {
+				if(sd->sc.data[SC_LONGINGFREEDOM].val1 < 5) {
+					int penalty = 50 - 10 * sd->sc.data[SC_LONGINGFREEDOM].val1;
+					if(slow_val < penalty)
+						slow_val = penalty;
+				}
+			}
+		}
+
+		// ハルシネーションウォーク(ペナルティ)
+		if(sd->sc.data[SC_HALLUCINATIONWALK2].timer != -1) {
+			if(slow_val < 50)
+				slow_val = 50;
+		}
+
+		// パラライズ
+		if(sd->sc.data[SC_PARALIZE].timer != -1) {
+			if(slow_val < 10)
+				slow_val = 10;
+		}
+
+		// フロストミスティ
+		if(sd->sc.data[SC_FROSTMISTY].timer != -1) {
+			if(slow_val < 15)
+				slow_val = 15;
+		}
+
+		/* amotionが減少するステータスの計算1 */
+
+		// 増速ポーション
+		if(sd->sc.data[tmp = SC_SPEEDPOTION2].timer != -1 || sd->sc.data[tmp = SC_SPEEDPOTION1].timer != -1 || sd->sc.data[tmp = SC_SPEEDPOTION0].timer != -1)
+			haste_val1 = sd->sc.data[tmp].val2;
+
+		/* amotionが減少するステータスの計算2 */
+
+		// ツーハンドクィッケン
+		if(sd->sc.data[SC_TWOHANDQUICKEN].timer != -1)
+			haste_val2 = sd->sc.data[SC_TWOHANDQUICKEN].val2;
+
+		// スピアクィッケン
+		if(sd->sc.data[SC_SPEARQUICKEN].timer != -1) {
+			if(haste_val2 < sd->sc.data[SC_SPEARQUICKEN].val2)
+				haste_val2 = sd->sc.data[SC_SPEARQUICKEN].val2;
+		}
+
+		// ワンハンドクィッケン
+		if(sd->sc.data[SC_ONEHAND].timer != -1) {
+			if(haste_val2 < 30)
+				haste_val2 = 30;
+		}
+
+		// アドレナリンラッシュ
+		if(sd->sc.data[SC_ADRENALINE].timer != -1) {
+			int bonus;
+			if(sd->sc.data[SC_ADRENALINE].val2 || !battle_config.party_skill_penalty)
+				bonus = 30;
+			else
+				bonus = 25;
+			if(haste_val2 < bonus)
+				haste_val2 = bonus;
+		}
+
+		// アドレナリンラッシュ2
+		if(sd->sc.data[SC_ADRENALINE2].timer != -1) {
+			int bonus;
+			if(sd->sc.data[SC_ADRENALINE2].val2 || !battle_config.party_skill_penalty)
+				bonus = 30;
+			else
+				bonus = 25;
+			if(haste_val2 < bonus)
+				haste_val2 = bonus;
+		}
+
+		// 夕陽のアサシンクロス
+		if(sd->sc.data[SC_ASSNCROS].timer != -1) {
+			int bonus = sd->sc.data[SC_ASSNCROS].val2;
+			if(haste_val2 < bonus)
+				haste_val2 = bonus;
+		}
+
+		// 星の安楽
+		if(sd->sc.data[SC_STAR_COMFORT].timer != -1) {
+			comfort_bonus = (sd->status.base_level + sd->status.dex + sd->status.luk)/10;
+			if(haste_val2 < comfort_bonus)
+				haste_val2 = comfort_bonus;
+		}
+		
+		// ガトリングフィーバー
+		if(sd->sc.data[SC_GATLINGFEVER].timer != -1) {
+			ferver_bonus = sd->sc.data[SC_GATLINGFEVER].val1*2;
+			if(haste_val2 < ferver_bonus)
+				haste_val2 = ferver_bonus;
+		}
+
+		// マッドネスキャンセラー
+		if(sd->sc.data[SC_MADNESSCANCEL].timer != -1) {
+			int bonus = 20+ferver_bonus;
+			if(haste_val2 < bonus)
+				haste_val2 = bonus;
+		}
+	}
+
+	/* 太陽と月と星の悪魔 */
+	if((skilllv = pc_checkskill(sd,SG_DEVIL)) > 0 && sd->status.job_level >= 50) {
+		int bonus = skilllv*3 + comfort_bonus;
+		if(haste_val2 < bonus)
+			haste_val2 = bonus;
+		clif_status_load(sd,SI_DEVIL,1);
+	}
+
+	/* slow_valとhaste_val1とhaste_val2を加算する */
+	bonus_rate = slow_val - haste_val1 - haste_val2;
+
+	/* bonus_rateにアイテムのボーナスを加算する */
+	if(sd->aspd_add_rate != 0) {
+		sd->aspd_rate += sd->aspd_add_rate;
+		bonus_rate += sd->aspd_rate;
+	}
+
+	/* バーサーク */
+	if(sd->sc.data[SC_BERSERK].timer != -1)
+		bonus_rate -= 30;
+
+	/* bonus_rateの計算 */
+	if(bonus_rate != 0)
+		amotion = amotion * (bonus_rate+100) / 100;
+
+	/* シングルアクション */
+	if(sd->status.weapon >= WT_HANDGUN && sd->status.weapon <= WT_GRENADE && (skilllv = pc_checkskill(sd,GS_SINGLEACTION)) > 0)
+		amotion += (skilllv+1) / 2 * 10;
+
+	/* ディフェンダー */
+	if(sd->sc.data[SC_DEFENDER].timer != -1)
+		amotion += sd->sc.data[SC_DEFENDER].val3;
+
+	/* アドバンスドブック */
+	if(sd->weapontype1 == WT_BOOK && (skilllv = pc_checkskill(sd,SA_ADVANCEDBOOK)) > 0)
+		amotion += skilllv*10/2;
+
+	/* 小数切り上げ */
+	amotion = ceil(amotion);
+
+	return (amotion < 1)? 1:(int)amotion;
 }
 
 /*==========================================
@@ -3648,7 +3766,7 @@ int status_get_speed(struct block_list *bl)
 				speed = speed * (100 + sc->data[SC_MARSHOFABYSS].val2) / 100;
 			// 私を忘れないで…時は加算
 			if(sc->data[SC_DONTFORGETME].timer != -1)
-				speed = speed*(100+sc->data[SC_DONTFORGETME].val1*2 + sc->data[SC_DONTFORGETME].val2 + (sc->data[SC_DONTFORGETME].val3&0xffff))/100;
+				speed = speed*(100+sc->data[SC_DONTFORGETME].val2)/100;
 			// ディフェンダー時は加算
 			if(sc->data[SC_DEFENDER].timer != -1)
 				speed = (speed * (155 - sc->data[SC_DEFENDER].val1*5)) / 100;
@@ -3707,105 +3825,172 @@ int status_get_adelay(struct block_list *bl)
 	nullpo_retr(4000, bl);
 
 	if(bl->type == BL_PC && (struct map_session_data *)bl) {
-		adelay = (((struct map_session_data *)bl)->aspd<<1);
+		adelay = (((struct map_session_data *)bl)->aspd);
 	} else {
+		double calc_adelay = 0;
+		int haste_val1     = 0;
+		int haste_val2     = 0;
+		int slow_val       = 0;
+		int bonus_rate     = 0;
+		int ferver_bonus   = 0;
+		int tmp            = 0;
 		struct status_change *sc = status_get_sc(bl);
-		int aspd_rate = 100, i;
 
 		if(bl->type == BL_MOB && (struct mob_data *)bl) {
 			int guardup_lv = ((struct mob_data*)bl)->guardup_lv;
 			if(mob_db[((struct mob_data *)bl)->class_].adelay < mob_db[((struct mob_data *)bl)->class_].amotion)
-				adelay = mob_db[((struct mob_data *)bl)->class_].amotion;
+				calc_adelay = mob_db[((struct mob_data *)bl)->class_].amotion;
 			else
-				adelay = mob_db[((struct mob_data *)bl)->class_].adelay;
+				calc_adelay = mob_db[((struct mob_data *)bl)->class_].adelay;
 
 			if(guardup_lv > 0)
-				aspd_rate -= 5 + 5*guardup_lv;
+				bonus_rate -= 5 + 5*guardup_lv;
 		} else if(bl->type == BL_PET && (struct pet_data *)bl) {
 			if(mob_db[((struct pet_data *)bl)->class_].adelay < mob_db[((struct pet_data *)bl)->class_].amotion)
-				adelay = mob_db[((struct pet_data *)bl)->class_].amotion;
+				calc_adelay = mob_db[((struct pet_data *)bl)->class_].amotion;
 			else
-				adelay = mob_db[((struct pet_data *)bl)->class_].adelay;
+				calc_adelay = mob_db[((struct pet_data *)bl)->class_].adelay;
 		} else if(bl->type == BL_HOM && (struct homun_data *)bl) {
-			adelay = (((struct homun_data *)bl)->aspd<<1);
+			calc_adelay = (((struct homun_data *)bl)->aspd);
 		} else if(bl->type == BL_MERC && (struct merc_data *)bl) {
-			adelay = ((struct merc_data *)bl)->adelay;
+			calc_adelay = ((struct merc_data *)bl)->adelay;
 		}
 
+		/* amotionが変化する状態異常の計算 */
 		if(sc) {
-			// ツーハンドクイッケン使用時でクァグマイアでも私を忘れないで…でもない時は3割減算
-			if(sc->data[SC_TWOHANDQUICKEN].timer != -1 && sc->data[SC_QUAGMIRE].timer == -1 && sc->data[SC_DONTFORGETME].timer == -1)	// 2HQ
-				aspd_rate -= sc->data[SC_TWOHANDQUICKEN].val2;
-			// ワンハンドクイッケン使用時でクァグマイアでも私を忘れないで…でもない時は3割減算
-			if(sc->data[SC_ONEHAND].timer != -1 && sc->data[SC_QUAGMIRE].timer == -1 && sc->data[SC_DONTFORGETME].timer == -1)	// 1HQ
-				aspd_rate -= 30;
-			// アドレナリンラッシュ使用時でツーハンドクイッケンでもクァグマイアでも私を忘れないで…でもない時は
-			if(sc->data[SC_ADRENALINE2].timer != -1 && sc->data[SC_TWOHANDQUICKEN].timer == -1 && sc->data[SC_ONEHAND].timer == -1 &&
-				sc->data[SC_QUAGMIRE].timer == -1 && sc->data[SC_DONTFORGETME].timer == -1) {
-				// 使用者とパーティメンバーで格差が出る設定でなければ3割減算
-				if(sc->data[SC_ADRENALINE2].val2 || !battle_config.party_skill_penalty)
-					aspd_rate -= 30;
-				// そうでなければ2.5割減算
-				else
-					aspd_rate -= 25;
-			} else if(sc->data[SC_ADRENALINE].timer != -1 && sc->data[SC_TWOHANDQUICKEN].timer == -1 && sc->data[SC_ONEHAND].timer == -1 &&
-				sc->data[SC_QUAGMIRE].timer == -1 && sc->data[SC_DONTFORGETME].timer == -1) {	// アドレナリンラッシュ
-				// 使用者とパーティメンバーで格差が出る設定でなければ3割減算
-				if(sc->data[SC_ADRENALINE].val2 || !battle_config.party_skill_penalty)
-					aspd_rate -= 30;
-				// そうでなければ2.5割減算
-				else
-					aspd_rate -= 25;
+
+			/* amotionが増加するステータスの計算 */
+
+			// 私を忘れないで
+			if(sc->data[SC_DONTFORGETME].timer != -1) {
+				slow_val = sc->data[SC_DONTFORGETME].val1;
 			}
-			// スピアクィッケン時は減算
-			if(sc->data[SC_SPEARQUICKEN].timer != -1 && sc->data[SC_ADRENALINE].timer == -1 && sc->data[SC_ADRENALINE2].timer == -1 &&
-				sc->data[SC_TWOHANDQUICKEN].timer == -1 && sc->data[SC_ONEHAND].timer == -1 &&
-				sc->data[SC_QUAGMIRE].timer == -1 && sc->data[SC_DONTFORGETME].timer == -1)
-				aspd_rate -= sc->data[SC_SPEARQUICKEN].val2;
-			// 夕日のアサシンクロス時は減算
-			if(sc->data[SC_ASSNCROS].timer != -1 &&
-				sc->data[SC_TWOHANDQUICKEN].timer == -1 && sc->data[SC_ONEHAND].timer == -1 &&
-				sc->data[SC_ADRENALINE].timer == -1 && sc->data[SC_ADRENALINE2].timer == -1 && sc->data[SC_SPEARQUICKEN].timer == -1 &&
-				sc->data[SC_DONTFORGETME].timer == -1)
-				aspd_rate -= 5+sc->data[SC_ASSNCROS].val1+sc->data[SC_ASSNCROS].val2+sc->data[SC_ASSNCROS].val3;
-			// 私を忘れないで…時は加算
-			if(sc->data[SC_DONTFORGETME].timer != -1)
-				aspd_rate += sc->data[SC_DONTFORGETME].val1*3 + sc->data[SC_DONTFORGETME].val2 + (sc->data[SC_DONTFORGETME].val3>>16);
-			// 金剛時25%加算
-			if(sc->data[SC_STEELBODY].timer != -1)
-				aspd_rate += 25;
-			// 毒薬の瓶使用時は減算
-			if(sc->data[SC_POISONPOTION].timer != -1)
-				aspd_rate -= 25;
-			// 増速ポーション使用時は減算
-			if(sc->data[i = SC_SPEEDPOTION2].timer != -1 || sc->data[i = SC_SPEEDPOTION1].timer != -1 || sc->data[i = SC_SPEEDPOTION0].timer != -1)
-				aspd_rate -= sc->data[i].val2;
-			// ディフェンダー時は加算aspd_rateに変更&マスター時加算0に
-			if(sc->data[SC_DEFENDER].timer != -1)
-				aspd_rate += (25 - sc->data[SC_DEFENDER].val1*5);
-			// ジョイントビート時なら加算
-			if(sc->data[SC_JOINTBEAT].timer != 1) {
-				if(sc->data[SC_JOINTBEAT].val4 == 1)	// 手首
-					aspd_rate += aspd_rate*25/100;
-				if(sc->data[SC_JOINTBEAT].val4 == 2)	// 膝
-					aspd_rate += aspd_rate*10/100;
+
+			// 金剛
+			if(sc->data[SC_STEELBODY].timer != -1) {
+				if(slow_val < 25)
+					slow_val = 25;
 			}
-			// グラビテーション
-			if(sc->data[SC_GRAVITATION].timer != -1)
-				aspd_rate += sc->data[SC_GRAVITATION].val1*5;
-			// ガトリングフィーバー
-			if(sc->data[SC_GATLINGFEVER].timer != -1)
-				aspd_rate -= sc->data[SC_GATLINGFEVER].val1*2;
+
+			// ジョイントビート
+			if(sc->data[SC_JOINTBEAT].timer != -1) {
+				switch (sc->data[SC_JOINTBEAT].val4) {
+					case 1:		// 手首
+						if(slow_val < 25)
+							slow_val = 25;
+						break;
+					case 2:		// 膝
+						if(slow_val < 10)
+							slow_val = 10;
+						break;
+				}
+			}
+
+			// グラビテーションフィールド
+			if(sc->data[SC_GRAVITATION].timer != -1) {
+				int penalty = sc->data[SC_GRAVITATION].val1*5;
+				if(slow_val < penalty)
+					slow_val = penalty;
+			}
+
 			// フロストミスティ
-			if(sc->data[SC_FROSTMISTY].timer != -1)
-				aspd_rate += 15;
+			if(sc->data[SC_FROSTMISTY].timer != -1) {
+				if(slow_val < 15)
+					slow_val = 15;
+			}
+
+			/* amotionが減少するステータスの計算1 */
+
+			// 増速ポーション
+			if(sc->data[tmp = SC_SPEEDPOTION2].timer != -1 || sc->data[tmp = SC_SPEEDPOTION1].timer != -1 || sc->data[tmp = SC_SPEEDPOTION0].timer != -1)
+				haste_val1 = sc->data[tmp].val2;
+
+			/* amotionが減少するステータスの計算2 */
+
+			// ツーハンドクィッケン
+			if(sc->data[SC_TWOHANDQUICKEN].timer != -1)
+				haste_val2 = sc->data[SC_TWOHANDQUICKEN].val2;
+
+			// スピアクィッケン
+			if(sc->data[SC_SPEARQUICKEN].timer != -1) {
+				if(haste_val2 < sc->data[SC_SPEARQUICKEN].val2)
+					haste_val2 = sc->data[SC_SPEARQUICKEN].val2;
+			}
+
+			// ワンハンドクィッケン
+			if(sc->data[SC_ONEHAND].timer != -1) {
+				if(haste_val2 < 30)
+					haste_val2 = 30;
+			}
+
+			// アドレナリンラッシュ
+			if(sc->data[SC_ADRENALINE].timer != -1) {
+				int bonus;
+				if(sc->data[SC_ADRENALINE].val2 || !battle_config.party_skill_penalty)
+					bonus = 30;
+				else
+					bonus = 25;
+				if(haste_val2 < bonus)
+					haste_val2 = bonus;
+			}
+
+			// アドレナリンラッシュ2
+			if(sc->data[SC_ADRENALINE2].timer != -1) {
+				int bonus;
+				if(sc->data[SC_ADRENALINE2].val2 || !battle_config.party_skill_penalty)
+					bonus = 30;
+				else
+					bonus = 25;
+				if(haste_val2 < bonus)
+					haste_val2 = bonus;
+			}
+
+			// 夕陽のアサシンクロス
+			if(sc->data[SC_ASSNCROS].timer != -1) {
+				int bonus = sc->data[SC_ASSNCROS].val2;
+				if(haste_val2 < bonus)
+					haste_val2 = bonus;
+			}
+
+			// ガトリングフィーバー
+			if(sc->data[SC_GATLINGFEVER].timer != -1) {
+				ferver_bonus = sc->data[SC_GATLINGFEVER].val1*2;
+				if(haste_val2 < ferver_bonus)
+					haste_val2 = ferver_bonus;
+			}
+
+			// マッドネスキャンセラー
+			if(sc->data[SC_MADNESSCANCEL].timer != -1) {
+				int bonus = 20+ferver_bonus;
+				if(haste_val2 < bonus)
+					haste_val2 = bonus;
+			}
 		}
 
-		if(aspd_rate != 100)
-			adelay = adelay*aspd_rate/100;
-		if(adelay < battle_config.monster_max_aspd<<1)
-			adelay = battle_config.monster_max_aspd<<1;
+		/* slow_valとhaste_val1とhaste_val2を加算する */
+		bonus_rate = slow_val - haste_val1 - haste_val2;
+
+		/* bonus_rateの計算 */
+		if(bonus_rate != 0)
+			calc_adelay = calc_adelay * (bonus_rate+100) / 100;
+
+		/* ディフェンダー */
+		if(sc->data[SC_DEFENDER].timer != -1)
+			calc_adelay += sc->data[SC_DEFENDER].val3;
+
+		/* 最低値の設定 */
+		if(bl->type == BL_HOM) {
+			if(calc_adelay < battle_config.monster_max_aspd)
+				calc_adelay = battle_config.monster_max_aspd;
+		} else {
+			if(calc_adelay < battle_config.monster_max_aspd*2)
+				calc_adelay = battle_config.monster_max_aspd*2;
+		}
+
+		/* 小数切り上げ */
+		adelay = (int)ceil(calc_adelay);
 	}
+
 	return adelay;
 }
 
@@ -3822,79 +4007,158 @@ int status_get_amotion(struct block_list *bl)
 	if(bl->type == BL_PC && (struct map_session_data *)bl) {
 		amotion = ((struct map_session_data *)bl)->amotion;
 	} else {
+		double calc_amotion = 0;
+		int haste_val1      = 0;
+		int haste_val2      = 0;
+		int slow_val        = 0;
+		int bonus_rate      = 0;
+		int ferver_bonus    = 0;
+		int tmp             = 0;
 		struct status_change *sc = status_get_sc(bl);
-		int aspd_rate = 100, i;
 
 		if(bl->type == BL_MOB && (struct mob_data *)bl) {
 			int guardup_lv = ((struct mob_data*)bl)->guardup_lv;
-			amotion = mob_db[((struct mob_data *)bl)->class_].amotion;
+			calc_amotion = mob_db[((struct mob_data *)bl)->class_].amotion;
 			if(guardup_lv > 0)
-				aspd_rate -= 5 + 5*guardup_lv;
+				bonus_rate -= 5 + 5*guardup_lv;
 		} else if(bl->type == BL_PET && (struct pet_data *)bl) {
-			amotion = mob_db[((struct pet_data *)bl)->class_].amotion;
+			calc_amotion = mob_db[((struct pet_data *)bl)->class_].amotion;
 		} else if(bl->type == BL_HOM && (struct homun_data *)bl && ((struct homun_data *)bl)->msd) {
-			amotion = ((struct homun_data *)bl)->aspd;
+			calc_amotion = ((struct homun_data *)bl)->aspd;
 		} else if(bl->type == BL_MERC && (struct merc_data *)bl && ((struct merc_data *)bl)->msd) {
-			amotion = ((struct merc_data *)bl)->amotion;
+			calc_amotion = ((struct merc_data *)bl)->amotion;
 		}
 
+		/* amotionが変化する状態異常の計算 */
 		if(sc) {
-			if(sc->data[SC_TWOHANDQUICKEN].timer != -1 && sc->data[SC_QUAGMIRE].timer == -1 && sc->data[SC_DONTFORGETME].timer == -1)	// 2HQ
-				aspd_rate -= sc->data[SC_TWOHANDQUICKEN].val2;
-			if(sc->data[SC_ONEHAND].timer != -1 && sc->data[SC_QUAGMIRE].timer == -1 && sc->data[SC_DONTFORGETME].timer == -1)	// 1HQ
-				aspd_rate -= 30;
 
-			if(sc->data[SC_ADRENALINE2].timer != -1 && sc->data[SC_TWOHANDQUICKEN].timer == -1 &&
-				sc->data[SC_ONEHAND].timer == -1 && sc->data[SC_QUAGMIRE].timer == -1 && sc->data[SC_DONTFORGETME].timer == -1) {	// フルアドレナリンラッシ
-				if(sc->data[SC_ADRENALINE2].val2 || !battle_config.party_skill_penalty)
-					aspd_rate -= 30;
-				else
-					aspd_rate -= 25;
-			}else if(sc->data[SC_ADRENALINE].timer != -1 && sc->data[SC_TWOHANDQUICKEN].timer == -1 &&
-				sc->data[SC_ONEHAND].timer == -1 && sc->data[SC_QUAGMIRE].timer == -1 && sc->data[SC_DONTFORGETME].timer == -1) {	// アドレナリンラッシュ
-				if(sc->data[SC_ADRENALINE].val2 || !battle_config.party_skill_penalty)
-					aspd_rate -= 30;
-				else
-					aspd_rate -= 25;
+			/* amotionが増加するステータスの計算 */
+
+			// 私を忘れないで
+			if(sc->data[SC_DONTFORGETME].timer != -1) {
+				slow_val = sc->data[SC_DONTFORGETME].val1;
 			}
-			if(sc->data[SC_SPEARQUICKEN].timer != -1 && sc->data[SC_ADRENALINE].timer == -1 && sc->data[SC_ADRENALINE2].timer == -1 &&
-				sc->data[SC_TWOHANDQUICKEN].timer == -1 && sc->data[SC_ONEHAND].timer == -1 &&
-				sc->data[SC_QUAGMIRE].timer == -1 && sc->data[SC_DONTFORGETME].timer == -1)	// スピアクィッケン
-				aspd_rate -= sc->data[SC_SPEARQUICKEN].val2;
-			if(sc->data[SC_ASSNCROS].timer != -1 && // 夕陽のアサシンクロス
-				sc->data[SC_TWOHANDQUICKEN].timer == -1 && sc->data[SC_ONEHAND].timer == -1 &&
-				sc->data[SC_ADRENALINE].timer == -1 && sc->data[SC_ADRENALINE2].timer == -1 && sc->data[SC_SPEARQUICKEN].timer == -1 &&
-				sc->data[SC_DONTFORGETME].timer == -1)
-				aspd_rate -= 5+sc->data[SC_ASSNCROS].val1+sc->data[SC_ASSNCROS].val2+sc->data[SC_ASSNCROS].val3;
-			if(sc->data[SC_DONTFORGETME].timer != -1)		// 私を忘れないで
-				aspd_rate += sc->data[SC_DONTFORGETME].val1*3 + sc->data[SC_DONTFORGETME].val2 + (sc->data[SC_DONTFORGETME].val3>>16);
-			if(sc->data[SC_POISONPOTION].timer != -1)
-				aspd_rate -= 25;
-			if(sc->data[SC_STEELBODY].timer != -1)	// 金剛
-				aspd_rate += 25;
-			if(sc->data[i = SC_SPEEDPOTION2].timer != -1 || sc->data[i = SC_SPEEDPOTION1].timer != -1 || sc->data[i = SC_SPEEDPOTION0].timer != -1)
-				aspd_rate -= sc->data[i].val2;
-			// ディフェンダー時は加算ASPDに変更&マスター時加算0に
-			if(sc->data[SC_DEFENDER].timer != -1)
-				aspd_rate += (25 - sc->data[SC_DEFENDER].val1*5);
-			// ジョイントビート時なら加算
-			if(sc->data[SC_JOINTBEAT].timer != 1) {
-				if(sc->data[SC_JOINTBEAT].val4 == 1)	// 手首
-					aspd_rate += aspd_rate*25/100;
-				if(sc->data[SC_JOINTBEAT].val4 == 2)	// 膝
-					aspd_rate += aspd_rate*10/100;
+
+			// 金剛
+			if(sc->data[SC_STEELBODY].timer != -1) {
+				if(slow_val < 25)
+					slow_val = 25;
 			}
-			if(sc->data[SC_GRAVITATION].timer != -1)
-				aspd_rate += sc->data[SC_GRAVITATION].val1*5;
+
+			// ジョイントビート
+			if(sc->data[SC_JOINTBEAT].timer != -1) {
+				switch (sc->data[SC_JOINTBEAT].val4) {
+					case 1:		// 手首
+						if(slow_val < 25)
+							slow_val = 25;
+						break;
+					case 2:		// 膝
+						if(slow_val < 10)
+							slow_val = 10;
+						break;
+				}
+			}
+
+			// グラビテーションフィールド
+			if(sc->data[SC_GRAVITATION].timer != -1) {
+				int penalty = sc->data[SC_GRAVITATION].val1*5;
+				if(slow_val < penalty)
+					slow_val = penalty;
+			}
+
 			// フロストミスティ
-			if(sc->data[SC_FROSTMISTY].timer != -1)
-				aspd_rate += 15;
+			if(sc->data[SC_FROSTMISTY].timer != -1) {
+				if(slow_val < 15)
+					slow_val = 15;
+			}
+
+			/* amotionが減少するステータスの計算1 */
+
+			// 増速ポーション
+			if(sc->data[tmp = SC_SPEEDPOTION2].timer != -1 || sc->data[tmp = SC_SPEEDPOTION1].timer != -1 || sc->data[tmp = SC_SPEEDPOTION0].timer != -1)
+				haste_val1 = sc->data[tmp].val2;
+
+			/* amotionが減少するステータスの計算2 */
+
+			// ツーハンドクィッケン
+			if(sc->data[SC_TWOHANDQUICKEN].timer != -1)
+				haste_val2 = sc->data[SC_TWOHANDQUICKEN].val2;
+
+			// スピアクィッケン
+			if(sc->data[SC_SPEARQUICKEN].timer != -1) {
+				if(haste_val2 < sc->data[SC_SPEARQUICKEN].val2)
+					haste_val2 = sc->data[SC_SPEARQUICKEN].val2;
+			}
+
+			// ワンハンドクィッケン
+			if(sc->data[SC_ONEHAND].timer != -1) {
+				if(haste_val2 < 30)
+					haste_val2 = 30;
+			}
+
+			// アドレナリンラッシュ
+			if(sc->data[SC_ADRENALINE].timer != -1) {
+				int bonus;
+				if(sc->data[SC_ADRENALINE].val2 || !battle_config.party_skill_penalty)
+					bonus = 30;
+				else
+					bonus = 25;
+				if(haste_val2 < bonus)
+					haste_val2 = bonus;
+			}
+
+			// アドレナリンラッシュ2
+			if(sc->data[SC_ADRENALINE2].timer != -1) {
+				int bonus;
+				if(sc->data[SC_ADRENALINE2].val2 || !battle_config.party_skill_penalty)
+					bonus = 30;
+				else
+					bonus = 25;
+				if(haste_val2 < bonus)
+					haste_val2 = bonus;
+			}
+
+			// 夕陽のアサシンクロス
+			if(sc->data[SC_ASSNCROS].timer != -1) {
+				int bonus = sc->data[SC_ASSNCROS].val2;
+				if(haste_val2 < bonus)
+					haste_val2 = bonus;
+			}
+
+			// ガトリングフィーバー
+			if(sc->data[SC_GATLINGFEVER].timer != -1) {
+				ferver_bonus = sc->data[SC_GATLINGFEVER].val1*2;
+				if(haste_val2 < ferver_bonus)
+					haste_val2 = ferver_bonus;
+			}
+
+			// マッドネスキャンセラー
+			if(sc->data[SC_MADNESSCANCEL].timer != -1) {
+				int bonus = 20+ferver_bonus;
+				if(haste_val2 < bonus)
+					haste_val2 = bonus;
+			}
 		}
-		if(aspd_rate != 100)
-			amotion = amotion*aspd_rate/100;
+
+		/* slow_valとhaste_val1とhaste_val2を加算する */
+		bonus_rate = slow_val - haste_val1 - haste_val2;
+
+		/* bonus_rateの計算 */
+		if(bonus_rate != 0)
+			calc_amotion = calc_amotion * (bonus_rate+100) / 100;
+
+		/* ディフェンダー */
+		if(sc->data[SC_DEFENDER].timer != -1)
+			calc_amotion += sc->data[SC_DEFENDER].val3;
+
+		/* 小数切り上げ */
+		amotion = (int)ceil(calc_amotion);
+
+		/* 最低値の設定 */
 		if(amotion < battle_config.monster_max_aspd)
 			amotion = battle_config.monster_max_aspd;
 	}
+
 	return amotion;
 }
 
@@ -4639,7 +4903,7 @@ int status_change_start(struct block_list *bl,int type,int val1,int val2,int val
 
 	if(sc->data[type].timer != -1) {	/* すでに同じ異常になっている場合タイマ解除 */
 		if(sc->data[type].val1 > val1 && type != SC_COMBO && type != SC_DANCING && type != SC_DEVOTION &&
-			type != SC_SPEEDPOTION0 && type != SC_SPEEDPOTION1 && type != SC_SPEEDPOTION2 && type != SC_SPEEDPOTION3 &&
+			type != SC_SPEEDPOTION0 && type != SC_SPEEDPOTION1 && type != SC_SPEEDPOTION2 &&
 			type != SC_DOUBLE && type != SC_TKCOMBO && type != SC_DODGE && type != SC_SPURT && type != SC_SEVENWIND && type != SC_SHAPESHIFT)
 			return 0;
 		if((type >= SC_STUN && type <= SC_BLIND) || type == SC_DPOISON || type == SC_FOGWALLPENALTY || type == SC_FORCEWALKING)
@@ -5214,10 +5478,6 @@ int status_change_start(struct block_list *bl,int type,int val1,int val2,int val
 			val3 = 0;
 			val4 = 0;
 			break;
-		case SC_POISONPOTION:		/* 毒薬の瓶 */
-			calc_flag = 1;
-			val2 = 25;
-			break;
 		case SC_SPEEDPOTION0:		/* 増速ポーション */
 		case SC_SPEEDPOTION1:
 		case SC_SPEEDPOTION2:
@@ -5227,20 +5487,8 @@ int status_change_start(struct block_list *bl,int type,int val1,int val2,int val
 				status_change_end(bl,SC_SPEEDPOTION1,-1);
 			if(type != SC_SPEEDPOTION2 && sc->data[SC_SPEEDPOTION2].timer != -1)
 				status_change_end(bl,SC_SPEEDPOTION2,-1);
-			if(sc->data[SC_SPEEDPOTION3].timer != -1)
-				status_change_end(bl,SC_SPEEDPOTION3,-1);
 			calc_flag = 1;
 			val2 = 5*(2+type-SC_SPEEDPOTION0);
-			break;
-		case SC_SPEEDPOTION3: 		/* バーサークピッチャー */
-			if(sc->data[SC_SPEEDPOTION0].timer != -1)
-				status_change_end(bl,SC_SPEEDPOTION0,-1);
-			if(sc->data[SC_SPEEDPOTION1].timer != -1)
-				status_change_end(bl,SC_SPEEDPOTION1,-1);
-			if(sc->data[SC_SPEEDPOTION2].timer != -1)
-				status_change_end(bl,SC_SPEEDPOTION2,-1);
-			calc_flag = 1;
-			val2 = 20;
 			break;
 		case SC_NOCHAT:		/* チャット禁止状態 */
 			{
@@ -5400,6 +5648,7 @@ int status_change_start(struct block_list *bl,int type,int val1,int val2,int val
 			calc_flag = 1;
 			ud->state.change_speed = 1;
 			val2 = 5 + val1*15;
+			val3 = 250 - val1*50;
 			if(sd) {
 				// 被ディボーション者をディフェンダーにする
 				struct map_session_data *tsd;
@@ -6176,11 +6425,9 @@ int status_change_end(struct block_list* bl, int type, int tid)
 		case SC_NIBELUNGEN:			/* ニーベルングの指輪 */
 		case SC_SIEGFRIED:			/* 不死身のジークフリード */
 		case SC_EXPLOSIONSPIRITS:		/* 爆裂波動 */
-		case SC_POISONPOTION:			/* 毒薬の瓶 */
 		case SC_SPEEDPOTION0:			/* 増速ポーション */
 		case SC_SPEEDPOTION1:
 		case SC_SPEEDPOTION2:
-		case SC_SPEEDPOTION3:
 		case SC_BLADESTOP_WAIT:
 		case SC_CONCENTRATION:			/* コンセントレーション */
 		case SC_TRUESIGHT:			/* トゥルーサイト */
