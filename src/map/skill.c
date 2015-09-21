@@ -151,7 +151,7 @@ int SkillStatusChangeTable[MAX_SKILL] = {	/* status.hÇÃenumÇÃSC_***Ç∆Ç†ÇÌÇπÇÈÇ±Ç
 	/* 460- */
 	SC_HUNTER,SC_SOULLINKER,SC_KAIZEL,SC_KAAHI,SC_KAUPE,SC_KAITE,-1,-1,-1,SC_SMA,
 	/* 470- */
-	SC_SWOO,SC_SKE,SC_SKA,-1,SC_MODECHANGE,SC_PRESERVE,-1,-1,-1,-1,
+	SC_SWOO,SC_SKE,SC_SKA,SC_PROVOKE,SC_MODECHANGE,SC_PRESERVE,-1,-1,-1,-1,
 	/* 480- */
 	-1,-1,SC_DOUBLECASTING,-1,SC_GRAVITATION_USER,-1,SC_OVERTHRUSTMAX,SC_LONGINGFREEDOM,SC_HERMODE,-1,
 	/* 490- */
@@ -185,9 +185,9 @@ int SkillStatusChangeTable[MAX_SKILL] = {	/* status.hÇÃenumÇÃSC_***Ç∆Ç†ÇÌÇπÇÈÇ±Ç
 	/* 670- */
 	-1,SC_MAGICMIRROR,SC_SLOWCAST,SC_CRITICALWOUND,-1,SC_STONESKIN,SC_ANTIMAGIC,SC_CURSE,SC_STUN,-1,
 	/* 680- */
-	-1,-1,-1,SC_HELLPOWER,SC_HELLPOWER,-1,-1,-1,-1,-1,
+	-1,-1,-1,SC_HELLPOWER,SC_HELLPOWER,-1,-1,-1,-1,SC_BLESSING,
 	/* 690- */
-	-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,
+	SC_INCREASEAGI,SC_ASSUMPTIO,-1,-1,-1,-1,-1,-1,-1,-1,
 };
 
 /* (ÉXÉLÉãî‘çÜ - SECOND_SKILLID)ÅÅÅÑÉXÉeÅ[É^ÉXàŸèÌî‘çÜïœä∑ÉeÅ[ÉuÉã */
@@ -4298,8 +4298,25 @@ int skill_castend_nodamage_id( struct block_list *src, struct block_list *bl,int
 		status_change_start(bl,GetSkillStatusChangeTable(skillid),skilllv,0,0,skillid,skill_get_time(skillid,skilllv),0);
 		break;
 	case HP_ASSUMPTIO:		/* ÉAÉXÉÄÉvÉeÉBÉI */
-		status_change_start(bl,SC_ASSUMPTIO,skilllv,0,0,0,skill_get_time(skillid,skilllv),0);
-		clif_skill_nodamage(src,bl,skillid,skilllv,1);	// ÉAÉCÉRÉìÉpÉPÉbÉgëóêMå„Ç…ëóÇÈ
+	case CASH_ASSUMPTIO:	/* ÉpÅ[ÉeÉBÅ[ÉAÉXÉÄÉvÉeÉBÉI */
+		if(skillid == HP_ASSUMPTIO) {
+			status_change_start(bl,SC_ASSUMPTIO,skilllv,0,0,0,skill_get_time(skillid,skilllv),0);
+			clif_skill_nodamage(src,bl,skillid,skilllv,1);	// ÉAÉCÉRÉìÉpÉPÉbÉgëóêMå„Ç…ëóÇÈ
+		} else {
+			if((flag&1) || sd == NULL || sd->status.party_id == 0) {
+				/* å¬ï ÇÃèàóù */
+				if( dstsd && dstsd->special_state.no_magic_damage )
+					break;
+				status_change_start(bl,SC_ASSUMPTIO,skilllv,0,0,0,skill_get_time(skillid,skilllv),0);
+				clif_skill_nodamage(src,bl,skillid,skilllv,1);	// ÉAÉCÉRÉìÉpÉPÉbÉgëóêMå„Ç…ëóÇÈ
+			} else {
+				/* ÉpÅ[ÉeÉBëSëÃÇ÷ÇÃèàóù */
+				party_foreachsamemap(skill_area_sub,
+					sd,PT_AREA_SIZE,
+					src,skillid,skilllv,tick, flag|BCT_PARTY|1,
+					skill_castend_nodamage_id);
+			}
+		}
 		break;
 	case LK_CONCENTRATION:	/* ÉRÉìÉZÉìÉgÉåÅ[ÉVÉáÉì */
 		clif_skill_nodamage(src,bl,skillid,skilllv,1);
@@ -4348,9 +4365,10 @@ int skill_castend_nodamage_id( struct block_list *src, struct block_list *bl,int
 			src,GetSkillStatusChangeTable(skillid),skilllv,tick);
 		break;
 	case SM_PROVOKE:		/* ÉvÉçÉ{ÉbÉN */
+	case SM_SELFPROVOKE:	/* ÉZÉãÉtÉvÉçÉ{ÉbÉN */
 	case MER_PROVOKE:
 		// MVPmobÇ∆ïséÄÇ…ÇÕå¯Ç©Ç»Ç¢ÅEê¨å˜îªíË
-		if( status_get_mode(bl)&0x20 || battle_check_undead(status_get_race(bl),status_get_elem_type(bl)) || atn_rand()%100 > 70 + skilllv * 3 + status_get_lv(src) - status_get_lv(bl) )
+		if( status_get_mode(bl)&0x20 || battle_check_undead(status_get_race(bl),status_get_elem_type(bl)) || (skillid != SM_SELFPROVOKE && atn_rand()%100 > 70 + skilllv * 3 + status_get_lv(src) - status_get_lv(bl)) )
 		{
 			if(sd)
 				clif_skill_fail(sd,skillid,0,0);
@@ -4639,6 +4657,8 @@ int skill_castend_nodamage_id( struct block_list *src, struct block_list *bl,int
 	case PR_MAGNIFICAT:		/* É}ÉOÉjÉtÉBÉJÅ[Ég */
 	case PR_GLORIA:			/* ÉOÉçÉäÉA */
 	case SN_WINDWALK:		/* ÉEÉCÉìÉhÉEÉHÅ[ÉN */
+	case CASH_BLESSING:		/* ÉpÅ[ÉeÉBÅ[ÉuÉåÉbÉVÉìÉO */
+	case CASH_INCAGI:		/* ÉpÅ[ÉeÉBÅ[ë¨ìxëùâ¡ */
 		if((flag&1) || sd == NULL || sd->status.party_id == 0) {
 			/* å¬ï ÇÃèàóù */
 			if( dstsd && dstsd->special_state.no_magic_damage )
@@ -7384,8 +7404,8 @@ struct skill_unit_group *skill_unitsetting( struct block_list *src, int skillid,
 	case BA_POEMBRAGI:			/* ÉuÉâÉMÇÃéç */
 		if(sd)
 			val1 = pc_checkskill(sd,BA_MUSICALLESSON);
-		val2 = ((status_get_dex(src)/10)&0xffff)<<16;
-		val2 |= (status_get_int(src)/5)&0xffff;
+		val2 = (status_get_dex(src)/10) << 16;
+		val2 |= status_get_int(src)/5;
 		break;
 	case BA_APPLEIDUN:			/* ÉCÉhÉDÉìÇÃó—åÁ */
 		if(sd)
@@ -9145,6 +9165,7 @@ int skill_check_condition2(struct block_list *bl, struct skill_condition *cnd, i
 		}
 		break;
 	case HP_ASSUMPTIO:	// ÉAÉXÉÄÉvÉeÉBÉI
+	case CASH_ASSUMPTIO:	// ÉpÅ[ÉeÉBÅ[ÉAÉXÉÄÉvÉeÉBÉI
 		if(map[bl->m].flag.gvg && !battle_config.allow_assumptop_in_gvg) {
 			if(sd)
 				clif_skill_fail(sd,cnd->id,0,0);
@@ -10690,10 +10711,18 @@ int skill_delayfix(struct block_list *bl, int skillid, int skilllv)
 				/* ÉuÉâÉMÇÃéç */
 				if(sc) {
 					if(sc->data[SC_POEMBRAGI].timer != -1) {
-						delay = delay * (100 - (sc->data[SC_POEMBRAGI].val1 * 5 + sc->data[SC_POEMBRAGI].val2 * 2
+						if(sc->data[SC_POEMBRAGI].val1 < 10)
+							delay = delay * (100 - (sc->data[SC_POEMBRAGI].val1 * 3 + sc->data[SC_POEMBRAGI].val2 * 2
+								+ (sc->data[SC_POEMBRAGI].val3 & 0xffff))) / 100;
+						else
+							delay = delay * (100 - (sc->data[SC_POEMBRAGI].val1 * 5 + sc->data[SC_POEMBRAGI].val2 * 2
 								+ (sc->data[SC_POEMBRAGI].val3 & 0xffff))) / 100;
 					} else if(sc->data[SC_POEMBRAGI_].timer != -1) {
-						delay = delay * (100 - (sc->data[SC_POEMBRAGI_].val1 * 5 + sc->data[SC_POEMBRAGI_].val2 * 2
+						if(sc->data[SC_POEMBRAGI_].val1 < 10)
+							delay = delay * (100 - (sc->data[SC_POEMBRAGI_].val1 * 3 + sc->data[SC_POEMBRAGI_].val2 * 2
+								+ (sc->data[SC_POEMBRAGI_].val3 & 0xffff))) / 100;
+						else
+							delay = delay * (100 - (sc->data[SC_POEMBRAGI_].val1 * 5 + sc->data[SC_POEMBRAGI_].val2 * 2
 								+ (sc->data[SC_POEMBRAGI_].val3 & 0xffff))) / 100;
 					}
 				}
