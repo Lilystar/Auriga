@@ -1,7 +1,7 @@
 //-----------------------------------------------
 //==== ”ƒæ˜I“XŠJİ - ALL_BUYING_STORE
 //-----------------------------------------------
-alberta_in.gat,58,52,4	script	”ƒæ’S“–‘g‡ˆõ	59,{
+-	script	”ƒæ’S“–‘g‡ˆõ#buy	59,{
 	if(getskilllv(2535)>0) {
 		mes "[”ƒæ’S“–‘g‡ˆõ]";
 		mes "‚â‚ A‚±‚ñ‚É‚¿‚ÍB";
@@ -22,7 +22,7 @@ alberta_in.gat,58,52,4	script	”ƒæ’S“–‘g‡ˆõ	59,{
 		while(1){
 			next;
 			input '@num;
-			if('@num > 0 && '@num <= 10)
+			if('@num > 0 && '@num <= 50)
 				break;
 			if('@num == 0) {
 				mes "[”ƒæ’S“–‘g‡ˆõ]";
@@ -71,22 +71,6 @@ alberta_in.gat,58,52,4	script	”ƒæ’S“–‘g‡ˆõ	59,{
 	mes "¡‰ñA¤l‘g‡‚Å";
 	mes "ŒÂl‚Å‚Ì”ƒæ‚Ì‹–‰Â‚ª";
 	mes "‰º‚è‚½‚Ì‚ğ’m‚Á‚Ä‚¢‚é‚©‚¢H";
-	next;
-	mes "[”ƒæ’S“–‘g‡ˆõ]";
-	mes "ƒAƒ‹ƒxƒ‹ƒ^¤l‘g‡‚Ì”ƒæ’S“–‚¾B";
-	mes "ŒN‚Ícc";
-	next;
-	mes "[”ƒæ’S“–‘g‡ˆõ]";
-	mes "ƒAƒ‹ƒxƒ‹ƒ^¤l‘g‡‚Ì”ƒæ’S“–‚¾B";
-	mes "ŒN‚Ícc";
-	next;
-	mes "[”ƒæ’S“–‘g‡ˆõ]";
-	mes "ƒAƒ‹ƒxƒ‹ƒ^¤l‘g‡‚Ì”ƒæ’S“–‚¾B";
-	mes "ŒN‚Ícc";
-	next;
-	mes "[”ƒæ’S“–‘g‡ˆõ]";
-	mes "ƒAƒ‹ƒxƒ‹ƒ^¤l‘g‡‚Ì”ƒæ’S“–‚¾B";
-	mes "ŒN‚Ícc";
 	next;
 	if(select("’m‚ç‚È‚¢","‚»‚ñ‚È‹–‰Â‚ª‚È‚­‚Ä‚à”ƒæ‚µ‚Ä‚¢‚½")==1) {
 		mes "[”ƒæ’S“–‘g‡ˆõ]";
@@ -227,6 +211,8 @@ alberta_in.gat,58,52,4	script	”ƒæ’S“–‘g‡ˆõ	59,{
 	mes "‚¤‚Ü‚­Šˆ—p‚µ‚Ä‚­‚ê‚æB";
 	close;
 }
+prt_in.gat,126,65,4	duplicate(”ƒæ’S“–‘g‡ˆõ#buy)	”ƒæ’S“–‘g‡ˆõ#Prt	59
+alberta_in.gat,58,52,4	duplicate(”ƒæ’S“–‘g‡ˆõ#buy)	”ƒæ’S“–‘g‡ˆõ#Alb	59
 
 que_job01.gat,68,84,0	script	ˆÅ¤l	881,{
 	if(getskilllv(2535)>0) {
