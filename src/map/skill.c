@@ -187,9 +187,9 @@ int SkillStatusChangeTable[MAX_SKILL] = {	/* status.h‚Ìenum‚ÌSC_***‚Æ‚ ‚í‚¹‚é‚±‚
 	/* 670- */
 	-1,SC_MAGICMIRROR,SC_SLOWCAST,SC_CRITICALWOUND,-1,SC_STONESKIN,SC_ANTIMAGIC,SC_CURSE,SC_STUN,-1,
 	/* 680- */
-	-1,-1,-1,SC_HELLPOWER,SC_HELLPOWER,-1,-1,-1,-1,SC_BLESSING,
+	-1,-1,-1,SC_HELLPOWER,SC_HELLPOWER,SC_INVINCIBLE,SC_INVINCIBLEOFF,-1,-1,SC_BLESSING,
 	/* 690- */
-	SC_INCREASEAGI,SC_ASSUMPTIO,-1,-1,-1,-1,-1,-1,-1,-1,
+	SC_INCREASEAGI,SC_ASSUMPTIO,-1,-1,-1,-1,SC_ELEMENTUNDEAD,-1,-1,-1,
 };
 
 /* (ƒXƒLƒ‹”Ô† - SECOND_SKILLID)„ƒXƒe[ƒ^ƒXˆÙí”Ô†•ÏŠ·ƒe[ƒuƒ‹ */
@@ -302,7 +302,7 @@ int SkillStatusChangeTable3[MAX_THIRDSKILL] = {	/* status.h‚Ìenum‚ÌSC_***‚Æ‚ ‚í‚
 /* (ƒXƒLƒ‹”Ô† - QUEST_SKILLID)„ƒXƒe[ƒ^ƒXˆÙí”Ô†•ÏŠ·ƒe[ƒuƒ‹ */
 int QuestSkillStatusChangeTable[MAX_QUESTSKILL] = {	/* status.h‚Ìenum‚ÌSC_***‚Æ‚ ‚í‚¹‚é‚±‚Æ */
 	/* 2533- */
-	-1,-1,-1,-1,SC_ODINS_POWER,
+	-1,-1,-1,-1,SC_ODINS_POWER,-1,-1,SC_DISSONANCE,SC_UGLYDANCE
 };
 
 /* (ƒXƒLƒ‹”Ô† - KO_SKILLID)„ƒXƒe[ƒ^ƒXˆÙí”Ô†•ÏŠ·ƒe[ƒuƒ‹ */
@@ -312,7 +312,9 @@ int SkillStatusChangeTableKO[MAX_KOSKILL] = {	/* status.h‚Ìenum‚ÌSC_***‚Æ‚ ‚í‚¹‚
 	/* 3011- */
 	SC_MEIKYOUSISUI,-1,SC_KYOUGAKU,SC_CURSE,-1,-1,-1,-1,-1,SC_KO_ZENKAI,
 	/* 3021- */
-	SC_CONFUSION,SC_IZAYOI,SC_KG_KAGEHUMI,SC_KYOMU,SC_KAGEMUSYA,-1,-1,-1,SC_AKAITSUKI,
+	SC_CONFUSION,SC_IZAYOI,SC_KG_KAGEHUMI,SC_KYOMU,SC_KAGEMUSYA,-1,-1,-1,SC_AKAITSUKI,-1,
+	/* 3031- */
+	-1,-1,-1,-1,-1,
 };
 
 /* (ƒXƒLƒ‹”Ô† - HOM_SKILLID)„ƒXƒe[ƒ^ƒXˆÙí”Ô†•ÏŠ·ƒe[ƒuƒ‹ */
@@ -1676,6 +1678,13 @@ int skill_additional_effect( struct block_list* src, struct block_list *bl,int s
 				status_change_pretimer(bl,SC_STUN,skilllv,0,0,0,skill_get_time2(skillid,skilllv),0,tick+status_get_amotion(src));
 		}
 		break;
+
+	case NPC_UGLYDANCE:
+		if(dstsd) {
+			int sp = 5+skilllv*5;
+			pc_heal(dstsd,0,-sp);
+		}
+		break;
 	}
 
 	// ’Ç‰Áó‘ÔˆÙí
@@ -2985,6 +2994,7 @@ int skill_castend_damage_id( struct block_list* src, struct block_list *bl,int s
 	case KO_BAKURETSU:		/* ”š—ô‹ê–³ */
 	case EL_WIND_SLASH:		/* ƒEƒBƒ“ƒhƒXƒ‰ƒbƒVƒ… */
 	case EL_STONE_HAMMER:	/* ƒXƒg[ƒ“ƒnƒ“ƒ}[ */
+	case NPC_DISSONANCE:
 		battle_skill_attack(BF_WEAPON,src,src,bl,skillid,skilllv,tick,flag);
 		break;
 	case NPC_GUIDEDATTACK:	/* ƒKƒCƒfƒbƒhƒAƒ^ƒbƒN */
@@ -6925,6 +6935,7 @@ int skill_castend_nodamage_id( struct block_list *src, struct block_list *bl,int
 	case NPC_CHANGEHOLY:
 	case NPC_CHANGETELEKINESIS:
 	case NPC_CHANGEDARKNESS:
+	case NPC_CHANGEUNDEAD2:
 		if(md) {
 			clif_skill_nodamage(src,bl,skillid,skilllv,1);
 			md->def_ele = skill_get_pl(skillid);
@@ -7552,6 +7563,7 @@ int skill_castend_nodamage_id( struct block_list *src, struct block_list *bl,int
 		break;
 	case RETURN_TO_ELDICASTES:		/* ƒGƒ‹ƒfƒBƒJƒXƒeƒBƒX‚Ö‚Ì‹AŠÒ */
 	case ALL_GUARDIAN_RECALL:		/* ƒ‚[ƒ‰‚Ö‚Ì‹AŠÒ */
+	case ECLAGE_RECALL:		/* ƒGƒNƒ‰[ƒWƒ…‚Ö‚Ì‹AŠÒ */
 		if(sd) {
 			int x, y;
 			char mapname[24];
@@ -7559,18 +7571,19 @@ int skill_castend_nodamage_id( struct block_list *src, struct block_list *bl,int
 			if(battle_config.noportal_flag) {
 				if(map[sd->bl.m].flag.noportal)		// noportal‚Å‹Ö~
 					break;
-			} else {
-				if(map[sd->bl.m].flag.noteleport)	// noteleport‚Å‹Ö~
-					break;
 			}
 			if(skillid == RETURN_TO_ELDICASTES) {
 				x = 198;
 				y = 187;
 				strncpy(mapname,"dicastes01.gat",24);
-			} else {
+			} else if(skillid == ALL_GUARDIAN_RECALL) {
 				x = 44;
 				y = 151;
 				strncpy(mapname,"mora.gat",24);
+			} else {
+				x = 47;
+				y = 31;
+				strncpy(mapname,"ecl_in01.gat",24);
 			}
 
 			if(pc_setpos(sd,mapname,x,y,0)) {
@@ -7727,6 +7740,17 @@ int skill_castend_nodamage_id( struct block_list *src, struct block_list *bl,int
 				src,skillid,skilllv,tick, flag|BCT_ENEMY|1,
 				skill_castend_nodamage_id);
 		}
+		break;
+	case NPC_TALK:			/* ƒg[ƒN */
+		if(md && md->skillidx > 0) {
+			mob_talk(md,mob_db[md->class_].skill[md->skillidx].val[0]);
+		}
+		break;
+	case NPC_INVINCIBLE:		/* ƒCƒ“ƒrƒ“ƒVƒuƒ‹ */
+		status_change_end(bl, SC_INVINCIBLEOFF, -1);
+	case NPC_INVINCIBLEOFF:		/* ƒCƒ“ƒrƒ“ƒVƒuƒ‹ƒIƒt */
+		clif_skill_nodamage(src,bl,skillid,skilllv,1);
+		status_change_start(bl,GetSkillStatusChangeTable(skillid),skilllv,0,0,0,skill_get_time2(skillid,skilllv),0);
 		break;
 	case MER_REGAIN:		/* ƒŠƒQƒCƒ“ */
 		clif_skill_nodamage(src,bl,skillid,skilllv,1);
@@ -9259,6 +9283,39 @@ int skill_castend_nodamage_id( struct block_list *src, struct block_list *bl,int
 		skill_clear_element_field(src);	// Šù‚É©•ª‚ª”­“®‚µ‚Ä‚¢‚é‘®«ê‚ğƒNƒŠƒA
 		skill_unitsetting(src,skillid,skilllv,bl->x,bl->y,0);
 		break;
+	case ECL_SNOWFLIP:
+		status_change_end(bl, SC_SLEEP, -1);
+		status_change_end(bl, SC_BLEED, -1);
+		status_change_end(bl, SC_HELLINFERNO, -1);
+		status_change_end(bl, SC_DEEP_SLEEP, -1);
+		clif_skill_nodamage(src,bl,skillid,skilllv,1);
+		clif_skill_damage(src, bl, tick, 0, 0, -1, 1, skillid, -1, 0);	// ƒGƒtƒFƒNƒg‚ğo‚·‚½‚ß‚Ìb’èˆ’u
+		break;
+	case ECL_PEONYMAMY:
+		status_change_end(bl, SC_FREEZE, -1);
+		status_change_end(bl, SC_FROSTMISTY, -1);
+		status_change_end(bl, SC_DIAMONDDUST, -1);
+		clif_skill_nodamage(src,bl,skillid,skilllv,1);
+		clif_skill_damage(src, bl, tick, 0, 0, -1, 1, skillid, -1, 0);	// ƒGƒtƒFƒNƒg‚ğo‚·‚½‚ß‚Ìb’èˆ’u
+		break;
+	case ECL_SADAGUI:
+		status_change_end(bl, SC_STUN, -1);
+		status_change_end(bl, SC_CONFUSION, -1);
+		status_change_end(bl, SC_HALLUCINATION, -1);
+		status_change_end(bl, SC_FEAR, -1);
+		clif_skill_nodamage(src,bl,skillid,skilllv,1);
+		clif_skill_damage(src, bl, tick, 0, 0, -1, 1, skillid, -1, 0);	// ƒGƒtƒFƒNƒg‚ğo‚·‚½‚ß‚Ìb’èˆ’u
+		break;
+	case ECL_SEQUOIADUST:
+		status_change_end(bl, SC_STONE, -1);
+		status_change_end(bl, SC_POISON, -1);
+		status_change_end(bl, SC_CURSE, -1);
+		status_change_end(bl, SC_BLIND, -1);
+		status_change_end(bl, SC_DECREASEAGI, -1);
+		status_change_end(bl, SC_REVERSEORCISH, -1);
+		clif_skill_nodamage(src,bl,skillid,skilllv,1);
+		clif_skill_damage(src, bl, tick, 0, 0, -1, 1, skillid, -1, 0);	// ƒGƒtƒFƒNƒg‚ğo‚·‚½‚ß‚Ìb’èˆ’u
+		break;
 	case EL_CIRCLE_OF_FIRE:	/* ƒT[ƒNƒ‹ƒIƒuƒtƒ@ƒCƒA */
 	case EL_FIRE_CLOAK:		/* ƒtƒ@ƒCƒA[ƒNƒ[ƒN */
 	case EL_WATER_SCREEN:	/* ƒEƒH[ƒ^[ƒXƒNƒŠ[ƒ“ */
@@ -9292,6 +9349,20 @@ int skill_castend_nodamage_id( struct block_list *src, struct block_list *bl,int
 		if(eld && eld->msd) {
 			clif_skill_poseffect(src,skillid,skilllv,eld->msd->bl.x,eld->msd->bl.y,tick);
 			skill_unitsetting(src,skillid,skilllv,eld->msd->bl.x,eld->msd->bl.y,0);
+		}
+		break;
+	case NPC_DISSONANCE:
+	case NPC_UGLYDANCE:
+		sc = status_get_sc(src);
+		clif_skill_nodamage(src,bl,skillid,skilllv,1);
+		if(sc && sc->data[SC_DANCING].timer != -1) {
+			status_change_end(src,SC_DANCING,-1);
+		}
+		else {
+			struct skill_unit_group *sg = skill_unitsetting(src,skillid,skilllv,src->x,src->y,0);
+			if(sg) {
+				status_change_start(src,SC_DANCING,skillid,sg->bl.id,0,0,skill_get_time(skillid,skilllv)+1000,0);
+			}
 		}
 		break;
 	default:
@@ -10581,6 +10652,8 @@ struct skill_unit_group *skill_unitsetting( struct block_list *src, int skillid,
 			case MA_LANDMINE:		/* ƒ‰ƒ“ƒhƒ}ƒCƒ“ */
 			case MA_SANDMAN:		/* ƒTƒ“ƒhƒ}ƒ“ */
 			case MA_FREEZINGTRAP:	/* ƒtƒŠ[ƒWƒ“ƒOƒgƒ‰ƒbƒv */
+			case NPC_DISSONANCE:
+			case NPC_UGLYDANCE:
 				break;
 			default:
 				map_foreachinarea(skill_landprotector,src->m,ux,uy,ux,uy,BL_SKILL,skillid,&alive);
@@ -15433,6 +15506,8 @@ static int skill_landprotector(struct block_list *bl, va_list ap )
 		case DC_SERVICEFORYOU:	// ƒT[ƒrƒXƒtƒH[ƒ†[
 		case CG_HERMODE:	// ƒwƒ‹ƒ‚[ƒh‚Ìñ
 		case NPC_EVILLAND:	// ƒC[ƒrƒ‹ƒ‰ƒ“ƒh
+		case NPC_DISSONANCE:
+		case NPC_UGLYDANCE:
 			break;
 		default:
 			skill_delunit(unit);
@@ -16002,6 +16077,8 @@ static int skill_delunit_by_ganbantein(struct block_list *bl, va_list ap )
 		case KO_HUUMARANKA:
 		case KO_MAKIBISHI:
 		case KO_ZENKAI:
+		case NPC_DISSONANCE:
+		case NPC_UGLYDANCE:
 			skill_delunit(unit);
 			break;
 	}
