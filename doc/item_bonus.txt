@@ -11,6 +11,8 @@
 --------------------------------------------------------------------------
  —LŒøãŒÀ 5ŒÂ
 	bAddSkillBlow
+
+ —LŒøãŒÀ 7ŒÂ
 	bAddSkillHealRate
 	bAddSkillSubHealRate
 
