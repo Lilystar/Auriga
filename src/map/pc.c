@@ -193,7 +193,7 @@ int pc_isquitable(struct map_session_data *sd)
 
 	nullpo_retr(0, sd);
 
-	if(!unit_isdead(&sd->bl) && (sd->sc.opt1 || sd->sc.opt2))
+	if(!unit_isdead(&sd->bl) && (sd->sc.opt1 || (sd->sc.opt2 && sd->sc.opt2 != OPT2_ANGELUS)))
 		return 1;
 	if(sd->ud.skilltimer != -1)
 		return 1;
@@ -6558,20 +6558,20 @@ void pc_setoption(struct map_session_data *sd, unsigned int type)
 {
 	nullpo_retv(sd);
 
-	if( (type&OPTION_BIRD) && !pc_isfalcon(sd) ) {
+	if( (type&OPTION_FALCON) && !pc_isfalcon(sd) ) {
 		clif_status_load(sd,SI_FALCON,1);
 	}
-	else if( !(type&OPTION_BIRD) && pc_isfalcon(sd) ) {
+	else if( !(type&OPTION_FALCON) && pc_isfalcon(sd) ) {
 		clif_status_load(sd,SI_FALCON,0);
 	}
 
-	if( ((type&OPTION_CHICKEN) && !pc_isriding(sd)) || ((type&OPTION_DRAGONMASK) && !pc_isdragon(sd)) ) {
+	if( ((type&OPTION_PECO) && !pc_isriding(sd)) || ((type&OPTION_DRAGONMASK) && !pc_isdragon(sd)) ) {
 		clif_status_load(sd,SI_RIDING,1);
 	}
-	else if( !(type&OPTION_CHICKEN) && pc_isriding(sd) && !(type&OPTION_DRAGONMASK) ) {
+	else if( !(type&OPTION_PECO) && pc_isriding(sd) && !(type&OPTION_DRAGONMASK) ) {
 		clif_status_load(sd,SI_RIDING,0);
 	}
-	else if( !(type&OPTION_DRAGONMASK) && pc_isdragon(sd) && !(type&OPTION_CHICKEN) ) {
+	else if( !(type&OPTION_DRAGONMASK) && pc_isdragon(sd) && !(type&OPTION_PECO) ) {
 		clif_status_load(sd,SI_RIDING,0);
 	}
 
@@ -6643,7 +6643,7 @@ int pc_setfalcon(struct map_session_data *sd)
 	nullpo_retr(0, sd);
 
 	if(pc_checkskill(sd,HT_FALCON) > 0) {	// ファルコンマスタリースキル所持
-		pc_setoption(sd,OPTION_BIRD);
+		pc_setoption(sd,OPTION_FALCON);
 	}
 	return 0;
 }
@@ -6657,7 +6657,7 @@ int pc_setriding(struct map_session_data *sd)
 	nullpo_retr(0, sd);
 
 	if(pc_checkskill(sd,KN_RIDING) > 0) { // ライディングスキル所持
-		pc_setoption(sd,OPTION_CHICKEN);
+		pc_setoption(sd,OPTION_PECO);
 	}
 	return 0;
 }

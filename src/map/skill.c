@@ -914,7 +914,7 @@ int skill_additional_effect( struct block_list* src, struct block_list *bl,int s
 				// 非ボス属性
 				if(++tsc->data[SC_FREEZE].val3 >= 3) {	// 通常通り凍結タイミングに使用 
 					tsc->data[SC_FREEZE].val3 = 0;
-					if(atn_rand() % 10000 < status_change_rate(bl,SC_FREEZE,30000,status_get_lv(src)))
+					if(atn_rand() % 10000 < status_change_rate(bl,SC_FREEZE,20000,status_get_lv(src)))
 						status_change_start(bl,SC_FREEZE,skilllv,0,0,0,skill_get_time2(skillid,skilllv),0);
 				}
 			}

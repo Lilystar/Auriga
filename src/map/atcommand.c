@@ -4529,6 +4529,7 @@ int atcommand_reloadhomundb(const int fd, struct map_session_data* sd, AtCommand
 int atcommand_reloaditemdb(const int fd, struct map_session_data* sd, AtCommandType command, const char* message)
 {
 	itemdb_reload();
+	read_petdb();
 	clif_displaymessage(fd, msg_txt(89));
 
 	return 0;
