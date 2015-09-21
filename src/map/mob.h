@@ -166,6 +166,8 @@ enum {
 	MSS_LOOT        = 6,	// ƒ‹[ƒg
 	MSS_CHASE       = 7,	// “ËŒ‚
 	MSS_COMMANDONLY = 8,	// –½—ßê—p
+	MSS_ANGRY       = 9,	// UŒ‚(”ñ‹¶‰»)
+	MSS_FOLLOW      = 10,	// “ËŒ‚(”ñ‹¶‰»)
 };
 
 int mobdb_searchname(const char *str);
