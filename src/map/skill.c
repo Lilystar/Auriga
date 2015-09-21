@@ -4750,7 +4750,7 @@ int skill_castend_damage_id( struct block_list* src, struct block_list *bl,int s
 					battle_skill_attack(BF_WEAPON,src,src,bl,skillid,skilllv,tick,flag|1);
 				}
 				else {
-					battle_skill_attack(BF_WEAPON,src,src,bl,skillid,skilllv,tick,flag);
+					battle_skill_attack(BF_WEAPON,src,src,bl,skillid,skilllv,tick,flag&~1);
 				}
 			}
 		} else {
@@ -7288,7 +7288,7 @@ int skill_castend_nodamage_id( struct block_list *src, struct block_list *bl,int
 				time += pc_checkskill(sd,GC_RESEARCHNEWPOISON) * 3000;
 			clif_skill_nodamage(src,bl,skillid,skilllv,1);
 			status_change_start(bl,GetSkillStatusChangeTable(skillid),skilllv,0,0,0,time,0);
-#ifndef PRE_RENEWAL	
+#ifndef PRE_RENEWAL
 			// preŽž‚ÌŒvŽZŽ®‚ª•s–¾‚Ì‚½‚ßREŒÀ’è
 			status_change_start(bl,SC_MAGNUM,skilllv,ELE_POISON,0,0,time,0);
 #endif
@@ -13001,6 +13001,11 @@ static int skill_check_condition2_pc(struct map_session_data *sd, struct skill_c
 		}
 	}
 
+#ifndef PRE_RENEWAL
+	if(spiritball > 0)
+		sd->spiritball.old = 0;
+#endif
+
 	switch( cnd->id ) {
 	case SL_SMA:	/* ƒGƒXƒ} */
 		if(!(type&1) && sd->sc.data[SC_SMA].timer==-1){	// ƒGƒXƒ}‰r¥‰Â”\ó‘Ô
@@ -13263,16 +13268,25 @@ static int skill_check_condition2_pc(struct map_session_data *sd, struct skill_c
 	case MO_COMBOFINISH:		/* –Ò—´Œ */
 		if(sd->sc.data[SC_COMBO].timer == -1 || sd->sc.data[SC_COMBO].val1 != MO_CHAINCOMBO)
 			return 0;
+#ifndef PRE_RENEWAL
+		sd->spiritball.old = sd->spiritball.num;
+#endif
 		break;
 	case CH_TIGERFIST:		/* •šŒÕŒ */
 		if(sd->sc.data[SC_COMBO].timer == -1 || (sd->sc.data[SC_COMBO].val1 != MO_TRIPLEATTACK &&
 		   sd->sc.data[SC_COMBO].val1 != MO_CHAINCOMBO && sd->sc.data[SC_COMBO].val1 != MO_COMBOFINISH))
 			return 0;
+#ifndef PRE_RENEWAL
+		sd->spiritball.old = sd->spiritball.num;
+#endif
 		break;
 	case CH_CHAINCRUSH:		/* ˜A’Œ•öŒ‚ */
 		if(sd->sc.data[SC_COMBO].timer == -1 || (sd->sc.data[SC_COMBO].val1 != MO_TRIPLEATTACK && sd->sc.data[SC_COMBO].val1 != MO_CHAINCOMBO &&
 		   sd->sc.data[SC_COMBO].val1 != MO_COMBOFINISH && sd->sc.data[SC_COMBO].val1 != CH_TIGERFIST))
 			return 0;
+#ifndef PRE_RENEWAL
+		sd->spiritball.old = sd->spiritball.num;
+#endif
 		break;
 	case MO_EXTREMITYFIST:		/* ˆ¢C—…”e–PŒ */
 		if((sd->sc.data[SC_COMBO].timer != -1 && (sd->sc.data[SC_COMBO].val1 == MO_COMBOFINISH || sd->sc.data[SC_COMBO].val1 == CH_CHAINCRUSH)) || sd->sc.data[SC_BLADESTOP].timer!=-1)
