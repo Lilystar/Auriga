@@ -261,7 +261,7 @@ static int mailbox_fromstr(char *str,struct mail_data *md,char *body_data)
 }
 
 // ŒÂlƒ[ƒ‹BOX‚ğ‘‚«‚İ
-static int mailbox_tosql(struct mail_data *md,char *body_data)
+static int mailbox_tosql(struct mail_data *md,const char *body_data)
 {
 	char buf[3][256];
 

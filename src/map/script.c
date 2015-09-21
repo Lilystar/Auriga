@@ -9096,6 +9096,8 @@ static int removecards_sub(struct map_session_data *sd,int i,int typefail,int po
 	int j,n,flag,removed_flag=0;
 	short card_set[4] = { 0,0,0,0 };
 
+	nullpo_retr(0, sd);
+
 	if(i < 0 || i >= MAX_INVENTORY)
 		return 0;
 	if(itemdb_isspecial(sd->status.inventory[i].card[0]))	// 製造・名前入りは処理しない
@@ -12653,7 +12655,7 @@ int buildin_checkquest(struct script_state *st)
 			ret |= 0x05;	// クエスト受注済み+討伐数クリア
 			if(qd->limit < (unsigned int)time(NULL))
 				ret |= 0x02;	// 時間制限クリア
-	
+
 			for(i = 0; i < 3; i++) {
 				if(qd->mob[i].count < qd->mob[i].max) {
 					ret &= ~0x04;	// 討伐数未クリア
@@ -13339,7 +13341,7 @@ int buildin_unittalk(struct script_state *st)
 {
 	struct block_list *bl;
 	struct script_data *data;
-	char *mes;
+	char *mes = NULL;
 
 	data = &(st->stack->stack_data[st->start+2]);
 	get_val(st,data);

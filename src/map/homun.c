@@ -925,7 +925,7 @@ int homun_return_master(struct map_session_data *sd)
  * –¼‘O‚Ì•ÏX
  *------------------------------------------
  */
-int homun_change_name(struct map_session_data *sd,char *name)
+int homun_change_name(struct map_session_data *sd,const char *name)
 {
 	int i;
 
