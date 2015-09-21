@@ -308,9 +308,9 @@ int QuestSkillStatusChangeTable[MAX_QUESTSKILL] = {	/* status.h‚Ìenum‚ÌSC_***‚Æ‚
 /* (ƒXƒLƒ‹”Ô† - KO_SKILLID)„ƒXƒe[ƒ^ƒXˆÙí”Ô†•ÏŠ·ƒe[ƒuƒ‹ */
 int SkillStatusChangeTableKO[MAX_KOSKILL] = {	/* status.h‚Ìenum‚ÌSC_***‚Æ‚ ‚í‚¹‚é‚±‚Æ */
 	/* 3001- */
-	SC_HIDING,-1,-1,-1,-1,-1,-1,-1,-1,-1,
+	SC_HIDING,-1,-1,SC_KO_JYUMONJIKIRI,-1,-1,-1,-1,-1,-1,
 	/* 3011- */
-	SC_MEIKYOUSISUI,-1,SC_KYOUGAKU,SC_CURSE,-1,-1,-1,-1,-1,-1,
+	SC_MEIKYOUSISUI,-1,SC_KYOUGAKU,SC_CURSE,-1,-1,-1,-1,-1,SC_KO_ZENKAI,
 	/* 3021- */
 	SC_CONFUSION,SC_IZAYOI,SC_KG_KAGEHUMI,SC_KYOMU,SC_KAGEMUSYA,-1,-1,-1,SC_AKAITSUKI,
 };
@@ -3269,6 +3269,10 @@ int skill_castend_damage_id( struct block_list* src, struct block_list *bl,int s
 			status_change_end(src, SC_HIDING, -1);	// ƒnƒCƒfƒBƒ“ƒO‰ğœ
 		}
 		break;
+	case KO_JYUMONJIKIRI:		/* \•¶ša‚è */
+		battle_skill_attack(BF_WEAPON,src,src,bl,skillid,skilllv,tick,flag);
+		status_change_start(src,GetSkillStatusChangeTable(skillid),skilllv,0,0,0,skill_get_time(skillid,skilllv),0);
+		break;
 
 	/* •ŠíŒn”ÍˆÍUŒ‚ƒXƒLƒ‹ */
 	case AC_SHOWER:			/* ƒAƒ[ƒVƒƒƒ[ */
@@ -3655,6 +3659,7 @@ int skill_castend_damage_id( struct block_list* src, struct block_list *bl,int s
 	case AB_DUPLELIGHT_MAGIC:	/* ƒfƒ…ƒvƒŒƒ‰ƒCƒg(–‚–@) */
 	case LG_RAYOFGENESIS:		/* ƒŒƒCƒIƒuƒWƒFƒlƒVƒX */
 	case WM_METALICSOUND:		/* ƒƒ^ƒŠƒbƒNƒTƒEƒ“ƒh */
+	case KO_KAIHOU:				/* p®‰ğ•ú */
 		battle_skill_attack(BF_MAGIC,src,src,bl,skillid,skilllv,tick,flag);
 		break;
 	case ALL_RESURRECTION:		/* ƒŠƒUƒŒƒNƒVƒ‡ƒ“ */
@@ -9084,6 +9089,15 @@ int skill_castend_nodamage_id( struct block_list *src, struct block_list *bl,int
 			status_change_pretimer(bl,GetSkillStatusChangeTable(skillid),skilllv,0,0,0,skill_get_time(skillid,skilllv),0,tick+status_get_amotion(src));
 		}
 		break;
+	case KO_KAHU_ENTEN:	/* ‰Î•„ -‰Š“V- */
+	case KO_HYOUHU_HUBUKI:	/* •X•„ -á- */
+	case KO_KAZEHU_SEIRAN:	/* •—•„ -Â—•- */
+	case KO_DOHU_KOUKAI:	/* “y•„ -„‰ò- */
+		if(sd) {
+			clif_skill_nodamage(src,bl,skillid,skilllv,1);
+			pc_addelementball(sd,skill_get_time(skillid,skilllv),MAX_ELEMENTBALL,skill_get_pl(skillid));
+		}
+		break;
 	case KO_GENWAKU:		/* Œ¶˜f */
 		clif_skill_damage(src, bl, tick, 0, 0, -1, 1, skillid, -1, 0);	// ƒGƒtƒFƒNƒg‚ğo‚·‚½‚ß‚Ìb’èˆ’u
 		if(atn_rand() % 10000 < 1000 * skilllv) {	// Šm—¦b’è
@@ -9152,6 +9166,10 @@ int skill_castend_nodamage_id( struct block_list *src, struct block_list *bl,int
 			break;
 		clif_skill_damage(src, bl, tick, 0, 0, -1, 1, skillid, -1, 0);	// ƒGƒtƒFƒNƒg‚ğo‚·‚½‚ß‚Ìb’èˆ’u
 		status_change_start(bl,GetSkillStatusChangeTable(skillid),skilllv,0,0,0,skill_get_time(skillid,skilllv),0);
+		break;
+	case KO_ZENKAI:		/* p®‘SŠJ */
+		skill_clear_element_field(src);	// Šù‚É©•ª‚ª”­“®‚µ‚Ä‚¢‚é‘®«ê‚ğƒNƒŠƒA
+		skill_unitsetting(src,skillid,skilllv,bl->x,bl->y,0);
 		break;
 	default:
 		printf("skill_castend_nodamage_id: Unknown skill used:%d\n",skillid);
@@ -9540,7 +9558,7 @@ int skill_castend_pos2( struct block_list *src, int x,int y,int skillid,int skil
 	case SA_VIOLENTGALE:		/* ƒoƒCƒIƒŒƒ“ƒgƒQƒCƒ‹ */
 	case SA_LANDPROTECTOR:		/* ƒ‰ƒ“ƒhƒvƒƒeƒNƒ^[ */
 	case NJ_SUITON:			/* …“Ù */
-	case NJ_KAENSIN:		/* ‰Î‰Šw*/
+	case NJ_KAENSIN:		/* ‰Î‰Šw */
 		skill_clear_element_field(src);	// Šù‚É©•ª‚ª”­“®‚µ‚Ä‚¢‚é‘®«ê‚ğƒNƒŠƒA
 		skill_unitsetting(src,skillid,skilllv,x,y,0);
 		break;
@@ -10290,6 +10308,33 @@ struct skill_unit_group *skill_unitsetting( struct block_list *src, int skillid,
 	case LG_BANDING:	/* ƒoƒ“ƒfƒBƒ“ƒO */
 		limit = 600000;		// ŠÔØ‚ê–³‚µ
 		break;
+	case KO_ZENKAI:		/* p®‘SŠJ */
+		if(sd) {
+			// ¢Š«’†‚Ì‹…‘Ì‚Ì‘®«‚É‰‚¶‚Äunit_id‚ğ•Ï‰»‚³‚¹‚é
+			switch(sd->elementball.ele) {
+				case ELE_WATER:
+					unit_id = UNT_ZENKAI_WATER;
+					val1    = ELE_WATER;	// val1‚Í‘®«’l
+					break;
+				case ELE_EARTH:
+					unit_id = UNT_ZENKAI_GROUND;
+					val1    = ELE_EARTH;	// val1‚Í‘®«’l
+					break;
+				case ELE_FIRE:
+					unit_id = UNT_ZENKAI_FIRE;
+					val1    = ELE_FIRE;	// val1‚Í‘®«’l
+					break;
+				case ELE_WIND:
+					unit_id = UNT_ZENKAI_WIND;
+					val1    = ELE_WIND;	// val1‚Í‘®«’l
+					break;
+			}
+			// ¢Š«’†‚Ì‹…‘Ì‚Ì”‚É‰‚¶‚Älimit‚ª‰„‚Ñ‚é
+			limit += (sd->elementball.num - 1) * 6000;
+		} else {
+			val1 = ELE_FIRE;	// val1‚Í‘®«’l
+		}
+		break;
 	}
 
 	nullpo_retr( NULL, group = skill_initunitgroup(src,layout->count,skillid,skilllv,unit_id,gettick()) );
@@ -10704,6 +10749,67 @@ static int skill_unit_onplace(struct skill_unit *src,struct block_list *bl,unsig
 		}
 		status_change_start(bl,SC_STEALTHFIELD,sg->skill_lv,sg->val1,sg->val2,
 				src->bl.id,skill_get_time2(sg->skill_id,sg->skill_lv),0);
+		break;
+	case UNT_ZENKAI_WATER:	/* p®‘SŠJ(…‘®«) */
+	case UNT_ZENKAI_GROUND:	/* p®‘SŠJ(’n‘®«) */
+	case UNT_ZENKAI_FIRE:	/* p®‘SŠJ(‰Î‘®«) */
+	case UNT_ZENKAI_WIND:	/* p®‘SŠJ(•—‘®«) */
+		if( sc && sc->data[type].timer != -1 ) {
+			unit2 = map_id2su(sc->data[type].val2);
+			if( unit2 && unit2->group && ( unit2 == src || DIFF_TICK(sg->tick,unit2->group->tick) <= 0 ) )
+				break;
+		}
+		status_change_start(bl,type,sg->skill_lv,src->bl.id,sg->val1,15,skill_get_time2(sg->skill_id,sg->skill_lv),0);
+		// “G‚È‚çƒ†ƒjƒbƒg‚É‰‚¶‚Äó‘ÔˆÙí‚ğ•t—^‚·‚é
+		if( battle_check_target(&src->bl,bl,BCT_ENEMY) > 0 ) {
+			switch(sg->unit_id) {
+				case UNT_ZENKAI_WATER:	/* p®‘SŠJ(…‘®«) */
+					switch(atn_rand()%3) {
+					case 0:	// “€Œ‹
+						if(atn_rand() % 10000 < status_change_rate(bl,SC_FREEZE,10000,status_get_lv(&src->bl)))
+							status_change_pretimer(bl,SC_FREEZE,sg->skill_lv,0,0,0,30000,0,tick+status_get_amotion(&src->bl));
+						break;
+					case 1:	// •XŒ‹
+						status_change_pretimer(bl,SC_FROSTMISTY,sg->skill_lv,0,0,0,30000,0,tick+status_get_amotion(&src->bl));
+						break;
+					case 2:	// —â“€
+						status_change_pretimer(bl,SC_DIAMONDDUST,sg->skill_lv,0,0,0,30000,0,tick+status_get_amotion(&src->bl));
+						break;
+					}
+					break;
+				case UNT_ZENKAI_GROUND:	/* p®‘SŠJ(’n‘®«) */
+					switch(atn_rand()%2) {
+					case 0:	// Î‰»
+						if(atn_rand() % 10000 < status_change_rate(bl,SC_STONE,10000,status_get_lv(&src->bl)))
+							status_change_pretimer(bl,SC_STONE,sg->skill_lv,0,0,0,30000,0,tick+status_get_amotion(&src->bl));
+						break;
+					case 1:	// “Å
+						if(atn_rand() % 10000 < status_change_rate(bl,SC_POISON,10000,status_get_lv(&src->bl)))
+							status_change_pretimer(bl,SC_POISON,sg->skill_lv,0,0,0,30000,0,tick+status_get_amotion(&src->bl));
+						break;
+					}
+					break;
+				case UNT_ZENKAI_FIRE:	/* p®‘SŠJ(‰Î‘®«) */
+					// ”­‰Î
+					status_change_pretimer(bl,SC_HELLINFERNO,sg->skill_lv,0,0,0,30000,0,tick+status_get_amotion(&src->bl));
+					break;
+				case UNT_ZENKAI_WIND:	/* p®‘SŠJ(•—‘®«) */
+					switch(atn_rand()%3) {
+					case 0:	// ’¾–Ù
+						if(atn_rand() % 10000 < status_change_rate(bl,SC_SILENCE,10000,status_get_lv(&src->bl)))
+							status_change_pretimer(bl,SC_SILENCE,sg->skill_lv,0,0,0,30000,0,tick+status_get_amotion(&src->bl));
+						break;
+					case 1:	// ‡–°
+						if(atn_rand() % 10000 < status_change_rate(bl,SC_SLEEP,10000,status_get_lv(&src->bl)))
+							status_change_pretimer(bl,SC_SLEEP,sg->skill_lv,0,0,0,30000,0,tick+status_get_amotion(&src->bl));
+						break;
+					case 2:	// [‚¢‡–°
+						status_change_pretimer(bl,SC_DEEP_SLEEP,sg->skill_lv,0,0,0,30000,0,tick+status_get_amotion(&src->bl));
+						break;
+					}
+					break;
+			}
+		}
 		break;
 /*	default:
 		if(battle_config.error_log)
@@ -11437,6 +11543,61 @@ static int skill_unit_onplace_timer(struct skill_unit *src,struct block_list *bl
 	case UNT_MAKIBISHI:	/* T•H */
 		unit_fixdamage(ss,bl,gettick(),0,status_get_dmotion(bl),20*sg->skill_lv,0,0,0,0);
 		break;
+	case UNT_ZENKAI_WATER:	/* p®‘SŠJ(…‘®«) */
+	case UNT_ZENKAI_GROUND:	/* p®‘SŠJ(’n‘®«) */
+	case UNT_ZENKAI_FIRE:	/* p®‘SŠJ(‰Î‘®«) */
+	case UNT_ZENKAI_WIND:	/* p®‘SŠJ(•—‘®«) */
+		// “G‚È‚çƒ†ƒjƒbƒg‚É‰‚¶‚Äó‘ÔˆÙí‚ğ•t—^‚·‚é
+		if( battle_check_target(&src->bl,bl,BCT_ENEMY) > 0 ) {
+			switch(sg->unit_id) {
+				case UNT_ZENKAI_WATER:	/* p®‘SŠJ(…‘®«) */
+					switch(atn_rand()%3) {
+					case 0:	// “€Œ‹
+						if(atn_rand() % 10000 < status_change_rate(bl,SC_FREEZE,10000,status_get_lv(&src->bl)))
+							status_change_pretimer(bl,SC_FREEZE,sg->skill_lv,0,0,0,30000,0,tick+status_get_amotion(&src->bl));
+						break;
+					case 1:	// •XŒ‹
+						status_change_pretimer(bl,SC_FROSTMISTY,sg->skill_lv,0,0,0,30000,0,tick+status_get_amotion(&src->bl));
+						break;
+					case 2:	// —â“€
+						status_change_pretimer(bl,SC_DIAMONDDUST,sg->skill_lv,0,0,0,30000,0,tick+status_get_amotion(&src->bl));
+						break;
+					}
+					break;
+				case UNT_ZENKAI_GROUND:	/* p®‘SŠJ(’n‘®«) */
+					switch(atn_rand()%2) {
+					case 0:	// Î‰»
+						if(atn_rand() % 10000 < status_change_rate(bl,SC_STONE,10000,status_get_lv(&src->bl)))
+							status_change_pretimer(bl,SC_STONE,sg->skill_lv,0,0,0,30000,0,tick+status_get_amotion(&src->bl));
+						break;
+					case 1:	// “Å
+						if(atn_rand() % 10000 < status_change_rate(bl,SC_POISON,10000,status_get_lv(&src->bl)))
+							status_change_pretimer(bl,SC_POISON,sg->skill_lv,0,0,0,30000,0,tick+status_get_amotion(&src->bl));
+						break;
+					}
+					break;
+				case UNT_ZENKAI_FIRE:	/* p®‘SŠJ(‰Î‘®«) */
+					// ”­‰Î
+					status_change_pretimer(bl,SC_HELLINFERNO,sg->skill_lv,0,0,0,30000,0,tick+status_get_amotion(&src->bl));
+					break;
+				case UNT_ZENKAI_WIND:	/* p®‘SŠJ(•—‘®«) */
+					switch(atn_rand()%3) {
+					case 0:	// ’¾–Ù
+						if(atn_rand() % 10000 < status_change_rate(bl,SC_SILENCE,10000,status_get_lv(&src->bl)))
+							status_change_pretimer(bl,SC_SILENCE,sg->skill_lv,0,0,0,30000,0,tick+status_get_amotion(&src->bl));
+						break;
+					case 1:	// ‡–°
+						if(atn_rand() % 10000 < status_change_rate(bl,SC_SLEEP,10000,status_get_lv(&src->bl)))
+							status_change_pretimer(bl,SC_SLEEP,sg->skill_lv,0,0,0,30000,0,tick+status_get_amotion(&src->bl));
+						break;
+					case 2:	// [‚¢‡–°
+						status_change_pretimer(bl,SC_DEEP_SLEEP,sg->skill_lv,0,0,0,30000,0,tick+status_get_amotion(&src->bl));
+						break;
+					}
+					break;
+			}
+		}
+		break;
 	}
 
 	if(bl->type == BL_MOB && ss != bl)	/* ƒXƒLƒ‹g—pğŒ‚ÌMOBƒXƒLƒ‹ */
@@ -11590,6 +11751,17 @@ static int skill_unit_onout(struct skill_unit *src,struct block_list *bl,unsigne
 			if (target && target == bl)
 				status_change_end(bl,SC_THORNS_TRAP,-1);
 			sg->limit = DIFF_TICK(tick,sg->tick)+1000;
+		}
+		break;
+	case UNT_ZENKAI_WATER:	/* p®‘SŠJ(…‘®«) */
+	case UNT_ZENKAI_GROUND:	/* p®‘SŠJ(’n‘®«) */
+	case UNT_ZENKAI_FIRE:	/* p®‘SŠJ(‰Î‘®«) */
+	case UNT_ZENKAI_WIND:	/* p®‘SŠJ(•—‘®«) */
+		sc = status_get_sc(bl);
+		type = GetSkillStatusChangeTable(sg->skill_id);
+		if( type == -1 ) break;
+		if (sc && sc->data[type].timer != -1 && sc->data[type].val2 == src->bl.id) {
+			status_change_end(bl,type,-1);
 		}
 		break;
 /*	default:
@@ -13383,6 +13555,28 @@ static int skill_check_condition2_pc(struct map_session_data *sd, struct skill_c
 			return 0;
 		}
 		break;
+	case KO_KAHU_ENTEN:	/* ‰Î•„ -‰Š“V- */
+	case KO_HYOUHU_HUBUKI:	/* •X•„ -á- */
+	case KO_KAZEHU_SEIRAN:	/* •—•„ -Â—•- */
+	case KO_DOHU_KOUKAI:	/* “y•„ -„‰ò- */
+		if(sd->elementball.num >= MAX_ELEMENTBALL) {
+			clif_skill_fail(sd,cnd->id,0,0,0);
+			return 0;
+		}
+		if(sd->elementball.num) {
+			if(sd->elementball.ele != skill_get_pl(cnd->id)) {
+				clif_skill_fail(sd,cnd->id,0,0,0);
+				return 0;
+			}
+		}
+		break;
+	case KO_KAIHOU:	/* p®‰ğ•ú */
+	case KO_ZENKAI:	/* p®‘SŠJ */
+		if(sd->elementball.num < 1) {
+			clif_skill_fail(sd,cnd->id,0,0,0);
+			return 0;
+		}
+		break;
 	case GD_BATTLEORDER:		/* —Õí‘Ô¨ */
 	case GD_REGENERATION:		/* Œƒ—ã */
 	case GD_RESTORE:		/* ¡—Ã */
@@ -15026,6 +15220,7 @@ static int skill_clear_element_field(struct block_list *bl)
 				case SA_LANDPROTECTOR:
 				case NJ_SUITON:
 				case NJ_KAENSIN:
+				case KO_ZENKAI:
 					skill_delunitgroup(group);
 					break;
 			}
@@ -15653,6 +15848,7 @@ static int skill_delunit_by_ganbantein(struct block_list *bl, va_list ap )
 		case MA_FREEZINGTRAP:
 		case KO_HUUMARANKA:
 		case KO_MAKIBISHI:
+		case KO_ZENKAI:
 			skill_delunit(unit);
 			break;
 	}
