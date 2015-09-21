@@ -4959,7 +4959,7 @@ int atcommand_resetfeel(const int fd, struct map_session_data* sd, AtCommandType
  */
 int atcommand_resethate(const int fd, struct map_session_data* sd, AtCommandType command, const char* message)
 {
-	const char *reg[3] = { "PC_HATE_MOB_SUN", "PC_HATE_MOB_MOON", "PC_HATE_MOB_STAR" };
+	const char *reg[] = { "PC_HATE_MOB_SUN", "PC_HATE_MOB_MOON", "PC_HATE_MOB_STAR" };
 	int i;
 
 	nullpo_retr(-1, sd);
@@ -4969,7 +4969,7 @@ int atcommand_resethate(const int fd, struct map_session_data* sd, AtCommandType
 	if (sscanf(message, "%d", &i) < 1)
 		return -1;
 
-	if (i >= 0 && i < 3) {
+	if (i >= 0 && i < sizeof(reg)/sizeof(reg[0])) {
 		sd->hate_mob[i] = -1;
 		pc_setglobalreg(sd,reg[i],0);
 	}
@@ -5416,9 +5416,9 @@ int atcommand_reproduce2(const int fd, struct map_session_data* sd, AtCommandTyp
  */
 int atcommand_mobinfo(const int fd, struct map_session_data* sd, AtCommandType command, const char* message)
 {
-	const char msize[3][5] = { "¬Œ^", "’†Œ^", "‘åŒ^" };
-	const char mrace[12][9] = { "–³", "•sŽ€", "“®•¨", "A•¨", "©’Ž", "‹›", "ˆ«–‚", "lŠÔ", "“VŽg", "—³", "Boss", "Non-Boss" };
-	const char melement[11][5] = { "–³", "–³", "…", "’n", "‰Î", "•—", "“Å", "¹", "ˆÅ", "”O", "•sŽ€" };
+	const char *msize[] = { "¬Œ^", "’†Œ^", "‘åŒ^" };
+	const char *mrace[] = { "–³", "•sŽ€", "“®•¨", "A•¨", "©’Ž", "‹›", "ˆ«–‚", "lŠÔ", "“VŽg", "—³", "Boss", "Non-Boss" };
+	const char *melement[] = { "–³", "–³", "…", "’n", "‰Î", "•—", "“Å", "¹", "ˆÅ", "”O", "•sŽ€" };
 	char output[200];
 	struct item_data *item_data;
 	struct mob_db *m;
@@ -5455,12 +5455,12 @@ int atcommand_mobinfo(const int fd, struct map_session_data* sd, AtCommandType c
 	} else {
 		i = m->element % 20 + 1;
 		j = m->element / 20;
-		if (i > 10)
+		if (i >= sizeof(melement)/sizeof(melement[0]))
 			i = 0;
 	}
 	msg_output(fd, " ATK:%d-%d  Range:%d-%d-%d  Size: %s  Race: %s  Element: %s (Lv:%d)",
 		m->atk1, m->atk2, m->range, m->range2 , m->range3,
-		((m->size > 3)? "-": msize[m->size]), ((m->race > 12)? "-": mrace[m->race]), melement[i], j);
+		((m->size >= sizeof(msize)/sizeof(msize[0]))? "-": msize[m->size]), ((m->race >= sizeof(mrace)/sizeof(mrace[0]))? "-": mrace[m->race]), melement[i], j);
 
 	// drops
 	clif_displaymessage(fd, " Drops:");
