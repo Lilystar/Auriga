@@ -201,12 +201,16 @@ bAutoSpell,bAutoSelfSpell,bRevAutoSpell,bRevAutoSelfSpell‚Í16ŒÂ‚Ü‚Å—LŒø‚Å‚·B16‚
 	bonus bNoCastCancel2,n;				ƒLƒƒƒXƒeƒBƒ“ƒO‚ğƒLƒƒƒ“ƒZƒ‹‚³‚ê‚È‚¢(GVG‚Å‚àƒLƒƒƒ“ƒZƒ‹‚³‚ê‚È‚¢An‚Í–³ˆÓ–¡)
 	bonus bNoGemStone,n;				ƒXƒLƒ‹‚ğg‚¤ƒWƒFƒ€ƒXƒg[ƒ“‚ğÁ–Õ‚µ‚È‚¢(n‚Í–³ˆÓ–¡)
 	bonus bSkillDelayRate,n;			ƒXƒLƒ‹g—pŒãƒfƒBƒŒƒC+n%
+	bonus2 bFixCastrate,n,x;			ŒÅ’è‰r¥ŠÔ+n%(x‚ª0‚Ìê‡A’l‚Ì’á‚¢•¨‚ª“K—pBx‚ª0ˆÈŠO‚Ìê‡An‚Í+‚³‚ê‚é)
 	bonus2 bAddSkillDamageRate,n,x; 	ƒXƒLƒ‹n‚Ìƒ_ƒ[ƒW‚ğx%‘‰Á
 	bonus2 bAddSkillBlow,n,x;			ƒXƒLƒ‹n‚Éxƒ}ƒX‚Ì‚«”ò‚Î‚µŒø‰Ê’Ç‰Á
 	bonus2 bAddFixCastRate,n,x;			ƒXƒLƒ‹n‚ÌŒÅ’è‰r¥ŠÔ‚ğx%‘‰Á
-	bonus2 bAddSkillHealRate,n,x;			ƒXƒLƒ‹n‚Ì‰ñ•œ—Ê‚ğx%‘‰Á
+	bonus2 bAddSkillHealRate,n,x;		ƒXƒLƒ‹n‚Ì‰ñ•œ—Ê‚ğx%‘‰Á
+	bonus2 bAddSkillSubHealRate,n,x;	ƒXƒLƒ‹n‚ğó‚¯‚½‚Æ‚«‚Ì‰ñ•œ—Ê‚ğx%‘‰Á
 	bonus2 bAddCastRate,n,x;			ƒXƒLƒ‹n‚Ì‰r¥ŠÔ‚ğx%‘‰Á
+	bonus2 bAddSkillCastTime,n,x;		ƒXƒLƒ‹n‚Ì‰r¥ŠÔ‚ğxƒ~ƒŠ•b‘‰Á
 	bonus2 bAddSpCost,n,x;				ƒXƒLƒ‹n‚ÌÁ”ïSP‚ğ+x
+	bonus2 bAddSkillCoolDown,n,x;		ƒXƒLƒ‹n‚ÌƒN[ƒ‹ƒ^ƒCƒ€‚ğxƒ~ƒŠ•b‘‰Á(n‚ª3ŸEƒXƒLƒ‹ˆÈŠO‚Í–³Œø)
 
 
 EƒI[ƒgƒXƒyƒ‹
@@ -309,7 +313,7 @@ bAutoSpell,bAutoSelfSpell,bRevAutoSpell,bRevAutoSelfSpell‚Í16ŒÂ‚Ü‚Å—LŒø‚Å‚·B16‚
 	bonus2 bResEff,e,n;					ó‘ÔˆÙíe‚Ì‘Ï«+n%(n‚Í–œ•ª—¦)
 					Eff_Blind		ˆÃ•			Eff_Sleep		‡–°
 					Eff_Poison		“Å				Eff_Freeze		“€Œ‹
-					Eff_Silenc		’¾–Ù			Eff_Stun		ƒXƒ^ƒ“
+					Eff_Silence		’¾–Ù			Eff_Stun		ƒXƒ^ƒ“
 					Eff_Curse		ô‚¢			Eff_Confusion	¬—
 					Eff_Stone		Î‰»			Eff_Bleed		oŒŒ)
 	bonus bCurseByMuramasa,n;			LV>LUK‚Ì,n%‚ÌŠm—¦‚Åô‚¢‚É‚©‚©‚é(n‚Í–œ•ª—¦)
@@ -353,7 +357,7 @@ bAutoSpell,bAutoSelfSpell,bRevAutoSpell,bRevAutoSelfSpell‚Í16ŒÂ‚Ü‚Å—LŒø‚Å‚·B16‚
 	bonus bNoKnockback,n;				ƒmƒbƒNƒoƒbƒN‚µ‚È‚­‚È‚é(n‚Í–³ˆÓ–¡)
 
 
-E“Áê	
+E“Áê
 	bonus bAutoStatusCalcPc,n;	ƒXƒe[ƒ^ƒXˆÙín‚ªI—¹‚·‚é“x‚É‹­§“I‚Éstatu_calc_pc‚ğŒÄ‚Ño‚·
 @@					—á:‘•”õ‚µ‚Ä‚¢‚éŠÔƒAƒXƒ€ƒvƒeƒBƒIó‘Ô
     					,{},{ bonus bAutoStatusCalcPc,110; sc_start 110,1000,0; }
