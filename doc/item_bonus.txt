@@ -206,14 +206,18 @@ bAutoSpell,bAutoSelfSpell,bRevAutoSpell,bRevAutoSelfSpell‚Í16ŒÂ‚Ü‚Å—LŒø‚Å‚·B16‚
 
 
 EƒI[ƒgƒXƒyƒ‹
-	bonus3 bAutoSpell,n,x,y:			ƒI[ƒgƒXƒyƒ‹‚ÅƒXƒLƒ‹n‚ðxƒŒƒxƒ‹‚Åy%Šm—¦(–œ•ª—¦)‚ÅŽg—pB
-	bonus3 bAutoSpell2,n,x,y:			ƒI[ƒgƒXƒyƒ‹‚ÅƒXƒLƒ‹n‚ðxƒŒƒxƒ‹‚Åy%Šm—¦(–œ•ª—¦)‚ÅŽg—pB‚ƒŒƒxƒ‹‚ðŽæ“¾‚µ‚Ä‚¢‚é‚È‚ç‚Î‚»‚¿‚ç‚ð—Dæ
-	bonus3 bAutoSelfSpell,n,x,y:		ƒI[ƒgƒXƒyƒ‹‚ÅƒXƒLƒ‹n‚ðxƒŒƒxƒ‹‚Åy%Šm—¦(–œ•ª—¦)‚ÅŽ©•ª‚ÉŽg—pB
-	bonus3 bAutoSelfSpell2,n,x,y:		ƒI[ƒgƒXƒyƒ‹‚ÅƒXƒLƒ‹n‚ðxƒŒƒxƒ‹‚Åy%Šm—¦(–œ•ª—¦)‚ÅŽ©•ª‚ÉŽg—pB‚ƒŒƒxƒ‹‚ðŽæ“¾‚µ‚Ä‚¢‚é‚È‚ç‚Î‚»‚¿‚ç‚ð—Dæ
-	bonus3 bRevAutoSpell,n,x,y:			•¨—ƒ_ƒ[ƒW‚ðŽó‚¯‚½ŽžAƒI[ƒgƒXƒyƒ‹‚ÅƒXƒLƒ‹n‚ðxƒŒƒxƒ‹‚Åy%Šm—¦(–œ•ª—¦)‚ÅŽg—pB
-	bonus3 bRevAutoSpell2,n,x,y:		•¨—ƒ_ƒ[ƒW‚ðŽó‚¯‚½ŽžAƒI[ƒgƒXƒyƒ‹‚ÅƒXƒLƒ‹n‚ðxƒŒƒxƒ‹‚Åy%Šm—¦(–œ•ª—¦)‚ÅŽg—pB‚ƒŒƒxƒ‹‚ðŽæ“¾‚µ‚Ä‚¢‚é‚È‚ç‚Î‚»‚¿‚ç‚ð—Dæ
-	bonus3 bRevAutoSelfSpell,n,x,y:		•¨—ƒ_ƒ[ƒW‚ðŽó‚¯‚½ŽžAƒI[ƒgƒXƒyƒ‹‚ÅƒXƒLƒ‹n‚ðxƒŒƒxƒ‹‚Åy%Šm—¦(–œ•ª—¦)‚ÅŽ©•ª‚ÉŽg—pB
-	bonus3 bRevAutoSelfSpell2,n,x,y:	•¨—ƒ_ƒ[ƒW‚ðŽó‚¯‚½ŽžAƒI[ƒgƒXƒyƒ‹‚ÅƒXƒLƒ‹n‚ðxƒŒƒxƒ‹‚Åy%Šm—¦(–œ•ª—¦)‚ÅŽ©•ª‚ÉŽg—pB‚ƒŒƒxƒ‹‚ðŽæ“¾‚µ‚Ä‚¢‚é‚È‚ç‚Î‚»‚¿‚ç‚ð—Dæ
+	bonus3 bAutoSpell,n,x,y;			ƒI[ƒgƒXƒyƒ‹‚ÅƒXƒLƒ‹n‚ðxƒŒƒxƒ‹‚Åy%Šm—¦(–œ•ª—¦)‚ÅŽg—pB
+	bonus3 bAutoSpell2,n,x,y;			ƒI[ƒgƒXƒyƒ‹‚ÅƒXƒLƒ‹n‚ðxƒŒƒxƒ‹‚Åy%Šm—¦(–œ•ª—¦)‚ÅŽg—pB‚ƒŒƒxƒ‹‚ðŽæ“¾‚µ‚Ä‚¢‚é‚È‚ç‚Î‚»‚¿‚ç‚ð—Dæ
+	bonus3 bAutoSelfSpell,n,x,y;		ƒI[ƒgƒXƒyƒ‹‚ÅƒXƒLƒ‹n‚ðxƒŒƒxƒ‹‚Åy%Šm—¦(–œ•ª—¦)‚ÅŽ©•ª‚ÉŽg—pB
+	bonus3 bAutoSelfSpell2,n,x,y;		ƒI[ƒgƒXƒyƒ‹‚ÅƒXƒLƒ‹n‚ðxƒŒƒxƒ‹‚Åy%Šm—¦(–œ•ª—¦)‚ÅŽ©•ª‚ÉŽg—pB‚ƒŒƒxƒ‹‚ðŽæ“¾‚µ‚Ä‚¢‚é‚È‚ç‚Î‚»‚¿‚ç‚ð—Dæ
+	bonus3 bRevAutoSpell,n,x,y;			•¨—ƒ_ƒ[ƒW‚ðŽó‚¯‚½ŽžAƒI[ƒgƒXƒyƒ‹‚ÅƒXƒLƒ‹n‚ðxƒŒƒxƒ‹‚Åy%Šm—¦(–œ•ª—¦)‚ÅŽg—pB
+	bonus3 bRevAutoSpell2,n,x,y;		•¨—ƒ_ƒ[ƒW‚ðŽó‚¯‚½ŽžAƒI[ƒgƒXƒyƒ‹‚ÅƒXƒLƒ‹n‚ðxƒŒƒxƒ‹‚Åy%Šm—¦(–œ•ª—¦)‚ÅŽg—pB‚ƒŒƒxƒ‹‚ðŽæ“¾‚µ‚Ä‚¢‚é‚È‚ç‚Î‚»‚¿‚ç‚ð—Dæ
+	bonus3 bRevAutoSelfSpell,n,x,y;		•¨—ƒ_ƒ[ƒW‚ðŽó‚¯‚½ŽžAƒI[ƒgƒXƒyƒ‹‚ÅƒXƒLƒ‹n‚ðxƒŒƒxƒ‹‚Åy%Šm—¦(–œ•ª—¦)‚ÅŽ©•ª‚ÉŽg—pB
+	bonus3 bRevAutoSelfSpell2,n,x,y;	•¨—ƒ_ƒ[ƒW‚ðŽó‚¯‚½ŽžAƒI[ƒgƒXƒyƒ‹‚ÅƒXƒLƒ‹n‚ðxƒŒƒxƒ‹‚Åy%Šm—¦(–œ•ª—¦)‚ÅŽ©•ª‚ÉŽg—pB‚ƒŒƒxƒ‹‚ðŽæ“¾‚µ‚Ä‚¢‚é‚È‚ç‚Î‚»‚¿‚ç‚ð—Dæ
+	bonus4 bSkillAutoSpell,n,x,y,z;			ƒXƒLƒ‹nŽg—pŽžAƒI[ƒgƒXƒyƒ‹‚ÅƒXƒLƒ‹x‚ðyƒŒƒxƒ‹‚Åz%Šm—¦(–œ•ª—¦)‚ÅŽg—pB
+	bonus4 bSkillAutoSpell2,n,x,y,z;			ƒXƒLƒ‹nŽg—pŽžAƒI[ƒgƒXƒyƒ‹‚ÅƒXƒLƒ‹x‚ðyƒŒƒxƒ‹‚Åz%Šm—¦(–œ•ª—¦)‚ÅŽg—pB‚ƒŒƒxƒ‹‚ðŽæ“¾‚µ‚Ä‚¢‚é‚È‚ç‚Î‚»‚¿‚ç‚ð—Dæ
+	bonus4 bSkillAutoSelfSpell,n,x,y,z;			ƒXƒLƒ‹nŽg—pŽžAƒI[ƒgƒXƒyƒ‹‚ÅƒXƒLƒ‹x‚ðyƒŒƒxƒ‹‚Åz%Šm—¦(–œ•ª—¦)‚ÅŽ©•ª‚ÉŽg—pB
+	bonus4 bSkillAutoSelfSpell2,n,x,y,z;			ƒXƒLƒ‹nŽg—pŽžAƒI[ƒgƒXƒyƒ‹‚ÅƒXƒLƒ‹x‚ðyƒŒƒxƒ‹‚Åz%Šm—¦(–œ•ª—¦)‚ÅŽ©•ª‚ÉŽg—pB‚ƒŒƒxƒ‹‚ðŽæ“¾‚µ‚Ä‚¢‚é‚È‚ç‚Î‚»‚¿‚ç‚ð—Dæ
 	bonus4 bAutoSpell,n,x,y,z;			z‚ÌðŒ‚ÅƒXƒLƒ‹n‚ðxƒŒƒxƒ‹‚ÅŠm—¦y‚ÅŽg—pB(y‚Í–œ•ª—¦)
 					ðŒ‚ð‰½‚àŽw’è‚µ‚È‚­‚Ä‚à‚Æ‚è‚ ‚¦‚¸“®ì‚µ‚Ü‚·‚ªA‚¨Š©‚ß‚µ‚Ü‚¹‚ñB
 					”­“®ðŒF•¡”‰Â
@@ -255,11 +259,12 @@ bAutoSpell,bAutoSelfSpell,bRevAutoSpell,bRevAutoSelfSpell‚Í16ŒÂ‚Ü‚Å—LŒø‚Å‚·B16‚
 
 EƒI[ƒgƒAƒNƒeƒBƒuƒAƒCƒeƒ€
 @¦ˆê’è‚ÌŠm—¦‚ÅƒAƒCƒeƒ€‚ðŠˆ«ó‘Ô‚É‚µ‚Ü‚·BŠˆ«‰»‚µ‚½ƒAƒCƒeƒ€‚Ícheckactiveitem()‚Åó‘Ô‚ªŽæ“¾‰Â”\‚Å‚·B
-	bonus3 bAutoActiveWeapon,n,x,y:		•¨—UŒ‚ŽžAƒAƒCƒeƒ€n‚ðx%Šm—¦(–œ•ª—¦)‚Åy•b(ms)‚ÌŠÔAŠˆ«‰»ó‘Ô‚É‚µ‚Ü‚·B
-	bonus3 bAutoActiveMagic,n,x,y:		–‚–@UŒ‚ŽžAƒAƒCƒeƒ€n‚ðx%Šm—¦(–œ•ª—¦)‚Åy•b(ms)‚ÌŠÔAŠˆ«‰»ó‘Ô‚É‚µ‚Ü‚·B
-	bonus3 bRevAutoActiveWeapon,n,x,y:	•¨—ƒ_ƒ[ƒW‚ðŽó‚¯‚½ŽžAƒAƒCƒeƒ€n‚ðx%Šm—¦(–œ•ª—¦)‚Åy•b(ms)‚ÌŠÔAŠˆ«‰»ó‘Ô‚É‚µ‚Ü‚·B
-	bonus3 bRevAutoActiveMagic,n,x,y:	–‚–@ƒ_ƒ[ƒW‚ðŽó‚¯‚½ŽžAƒAƒCƒeƒ€n‚ðx%Šm—¦(–œ•ª—¦)‚Åy•b(ms)‚ÌŠÔAŠˆ«‰»ó‘Ô‚É‚µ‚Ü‚·B
-	bonus4 bAutoActiveItem,n,x,y,z:		z‚ÌðŒ‚ÅƒAƒCƒeƒ€n‚ðx%Šm—¦(–œ•ª—¦)‚Åy•b(ms)‚ÌŠÔAŠˆ«‰»ó‘Ô‚É‚µ‚Ü‚·B
+	bonus3 bAutoActiveWeapon,n,x,y;		•¨—UŒ‚ŽžAƒAƒCƒeƒ€n‚ðx%Šm—¦(–œ•ª—¦)‚Åy•b(ms)‚ÌŠÔAŠˆ«‰»ó‘Ô‚É‚µ‚Ü‚·B
+	bonus3 bAutoActiveMagic,n,x,y;		–‚–@UŒ‚ŽžAƒAƒCƒeƒ€n‚ðx%Šm—¦(–œ•ª—¦)‚Åy•b(ms)‚ÌŠÔAŠˆ«‰»ó‘Ô‚É‚µ‚Ü‚·B
+	bonus3 bRevAutoActiveWeapon,n,x,y;	•¨—ƒ_ƒ[ƒW‚ðŽó‚¯‚½ŽžAƒAƒCƒeƒ€n‚ðx%Šm—¦(–œ•ª—¦)‚Åy•b(ms)‚ÌŠÔAŠˆ«‰»ó‘Ô‚É‚µ‚Ü‚·B
+	bonus3 bRevAutoActiveMagic,n,x,y;	–‚–@ƒ_ƒ[ƒW‚ðŽó‚¯‚½ŽžAƒAƒCƒeƒ€n‚ðx%Šm—¦(–œ•ª—¦)‚Åy•b(ms)‚ÌŠÔAŠˆ«‰»ó‘Ô‚É‚µ‚Ü‚·B
+	bonus4 bAutoActiveSkill,n,x,y,z;	ƒXƒLƒ‹nŽg—pŽžAƒAƒCƒeƒ€x‚ðy%Šm—¦(–œ•ª—¦)‚Åz•b(ms)‚ÌŠÔAŠˆ«‰»ó‘Ô‚É‚µ‚Ü‚·B
+	bonus4 bAutoActiveItem,n,x,y,z;		z‚ÌðŒ‚ÅƒAƒCƒeƒ€n‚ðx%Šm—¦(–œ•ª—¦)‚Åy•b(ms)‚ÌŠÔAŠˆ«‰»ó‘Ô‚É‚µ‚Ü‚·B
 						ðŒz‚Í‰º‹L‚ðŽQÆB
 						“®ì1FŽw’è‚µ‚È‚¢ê‡‚ÍUŒ‚
 						    EAS_ATTACK			UŒ‚iƒ_ƒ[ƒW‚ð—^‚¦‚½‚Æ‚«j
@@ -295,6 +300,7 @@ bAutoSpell,bAutoSelfSpell,bRevAutoSpell,bRevAutoSelfSpell‚Í16ŒÂ‚Ü‚Å—LŒø‚Å‚·B16‚
 	bonus2 bAddEff2,e,n;				n%‚ÌŠm—¦‚ÅŽ©•ª‚Éó‘ÔˆÙíe•t—^(n‚Í–œ•ª—¦)
 	bonus2 bAddEffShort,e,n;			‹ß‹——£•¨—UŒ‚ŽžAn%‚ÌŠm—¦‚ÅUŒ‚‘ÎÛ‚Éó‘ÔˆÙíe•t—^(n‚Í–œ•ª—¦)
 	bonus2 bAddEffLong,e,n;				‰“‹——£•¨—UŒ‚ŽžAn%‚ÌŠm—¦‚ÅUŒ‚‘ÎÛ‚Éó‘ÔˆÙíe•t—^(n‚Í–œ•ª—¦)
+	bonus3 bAddEffSkill,n,x,y;			ƒXƒLƒ‹n‚ÅUŒ‚ŽžAy%‚ÌŠm—¦‚ÅUŒ‚‘ÎÛ‚Éó‘ÔˆÙíx•t—^(y‚Í–œ•ª—¦)
 	bonus2 bResEff,e,n;					ó‘ÔˆÙíe‚Ì‘Ï«+n%(n‚Í–œ•ª—¦)
 					Eff_Blind		ˆÃ•			Eff_Sleep		‡–°
 					Eff_Poison		“Å				Eff_Freeze		“€Œ‹
