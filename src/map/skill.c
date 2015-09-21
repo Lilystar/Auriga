@@ -331,7 +331,7 @@ int MercSkillStatusChangeTable[MAX_MERCSKILL] = {	/* status.h‚Ìenum‚ÌSC_***‚Æ‚ ‚
 	/* 20- */
 	SC_DEVOTION,SC_MAGNIFICAT,SC_WEAPONQUICKEN,SC_SIGHT,-1,-1,-1,-1,-1,-1,
 	/* 30- */
-	-1,SC_PROVOKE,SC_AUTOBERSERK,SC_DECREASEAGI,-1,SC_SILENCE,-1,
+	-1,SC_PROVOKE,SC_AUTOBERSERK,SC_DECREASEAGI,-1,SC_SILENCE,-1,SC_KYRIE,SC_BLESSING,SC_INCREASEAGI,
 };
 
 /* (ƒXƒLƒ‹”Ô† - GUILD_SKILLID)„ƒXƒe[ƒ^ƒXˆÙí”Ô†•ÏŠ·ƒe[ƒuƒ‹ */
@@ -5262,7 +5262,9 @@ int skill_castend_nodamage_id( struct block_list *src, struct block_list *bl,int
 		break;
 
 	case AL_INCAGI:			/* ‘¬“x‘‰Á */
+	case MER_INCAGI:
 	case AL_BLESSING:		/* ƒuƒŒƒbƒVƒ“ƒO */
+	case MER_BLESSING:
 	case PR_SLOWPOISON:
 	case PR_IMPOSITIO:		/* ƒCƒ€ƒ|ƒVƒeƒBƒIƒ}ƒkƒX */
 	case PR_LEXAETERNA:		/* ƒŒƒbƒNƒXƒG[ƒeƒ‹ƒi */
@@ -5497,6 +5499,7 @@ int skill_castend_nodamage_id( struct block_list *src, struct block_list *bl,int
 		status_change_start(bl,GetSkillStatusChangeTable(skillid),skilllv,0,0,0,skill_get_time(skillid,skilllv),0);
 		break;
 	case PR_KYRIE:			/* ƒLƒŠƒGƒGƒŒƒCƒ\ƒ“ */
+	case MER_KYRIE:
 		clif_skill_nodamage(bl,bl,skillid,skilllv,1);
 		if( dstsd && dstsd->special_state.no_magic_damage )
 			break;
@@ -13795,11 +13798,11 @@ static int skill_check_condition2_merc(struct merc_data *mcd, struct skill_condi
 	if(hp_rate > 0)
 		hp += mcd->status.hp * hp_rate / 100;
 	else
-		hp += mcd->status.max_hp * abs(hp_rate) / 100;
+		hp += mcd->max_hp * abs(hp_rate) / 100;
 	if(sp_rate > 0)
 		sp += mcd->status.sp * sp_rate / 100;
 	else
-		sp += mcd->status.max_sp * abs(sp_rate) / 100;
+		sp += mcd->max_sp * abs(sp_rate) / 100;
 
 	if(!(type&2)) {
 		if(hp > 0 && mcd->status.hp < hp)	/* HPƒ`ƒFƒbƒN */
