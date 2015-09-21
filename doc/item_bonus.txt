@@ -206,6 +206,7 @@ bAutoSpell,bAutoSelfSpell,bRevAutoSpell,bRevAutoSelfSpell‚Í16ŒÂ‚Ü‚Å—LŒø‚Å‚·B16‚
 	bonus2 bAddFixCastRate,n,x;			ƒXƒLƒ‹n‚ÌŒÅ’è‰r¥ŠÔ‚ğx%Œ¸­
 	bonus2 bAddSkillHealRate,n,x;			ƒXƒLƒ‹n‚Ì‰ñ•œ—Ê‚ğx%‘‰Á
 	bonus2 bAddCastRate,n,x;			ƒXƒLƒ‹n‚Ì‰r¥ŠÔ‚ğx%Œ¸­
+	bonus2 bAddSpCost,n,x;				ƒXƒLƒ‹n‚ÌÁ”ïSP‚ğ+x
 
 
 EƒI[ƒgƒXƒyƒ‹
