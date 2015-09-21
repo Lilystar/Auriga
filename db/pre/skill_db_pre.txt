@@ -1,0 +1,2 @@
+//R‰»‘Oskill_db.txt—Auriga
+//id,range,hit,inf,pl,nk,max,list_num,castcancel,cast_defence_rate,inf2,maxcount,skill_type,blow_count
