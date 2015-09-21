@@ -92,7 +92,6 @@ int status_get_matk2(struct block_list *bl);
 int status_get_critical(struct block_list *bl);
 int status_get_atk_(struct block_list *bl);
 int status_get_atk_2(struct block_list *bl);
-int status_get_aspd(struct block_list *bl);
 
 // ó‘ÔˆÙíŠÖ˜A
 int status_can_save(int type);
