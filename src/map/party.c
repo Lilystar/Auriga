@@ -344,7 +344,7 @@ void party_invite(struct map_session_data *sd, struct map_session_data *tsd)
 		clif_party_inviteack(sd,tsd->status.name,3);
 		return;
 	}
-	if(tsd->state.refuse_partyinvite) {	// ‘Šè‚ªŠ©—U‹‘”Û’†
+	if(tsd->status.refuse_partyinvite) {	// ‘Šè‚ªŠ©—U‹‘”Û’†
 		clif_party_inviteack(sd,tsd->status.name,5);
 		return;
 	}
@@ -967,7 +967,7 @@ void party_equip_window(struct map_session_data *sd, int account_id)
 	}
 	if(sd->bl.m != tsd->bl.m || unit_distance(sd->bl.x, sd->bl.y, tsd->bl.x, tsd->bl.y) > AREA_SIZE)	// ‹——£‚ª‰“‚¢
 		return;
-	if(!tsd->state.show_equip) {	// ‘Šè‚ª‘•”õ‚ğŒöŠJ‚µ‚Ä‚È‚¢
+	if(!tsd->status.show_equip) {	// ‘Šè‚ª‘•”õ‚ğŒöŠJ‚µ‚Ä‚È‚¢
 		clif_msgstringtable(sd, 0x54d);
 		return;
 	}
