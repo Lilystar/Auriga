@@ -23,13 +23,16 @@
 #include <stdlib.h>
 #include <string.h>
 
-#include "msg.h"
 #include "malloc.h"
+#include "nullpo.h"
+
+#include "msg.h"
 #include "battle.h"
 #include "clif.h"
 
 #define MSG_NUMBER 256
 static char *msg_table[MSG_NUMBER]; /* Server messages */
+static char *motd = NULL;
 
 /*==========================================
  * Return the message string of the specified number
@@ -61,6 +64,26 @@ void msg_output(const int fd, const char *format, ...)
 	va_end(ap);
 
 	clif_displaymessage(fd, output);
+
+	return;
+}
+
+/*==========================================
+ * Message of the Day‚Ì‘—M
+ *------------------------------------------
+ */
+void msg_send_motd(struct map_session_data *sd)
+{
+	char *p = motd;
+
+	nullpo_retv(sd);
+
+	if(p) {
+		do {
+			clif_displaymessage(sd->fd, p);
+			p += strlen(p) + 1;
+		} while(*p);
+	}
 
 	return;
 }
@@ -116,10 +139,58 @@ int msg_config_read(const char *cfgName)
 }
 
 /*==========================================
- * Free Message Data
+ * Message of the Day‚Ì“Ç‚İ‚İ
  *------------------------------------------
  */
-void do_final_msg_config(void)
+int msg_read_motd(void)
+{
+	int i;
+	size_t len, size = 0, pos = 0;
+	char buf[256];
+	FILE *fp;
+
+	if(motd) {
+		aFree(motd);
+		motd = NULL;
+	}
+
+	if((fp = fopen(motd_txt, "r")) != NULL) {
+		while(fgets(buf, sizeof(buf)-1, fp) != NULL) {
+			for(i = 0; buf[i]; i++) {
+				if(buf[i] == '\r' || buf[i] == '\n') {
+					if(i == 0) {
+						buf[i++] = ' ';
+					}
+					buf[i] = '\0';
+					break;
+				}
+			}
+
+			len = strlen(buf) + 1;
+			if(pos + len >= size) {
+				size += sizeof(buf);
+				motd = (char *)aRealloc(motd, size);
+			}
+			memcpy(motd + pos, buf, len);
+			pos += len;
+		}
+
+		if(size > 0) {
+			motd = (char *)aRealloc(motd, pos + 1);	// k¬ˆ—
+			motd[pos] = '\0';	// ––”ö‚É \0 ‚ğ2‚Â‘±‚¯‚é
+		}
+
+		fclose(fp);
+	}
+
+	return 0;
+}
+
+/*==========================================
+ * I—¹
+ *------------------------------------------
+ */
+void do_final_msg(void)
 {
 	int msg_number;
 
@@ -129,5 +200,21 @@ void do_final_msg_config(void)
 		}
 	}
 
+	if (motd) {
+		aFree(motd);
+		motd = NULL;
+	}
+
 	return;
+}
+
+/*==========================================
+ * ‰Šú‰»
+ *------------------------------------------
+ */
+int do_init_msg(void)
+{
+	msg_read_motd();
+
+	return 0;
 }
