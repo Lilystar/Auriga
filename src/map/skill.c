@@ -11314,8 +11314,6 @@ static int skill_unit_onplace_timer(struct skill_unit *src,struct block_list *bl
 				}
 				if(bl->type == BL_PC && ((struct map_session_data *)bl)->special_state.no_magic_damage)
 					heal = 0;	/* ‰©‹àå³ƒJ[ƒhiƒq[ƒ‹—Ê‚Oj */
-				if(bl->type == BL_PC && pc_isgear((struct map_session_data *)bl))
-					heal = 0; 	// –‚“¹ƒMƒA“‹æ’†‚Íƒq[ƒ‹‚O
 
 				clif_skill_nodamage(&src->bl,bl,AL_HEAL,heal,1);
 				battle_heal(NULL,bl,heal,0,0);
