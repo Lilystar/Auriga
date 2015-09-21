@@ -357,6 +357,7 @@ prontera.gat,161,192,5	script	“]EƒJƒvƒ‰	114,{
 		cutin "kafra_04",255;
 		end;
 	}
+	set '@sel_job,'@job_id[@menu - 1];
 	mes "[“]EƒJƒvƒ‰]";
 	mes "^FF0000" +'@job_name$[@menu - 1]+ "^000000‚É";
 	mes "“]E‚³‚ê‚Ü‚·‚©H";
@@ -369,7 +370,7 @@ prontera.gat,161,192,5	script	“]EƒJƒvƒ‰	114,{
 		end;
 	}
 	// “]Eƒ`ƒFƒbƒNi’¼‘Oj
-	switch('@job_id[@menu - 1]) {
+	switch('@sel_job) {
 		case Job_Swordman:
 		case Job_Magician:
 		case Job_Archer:
@@ -515,7 +516,7 @@ prontera.gat,161,192,5	script	“]EƒJƒvƒ‰	114,{
 		end;
 	}
 	unequip;
-	jobchange '@job_id[@menu - 1];
+	jobchange '@sel_job;
 	mes "[“]EƒJƒvƒ‰]";
 	mes "“]E‚¨‚ß‚Å‚Æ‚¤‚²‚´‚¢‚Ü‚·I";
 	mes "‹M•û‚Ì‚²Šˆ–ô‚ÉŠú‘Ò‚µ‚Ä‚¢‚Ü‚·B";
