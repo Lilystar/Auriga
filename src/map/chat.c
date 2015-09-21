@@ -446,12 +446,3 @@ int chat_npckickall(struct chat_data *cd)
 	}
 	return 0;
 }
-
-/*==========================================
- * I—¹
- *------------------------------------------
- */
-int do_final_chat(void)
-{
-	return 0;
-}
