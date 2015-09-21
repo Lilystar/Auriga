@@ -87,7 +87,7 @@ blow_count: ƒXƒLƒ‹‚æ‚éƒmƒbƒNƒoƒbƒN‹——£‚Å‚·BƒŒƒxƒ‹•Ê‚Éİ’è‚·‚éê‡‚Íu:v‚ğg‚¢‚
 ==========================================================================
 3. db/skill_db2.txt
 --------------------------------------------------------------------------
-id,cloable,misfire,zone,damage_rate,range_type,reserve1,reserve2,reserve3
+id,cloable,misfire,zone,damage_rate,range_type,amotion_delay,reserve1,reserve2
 
 id: ƒXƒLƒ‹‚ÌID‚Å‚·B
 cloable: ƒNƒ[ƒ“ƒXƒLƒ‹‚Å“ì‰Â”\‚©İ’è‚µ‚Ü‚·B
@@ -100,9 +100,10 @@ damage_rate: êŠ‚É‚æ‚éƒ_ƒ[ƒW•â³‚ğİ’è‚µ‚Ü‚·BêŠ•Ê‚Éu:v‚ğg‚¢İ’è‚µ‚Ü‚·B
 	Normal:PVP:GVG:PK->100:100:60:100
 range_type: ƒXƒLƒ‹‚Ì‹——£ƒ^ƒCƒv‚ğİ’è‚µ‚Ü‚·B
 	0-‹ß‹——£ 1-‰“‹——£ 2-‹­§‰“‹——£
+amotion_delay: Å’áƒXƒLƒ‹ƒfƒBƒŒƒC‚Æ‚µ‚Äamotion‚Ì’l‚ğ•ÛØ‚·‚é‚©
+	0-•ÛØ‚µ‚È‚¢ 1-•ÛØ‚·‚é
 reserve1: —\–ñ1BŒ»İ–¢g—pB
 reserve2: —\–ñ2BŒ»İ–¢g—pB
-reserve3: —\–ñ3BŒ»İ–¢g—pB
 
 
 ==========================================================================

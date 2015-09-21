@@ -177,6 +177,8 @@ bAutoSpell,bAutoSelfSpell,bRevAutoSpell,bRevAutoSelfSpell‚Í16ŒÂ‚Ü‚Å—LŒø‚Å‚·B16‚
 					0,–³@1,…@2,“y@3,‰Î@4,•—@5,“Å@6,¹@7,ˆÅ@8,”O@9,•sŽ€
 	bonus2 bSubEnemy,n,x;				“Gƒ^ƒCƒvn‚©‚ç‚Ìƒ_ƒ[ƒWx%ŒyŒ¸(–‚–@‚àŒyŒ¸)
 					0,‚»‚Ì‘¼@1,ƒvƒŒƒCƒ„[@2,ƒ{ƒXˆÈŠO‚Ìƒ‚ƒ“ƒXƒ^[@3,ƒzƒ€ƒ“ƒNƒ‹ƒX
+	bonus2 bDefEleEnemy,n,x;				n‘®«‚Ì“G‚©‚ç‚Ìƒ_ƒ[ƒWx%ŒyŒ¸(–‚–@‚àŒyŒ¸)
+					0,–³@1,…@2,“y@3,‰Î@4,•—@5,“Å@6,¹@7,ˆÅ@8,”O@9,•sŽ€
 	bonus2 bAddDefClass,n,x;			ƒNƒ‰ƒXn‚Ìƒ‚ƒ“ƒXƒ^[‚©‚ç‚Ìƒ_ƒ[ƒWx%ŒyŒ¸(•¨—UŒ‚‚Ì‚Ý)BƒvƒŒƒCƒ„[‚Ìê‡‚ÍnE‹Æ‚Éx%‚Ìƒ_ƒ[ƒWŒyŒ¸
 	bonus2 bAddMDefClass,n,x;			ƒNƒ‰ƒXn‚Ìƒ‚ƒ“ƒXƒ^[‚©‚ç‚Ìƒ_ƒ[ƒWx%ŒyŒ¸(–‚–@UŒ‚‚Ì‚Ý)BƒvƒŒƒCƒ„[‚Ìê‡‚ÍnE‹Æ‚Éx%‚Ì–‚–@ƒ_ƒ[ƒWŒyŒ¸
 	bonus2 bSubGroup,n,x;				ƒOƒ‹[ƒvn‚©‚ç‚Ìƒ_ƒ[ƒWx%ŒyŒ¸
