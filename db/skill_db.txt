@@ -1020,7 +1020,7 @@
 3001,0,6,4,0,1,1,1,yes,0,0,0,none,0	//KO_YAMIKUMO#ˆÅ‰_#
 3002,0,0,0,0,0,5,0,yes,0,0,0,none,0	//KO_RIGHT#‰EèC—û#
 3003,0,0,0,0,0,5,0,yes,0,0,0,none,0	//KO_LEFT#¶èC—û#
-3004,3:4:5:6:7,8,1,0,0,5,2,yes,0,0,0,weapon,0	//KO_JYUMONJIKIRI#\•¶ša‚è#
+3004,3:4:5:6:7,8,1,0,1,5,2,yes,0,0,0,weapon,0	//KO_JYUMONJIKIRI#\•¶ša‚è#
 3005,2,6,1,0,0,5,1,yes,0,0,0,weapon,0	//KO_SETSUDAN#—ì°â’f#
 3006,7:8:9:10:11,6,2,0,0,5,1,yes,0,0,0,weapon,0	//KO_BAKURETSU#”š—ô‹ê–³#
 3007,0,6,4,0,2,5,1,yes,0,0,0,weapon,0	//KO_HAPPOKUNAI#”ª•û‹ê–³#
@@ -1029,21 +1029,21 @@
 3010,7,6,4,0,0,5,1,yes,0,0,0,none,0	//KO_MAKIBISHI#T•H#
 3011,0,6,4,0,1,5,1,yes,0,0,0,none,0	//KO_MEIKYOUSISUI#–¾‹¾~…#
 3012,0,6,4,0,0,5,1,yes,0,0,0,none,0	//KO_ZANZOU#c‘œ#
-3013,5,6,1,0,0,5,1,yes,0,0,0,none,0	//KO_KYOUGAKU#‹Áœ±#
-3014,5,6,1,0,0,5,1,yes,0,0,0,none,0	//KO_JYUSATSU#ôE#
+3013,5,6,1,0,1,5,1,yes,0,0,0,none,0	//KO_KYOUGAKU#‹Áœ±#
+3014,5,6,1,0,1,5,1,yes,0,0,0,none,0	//KO_JYUSATSU#ôE#
 3015,1,6,4,0,0,1,1,yes,0,0,0,none,0	//KO_KAHU_ENTEN#‰Î•„:‰Š“V#
 3016,1,6,4,0,0,1,1,yes,0,0,0,none,0	//KO_HYOUHU_HUBUKI#•X•„:á#
 3017,1,6,4,0,0,1,1,yes,0,0,0,none,0	//KO_KAZEHU_SEIRAN#•—•„:Â—•#
 3018,1,6,4,0,0,1,1,yes,0,0,0,none,0	//KO_DOHU_KOUKAI#“y•„:„‰ò#
 3019,11,6,1,0,0,1,1,yes,0,0,0,none,0	//KO_KAIHOU#p®‰ğ•ú#
 3020,1,6,1,0,0,1,1,yes,0,0,0,none,0	//KO_ZENKAI#p®‘SŠJ#
-3021,5:6:7:8:9,6,1,0,0,5,1,yes,0,0,0,none,0	//KO_GENWAKU#Œ¶˜f#
+3021,5:6:7:8:9,6,1,0,1,5,1,yes,0,0,0,none,0	//KO_GENWAKU#Œ¶˜f#
 3022,0,6,4,0,1,5,1,yes,0,0,0,none,0	//KO_IZAYOI#\˜Z–é#
 3023,0,6,4,0,1,5,1,yes,0,0,0,none,0	//KG_KAGEHUMI#‰e“¥‚İ#
 3024,0,6,1,0,1,5,1,yes,0,0,0,none,0	//KG_KYOMU#‹•–³‚Ì‰e#
 3025,3,6,16,0,1,5,1,yes,0,0,0,none,0	//KG_KAGEMUSYA#‰e•Ò#
-3026,7,6,1,0,0,5,1,yes,0,0,0,none,0	//OB_ZANGETSU#cŒ#
-3027,7,6,1,0,0,5,1,yes,0,0,0,none,0	//OB_OBOROGENSOU#OŒ¶‘z#
+3026,7,6,1,0,1,5,1,yes,0,0,0,none,0	//OB_ZANGETSU#cŒ#
+3027,7,6,1,0,1,5,1,yes,0,0,0,none,0	//OB_OBOROGENSOU#OŒ¶‘z#
 3028,1,6,4,0,0,5,1,yes,0,0,0,none,0	//OB_OBOROGENSOU_TRANSITION_ATK#OŒ¶‘z(UŒ‚)#
 3029,7,6,1,0,1,5,1,yes,0,0,0,none,0	//OB_AKAITSUKI#gŒ#
 
