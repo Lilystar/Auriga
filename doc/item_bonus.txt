@@ -211,6 +211,9 @@ bAutoSpell,bAutoSelfSpell,bRevAutoSpell,bRevAutoSelfSpell‚Í16ŒÂ‚Ü‚Å—LŒø‚Å‚·B16‚
 	bonus2 bAddSkillCastTime,n,x;		ƒXƒLƒ‹n‚Ì‰r¥ŠÔ‚ğxƒ~ƒŠ•b‘‰Á
 	bonus2 bAddSpCost,n,x;				ƒXƒLƒ‹n‚ÌÁ”ïSP‚ğ+x
 	bonus2 bAddSkillCoolDown,n,x;		ƒXƒLƒ‹n‚ÌƒN[ƒ‹ƒ^ƒCƒ€‚ğxƒ~ƒŠ•b‘‰Á(n‚ª3ŸEƒXƒLƒ‹ˆÈŠO‚Í–³Œø)
+	bonus2 bAddEleWeaponDamageRate,n,x;	n‘®«‚Ì•¨—ƒXƒLƒ‹ƒ_ƒ[ƒW‚ğx%‘‰Á
+	bonus2 bAddEleMagicDamageRate,n,x;	n‘®«‚Ì–‚–@ƒXƒLƒ‹ƒ_ƒ[ƒW‚ğx%‘‰Á
+					0,–³@1,…@2,“y@3,‰Î@4,•—@5,“Å@6,¹@7,ˆÅ@8,”O@9,•s€
 
 
 EƒI[ƒgƒXƒyƒ‹
