@@ -1777,11 +1777,13 @@ L_RECALC:
 		else
 			sd->def += (skill*4) - 1;
 	}
+#ifdef PRE_RENEWAL
 	// MATKæŽZˆ—(ñ•â³ˆÈŠO)
 	if(sd->matk_rate != 100) {
 		sd->matk1 = sd->matk1 * sd->matk_rate / 100;
 		sd->matk2 = sd->matk2 * sd->matk_rate / 100;
 	}
+#endif
 	// amotion‚ÌŒvŽZ
 	sd->amotion = status_calc_amotion_pc(sd);
 	sd->aspd = sd->amotion<<1;
@@ -2353,10 +2355,17 @@ L_RECALC:
 	if(sd->fix_status.matk > 0) {
 		sd->matk1 = sd->matk2 = sd->fix_status.matk;
 		// MATKæŽZˆ—(ŒÅ’è’l*(ñ•â³+ñ•â³ˆÈŠO))
+#ifdef PRE_RENEWAL
 		if(sd->matk_rate != 100 || sd->matk2_rate != 100) {
 			sd->matk1 = sd->matk1 * (sd->matk_rate + sd->matk2_rate - 100) / 100;
 			sd->matk2 = sd->matk2 * (sd->matk_rate + sd->matk2_rate - 100) / 100;
 		}
+#else
+		if(sd->matk2_rate != 100) {
+			sd->matk1 = sd->matk1 * sd->matk2_rate / 100;
+			sd->matk2 = sd->matk2 * sd->matk2_rate / 100;
+		}
+#endif
 	}
 	if(sd->fix_status.def > 0 && sd->fix_status.def <= 100) {
 		sd->def = sd->fix_status.def;
