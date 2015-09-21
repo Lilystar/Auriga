@@ -2147,7 +2147,7 @@ int unit_remove_map(struct block_list *bl, int clrtype, int flag)
 			trade_tradecancel(sd);
 
 		// ˜I“V‚ğ•Â‚¶‚é
-		if(sd->vender_id)
+		if(sd->state.vending)
 			vending_closevending(sd);
 
 		// ‘qŒÉ‚ğŠJ‚¢‚Ä‚é‚È‚ç•Â‚¶‚Ä•Û‘¶‚·‚é
