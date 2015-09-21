@@ -773,7 +773,7 @@ int pet_change_name(struct map_session_data *sd,const char *name)
  * ƒ‰ƒ“ƒ_ƒ€•às
  *------------------------------------------
  */
-static int pet_randomwalk(struct pet_data *pd,int tick)
+static int pet_randomwalk(struct pet_data *pd,unsigned int tick)
 {
 	const int retrycount = 20;
 	int speed;
