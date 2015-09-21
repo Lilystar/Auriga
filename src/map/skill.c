@@ -234,9 +234,9 @@ int SkillStatusChangeTable3[MAX_THIRDSKILL] = {	/* status.h‚Ìenum‚ÌSC_***‚Æ‚ ‚í‚
 	/* 2201- */
 	SC_WHITEIMPRISON,-1,SC_FROSTMISTY,SC_FREEZE,SC_MARSHOFABYSS,SC_RECOGNIZEDSPELL,SC_STONE,-1,SC_STASIS,-1,
 	/* 2211- */
-	SC_STUN,SC_HELLINFERNO,SC_HELLINFERNO,-1,-1,-1,-1,-1,-1,-1,
+	SC_STUN,SC_HELLINFERNO,SC_HELLINFERNO,-1,-1,-1,-1,SC_HELLINFERNO,SC_FROSTMISTY,SC_STUN,
 	/* 2221- */
-	-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,
+	SC_BLEED,-1,-1,-1,-1,-1,-1,-1,-1,-1,
 	/* 2231- */
 	-1,-1,-1,SC_FEARBREEZE,-1,-1,-1,SC_ELECTRICSHOCKER,-1,-1,
 	/* 2241- */
@@ -368,6 +368,7 @@ static int skill_delunit_by_ganbantein(struct block_list *bl, va_list ap );
 static int skill_count_unitgroup(struct unit_data *ud,int skillid);
 static int skill_am_twilight(struct map_session_data* sd, int skillid);
 static int skill_check_condition_use_sub(struct block_list *bl,va_list ap);
+static int skill_chainlightning(struct block_list *bl,va_list ap);
 static int skill_detonator(struct block_list *bl,va_list ap);
 static int skill_trample(struct block_list *bl,va_list ap);
 static int skill_dominion_impulse(struct block_list *bl,va_list ap);
@@ -1374,10 +1375,6 @@ int skill_additional_effect( struct block_list* src, struct block_list *bl,int s
 		if(atn_rand() % 10000 < 4000)
 			status_change_pretimer(bl,GetSkillStatusChangeTable(skillid),skilllv,0,0,0,skill_get_time(skillid,skilllv),0,tick+status_get_amotion(src));
 		break;
-	case WL_HELLINFERNO:	/* ƒwƒ‹ƒCƒ“ƒtƒFƒ‹ƒm */
-		if(atn_rand() % 10000 < 5500 + skilllv * 500)
-			status_change_pretimer(bl,GetSkillStatusChangeTable(skillid),skilllv,0,0,0,skill_get_time(skillid,skilllv),0,tick+status_get_amotion(src));
-		break;
 	case WL_COMET:			/* ƒRƒƒbƒg */
 		status_change_pretimer(bl,GetSkillStatusChangeTable(skillid),skilllv,0,0,0,skill_get_time(skillid,skilllv),0,tick+status_get_amotion(src));
 		break;
@@ -2339,12 +2336,23 @@ static int skill_timerskill_timer(int tid, unsigned int tick, int id, void *data
 			case AB_DUPLELIGHT_MAGIC:		/* ƒfƒ…ƒvƒŒƒ‰ƒCƒg(–‚–@) */
 				battle_skill_attack(BF_MAGIC,src,src,target,skl->skill_id,skl->skill_lv,tick,skl->flag);
 				break;
-			case WL_CHAINLIGHTNING_ATK:		/* ƒ`ƒFƒCƒ“ƒ‰ƒCƒgƒjƒ“ƒO(˜A½) */
-				battle_skill_attack(BF_MAGIC,src,src,target,skl->skill_id,skl->skill_lv,tick,skl->flag);
-				if (skl->type > 1) {
-					skill_addtimerskill(src,tick+500,target->id,0,0,skl->skill_id,skl->skill_lv,skl->type-1,skl->flag);
+			case WL_CHAINLIGHTNING_ATK:		/* ƒ`ƒF[ƒ“ƒ‰ƒCƒgƒjƒ“ƒO(˜A½) */
+				{
+					struct block_list *tbl = NULL;
+					int c = 0;
+
+					battle_skill_attack(BF_MAGIC,src,src,target,skl->skill_id,skl->skill_lv,tick,(0x0f<<20)|skl->flag);
+					map_foreachinarea(skill_chainlightning,
+						target->m,target->x-3,target->y-3,target->x+3,target->y+3,BL_CHAR,
+						src,target->id,&tbl,&c);
+					if(tbl && skl->type < skl->skill_lv + 4) {
+						skill_addtimerskill(src,tick+700,tbl->id,0,0,skl->skill_id,skl->skill_lv,skl->type+1,skl->flag);
+					} else if(skl->type < 4) {
+						skill_addtimerskill(src,tick+700,target->id,0,0,skl->skill_id,skl->skill_lv,skl->type+1,skl->flag);
+					}
 				}
 				break;
+			case WL_HELLINFERNO:			/* ƒwƒ‹ƒCƒ“ƒtƒFƒ‹ƒm */
 			case WL_TETRAVORTEX_FIRE:		/* ƒeƒgƒ‰ƒ{ƒ‹ƒeƒbƒNƒX(‰Î) */
 			case WL_TETRAVORTEX_WATER:		/* ƒeƒgƒ‰ƒ{ƒ‹ƒeƒbƒNƒX(…) */
 			case WL_TETRAVORTEX_WIND:		/* ƒeƒgƒ‰ƒ{ƒ‹ƒeƒbƒNƒX(•—) */
@@ -3567,7 +3575,6 @@ int skill_castend_damage_id( struct block_list* src, struct block_list *bl,int s
 	case NJ_HUUJIN:				/* •—n */
 	case AB_ADORAMUS:			/* ƒAƒhƒ‰ƒ€ƒX */
 	case AB_DUPLELIGHT_MAGIC:	/* ƒfƒ…ƒvƒŒƒ‰ƒCƒg(–‚–@) */
-	case WL_HELLINFERNO:		/* ƒwƒ‹ƒCƒ“ƒtƒFƒ‹ƒm */
 	case LG_RAYOFGENESIS:		/* ƒŒƒCƒIƒuƒWƒFƒlƒVƒX */
 	case WM_METALICSOUND:		/* ƒƒ^ƒŠƒbƒNƒTƒEƒ“ƒh */
 		battle_skill_attack(BF_MAGIC,src,src,bl,skillid,skilllv,tick,flag);
@@ -3657,7 +3664,6 @@ int skill_castend_damage_id( struct block_list* src, struct block_list *bl,int s
 	case AB_JUDEX:				/* ƒWƒ…ƒfƒbƒNƒX */
 	case WL_SOULEXPANSION:		/* ƒ\ƒEƒ‹ƒGƒNƒXƒpƒ“ƒVƒ‡ƒ“ */
 	case WL_FROSTMISTY:			/* ƒtƒƒXƒgƒ~ƒXƒeƒB */
-	case WL_CRIMSONROCK:		/* ƒNƒŠƒ€ƒ]ƒ“ƒƒbƒN */
 	case SO_POISON_BUSTER:		/* ƒ|ƒCƒYƒ“ƒoƒXƒ^[ */
 	case SO_VARETYR_SPEAR:		/* ƒ”ƒFƒ‰ƒ`ƒ…[ƒ‹ƒXƒsƒA */
 		if(flag&1) {
@@ -3715,11 +3721,6 @@ int skill_castend_damage_id( struct block_list* src, struct block_list *bl,int s
 					skill_area_temp[2] = bl->x;
 					skill_area_temp[3] = bl->y;
 					bl = src;
-					break;
-				case WL_CRIMSONROCK:	/* ƒNƒŠƒ€ƒ]ƒ“ƒƒbƒN */
-					ar = 3;
-					skill_area_temp[2] = bl->x;
-					skill_area_temp[3] = bl->y;
 					break;
 				case SO_POISON_BUSTER:	/* ƒ|ƒCƒYƒ“ƒoƒXƒ^[ */
 					ar = (skilllv > 3)? 4: 3;
@@ -4138,9 +4139,7 @@ int skill_castend_damage_id( struct block_list* src, struct block_list *bl,int s
 	case WL_JACKFROST:		/* ƒWƒƒƒbƒNƒtƒƒXƒg */
 		if(flag&1) {
 			if(bl->id != skill_area_temp[1]) {
-				sc = status_get_sc(bl);
-				if(sc && sc->data[SC_FROSTMISTY].timer != -1)
-					battle_skill_attack(BF_MAGIC,src,src,bl,skillid,skilllv,tick,flag);
+				battle_skill_attack(BF_MAGIC,src,src,bl,skillid,skilllv,tick,flag);
 			}
 		} else {
 			/* ƒXƒLƒ‹ƒGƒtƒFƒNƒg•\¦ */
@@ -4153,22 +4152,38 @@ int skill_castend_damage_id( struct block_list* src, struct block_list *bl,int s
 		}
 		break;
 	case WL_DRAINLIFE:		/* ƒhƒŒƒCƒ“ƒ‰ƒCƒt */
-		if(atn_rand() % 100 < 70 + skilllv * 5) {
+		{
 			int heal = battle_skill_attack(BF_MAGIC,src,src,bl,skillid,skilllv,tick,flag);
-			heal = heal * (5 + skilllv * 5) / 100;
-			if(heal > 0) {
-				battle_heal(NULL,src,heal,0,0);
+			if(heal > 0 && atn_rand() % 100 < 70 + skilllv * 5) {
+				heal = heal * (skilllv * 8 * status_get_lv(src) / 100) / 100;
 				if(sd) {
+					if(sd->status.hp + heal > sd->status.max_hp)
+						heal = sd->status.max_hp - sd->status.hp;
+					if(heal <= 0)
+						break;
 					clif_heal(sd->fd,SP_HP,heal);
 				}
+				unit_heal(src,heal,0);
 			}
-		} else if(sd) {
-			clif_skill_fail(sd,skillid,0,0,0);
 		}
 		break;
-	case WL_CHAINLIGHTNING:		/* ƒ`ƒF[ƒ“ƒ‰ƒCƒgƒjƒ“ƒO */
-		battle_skill_attack(BF_MAGIC,src,src,bl,skillid,skilllv,tick,flag);
-		skill_addtimerskill(src,tick + 500,bl->id,0,0,WL_CHAINLIGHTNING_ATK,skilllv,4 + skilllv,flag);
+	case WL_CRIMSONROCK:		/* ƒNƒŠƒ€ƒ]ƒ“ƒƒbƒN */
+		if(flag&1) {
+			battle_skill_attack(BF_MAGIC,src,src,bl,skillid,skilllv,tick,flag);
+		} else {
+			map_foreachinarea(skill_area_sub,
+				bl->m,bl->x-3,bl->y-3,bl->x+3,bl->y+3,(BL_CHAR|BL_SKILL),
+				src,skillid,skilllv,tick, flag|BCT_ENEMY|1,
+				skill_castend_damage_id);
+		}
+		break;
+	case WL_HELLINFERNO:		/* ƒwƒ‹ƒCƒ“ƒtƒFƒ‹ƒm */
+		if(battle_skill_attack(BF_MAGIC,src,src,bl,skillid,skilllv,tick,flag)) {
+			if(atn_rand() % 10000 < 5500 + skilllv * 500) {
+				status_change_pretimer(bl,GetSkillStatusChangeTable(skillid),skilllv,0,0,0,skill_get_time(skillid,skilllv),0,tick+status_get_amotion(src));
+			}
+		}
+		skill_addtimerskill(src,tick + 300,bl->id,0,0,WL_HELLINFERNO,skilllv,0,(0x0f<<20)|0x500|flag|1);
 		break;
 	case WL_COMET:				/* ƒRƒƒbƒg */
 		if(bl->id != skill_area_temp[1]) {
@@ -4184,6 +4199,10 @@ int skill_castend_damage_id( struct block_list* src, struct block_list *bl,int s
 				type = 0;	// ’†S
 			battle_skill_attack(BF_MAGIC,src,src,bl,skillid,skilllv,tick,type);
 		}
+		break;
+	case WL_CHAINLIGHTNING:		/* ƒ`ƒF[ƒ“ƒ‰ƒCƒgƒjƒ“ƒO */
+		clif_skill_nodamage(src,bl,skillid,skilllv,1);
+		skill_addtimerskill(src,tick + 700,bl->id,0,0,WL_CHAINLIGHTNING_ATK,skilllv,1,(0x0f<<20)|flag);
 		break;
 	case RA_ARROWSTORM:		/* ƒAƒ[ƒXƒg[ƒ€ */
 		if(flag&1) {
@@ -7734,23 +7753,40 @@ int skill_castend_nodamage_id( struct block_list *src, struct block_list *bl,int
 	case WL_TETRAVORTEX:		/* ƒeƒgƒ‰ƒ{ƒ‹ƒeƒbƒNƒX */
 		sc = status_get_sc(src);
 		if(sc) {
-			int ele_flag = 0, i;
+			int summon_id[4];
+			int c = 0, i;
 			for(i = 0; i < 5; i++) {
 				if(sc->data[SC_SUMMONBALL1 + i].timer != -1) {
-					if((ele_flag&(1 << sc->data[SC_SUMMONBALL1 + i].val2)) == 0) {	// –¢Á”ï‘®«‚È‚ç‚Î
-						ele_flag |= 1 << sd->sc.data[SC_SUMMONBALL1 + i].val2;		// g—p‘®«‚Ìƒtƒ‰ƒO‚ğŠi”[
-						status_change_end(src,SC_SUMMONBALL1 + i,-1);
+					if(c < 4) {
+						switch(sc->data[SC_SUMMONBALL1 + i].val2) {
+							case 1:		// ƒTƒ‚ƒ“ƒ{[ƒ‹ƒ‰ƒCƒgƒjƒ“ƒO
+								summon_id[c] = WL_TETRAVORTEX_WIND;
+								break;
+							case 2:		// ƒTƒ‚ƒ“ƒEƒH[ƒ^[ƒ{[ƒ‹
+								summon_id[c] = WL_TETRAVORTEX_WATER;
+								break;
+							case 3:		// ƒTƒ‚ƒ“ƒXƒg[ƒ“
+								summon_id[c] = WL_TETRAVORTEX_GROUND;
+								break;
+							default:	// ƒTƒ‚ƒ“ƒtƒ@ƒCƒA[ƒ{[ƒ‹
+								summon_id[c] = WL_TETRAVORTEX_FIRE;
+								break;
+						}
+						c++;
 					}
+					status_change_end(src,SC_SUMMONBALL1 + i,-1);
 				}
 			}
-			if(sd && ele_flag < 0x0F) {
+			if(sd && c < 4) {
 				clif_skill_fail(sd,skillid,0,0,0);
 				break;
 			}
-			skill_addtimerskill(src,tick + 500,bl->id,0,0,WL_TETRAVORTEX_FIRE,skilllv,4 + skilllv,flag);
-			skill_addtimerskill(src,tick + 1000,bl->id,0,0,WL_TETRAVORTEX_WATER,skilllv,4 + skilllv,flag);
-			skill_addtimerskill(src,tick + 1500,bl->id,0,0,WL_TETRAVORTEX_WIND,skilllv,4 + skilllv,flag);
-			skill_addtimerskill(src,tick + 2000,bl->id,0,0,WL_TETRAVORTEX_GROUND,skilllv,4 + skilllv,flag);
+			clif_skill_nodamage(src,bl,skillid,skilllv,1);
+			clif_skill_damage(src, bl, tick, 0, 0, -1, 1, WL_TETRAVORTEX_FIRE, -1, 0);	// ƒGƒtƒFƒNƒg‚ğo‚·‚½‚ß‚Ìb’èˆ’u
+			for(i = 0; i < 4; i++) {
+				skill_addtimerskill(src,tick + 200 * i,bl->id,0,0,summon_id[i],skilllv,0,(0x0f<<20)|0x0500|flag);
+			}
+			status_change_pretimer(bl,GetSkillStatusChangeTable(summon_id[atn_rand()%4]),skilllv,0,0,0,skill_get_time(summon_id[atn_rand()%4],skilllv),0,tick+status_get_amotion(src));
 		}
 		break;
 	case WL_SUMMONFB:		/* ƒTƒ‚ƒ“ƒtƒ@ƒCƒAƒ{[ƒ‹ */
@@ -7801,7 +7837,7 @@ int skill_castend_nodamage_id( struct block_list *src, struct block_list *bl,int
 						if(j == 0) {	// ƒGƒtƒFƒNƒg‚Í1”­–Ú‚Ì‚İ
 							clif_skill_nodamage(src,bl,skillid,skilllv,1);
 						}
-						skill_addtimerskill(src,tick + 400 * j,bl->id,0,0,WL_SUMMON_ATK_FIRE + sc->data[SC_SUMMONBALL1 + i].val2,sc->data[SC_SUMMONBALL1 + i].val1,0,flag);
+						skill_addtimerskill(src,tick + 400 * j,bl->id,0,0,WL_SUMMON_ATK_FIRE + sc->data[SC_SUMMONBALL1 + i].val2,sc->data[SC_SUMMONBALL1 + i].val1,0,(0x0f<<20)|flag);
 						status_change_end(src,SC_SUMMONBALL1 + i,-1);
 						j++;
 						if(skilllv < 2) {		// SkillLv2‚Í‘S‚Ä‚ÌƒTƒ‚ƒ“ƒ{[ƒ‹‚ğÁ”ï
@@ -7810,7 +7846,7 @@ int skill_castend_nodamage_id( struct block_list *src, struct block_list *bl,int
 					}
 				}
 				if(j <= 0 && sd) {	// ƒTƒ‚ƒ“ƒ{[ƒ‹‚ª–³‚©‚Á‚½
-					clif_skill_fail(sd,skillid,0,0,0);
+					clif_skill_fail(sd,skillid,0x14,0,0);
 				}
 			}
 		}
@@ -9338,7 +9374,7 @@ int skill_castend_pos2( struct block_list *src, int x,int y,int skillid,int skil
 			tmpy = src->y + addy * 2;
 
 			clif_skill_poseffect(src,skillid,skilllv,tmpx,tmpy,tick);
-			for(i = 0; i < 4 + skilllv; i++) {
+			for(i = 1; i < 4 + skilllv; i++) {
 				skill_addtimerskill(src,tick+i*100,0,tmpx,tmpy,skillid,skilllv,0,flag);
 				tmpx += addx;
 				tmpy += addy;
@@ -12609,13 +12645,13 @@ static int skill_check_condition2_pc(struct map_session_data *sd, struct skill_c
 		break;
 	case WL_TETRAVORTEX:		/* ƒeƒgƒ‰ƒ{ƒ‹ƒeƒbƒNƒX */
 		{
-			int ele_flag = 0, i;
+			int c = 0, i;
 			for(i = 0; i < 5; i++) {
 				if(sd->sc.data[SC_SUMMONBALL1 + i].timer != -1) {
-					ele_flag |= 1 << sd->sc.data[SC_SUMMONBALL1 + i].val2;	// g—p‘®«‚Ìƒtƒ‰ƒO‚ğŠi”[
+					c++;
 				}
 			}
-			if(ele_flag < 0x0F) {
+			if(c < 4) {
 				clif_skill_fail(sd,cnd->id,0x14,0,0);
 				return 0;
 			}
@@ -16861,6 +16897,36 @@ static int skill_balkyoung( struct block_list *bl,va_list ap )
 		status_change_pretimer(bl,SC_STUN,1,0,0,0,5000,0,gettick()+status_get_amotion(src));
 
 	return 0;
+}
+
+/*==========================================
+ * ƒ`ƒF[ƒ“ƒ‰ƒCƒgƒjƒ“ƒO˜A½‘ÎÛ
+ *------------------------------------------
+ */
+static int skill_chainlightning( struct block_list *bl,va_list ap )
+{
+	struct block_list *src;
+	struct block_list **tbl;
+	int tid;
+	int *c;
+
+	nullpo_retr(0, bl);
+	nullpo_retr(0, src = va_arg(ap,struct block_list *));
+	tid = va_arg(ap,int);
+	tbl = va_arg(ap,struct block_list **);
+	c   = va_arg(ap,int *);
+
+	// “¯‚¶‘Šè‚Ìê‡‚Í–³‹
+	if(bl->id == tid)
+		return 0;
+
+	if(battle_check_target(src,bl,BCT_ENEMY) <= 0)
+		return 0;
+
+	if(atn_rand()%1000 < 1000/(++(*c)))
+		*tbl = bl;
+
+	return 1;
 }
 
 /*==========================================
