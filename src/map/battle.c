@@ -5294,6 +5294,7 @@ int battle_skill_attack(int attack_type,struct block_list* src,struct block_list
 				case GS_DESPERADO:
 				case GS_GROUNDDRIFT:
 				case RA_ARROWSTORM:
+				case RA_AIMEDBOLT:
 					// Šù‚ÉÁ”ïˆ—‚ÍŠ®—¹‚µ‚Ä‚¢‚é‚Ì‚ÅœŠO
 					break;
 				case SN_SHARPSHOOTING:
