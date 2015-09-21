@@ -13149,7 +13149,7 @@ void clif_deletebooking(struct map_session_data* sd, unsigned int id)
 }
 
 /*==========================================
- * w”ƒ˜I“XƒEƒCƒ“ƒhƒEƒI[ƒvƒ“
+ * ”ƒæ˜I“XƒEƒCƒ“ƒhƒEƒI[ƒvƒ“
  *------------------------------------------
  */
 void clif_openwindow_buyingstore(struct map_session_data *sd)
@@ -13167,7 +13167,7 @@ void clif_openwindow_buyingstore(struct map_session_data *sd)
 }
 
 /*==========================================
- * w”ƒ˜I“XŠJİ¸”s
+ * ”ƒæ˜I“XŠJİ¸”s
  *------------------------------------------
  */
 void clif_failed_openbuyingstore(struct map_session_data *sd, unsigned short result, int weight)
@@ -13186,7 +13186,7 @@ void clif_failed_openbuyingstore(struct map_session_data *sd, unsigned short res
 }
 
 /*==========================================
- * w”ƒ˜I“X©ƒAƒCƒeƒ€ƒŠƒXƒg
+ * ”ƒæ˜I“X©ƒAƒCƒeƒ€ƒŠƒXƒg
  *------------------------------------------
  */
 void clif_showmylist_buyingstore(struct map_session_data *sd)
@@ -13215,7 +13215,7 @@ void clif_showmylist_buyingstore(struct map_session_data *sd)
 }
 
 /*==========================================
- * w”ƒ˜I“X•\¦
+ * ”ƒæ˜I“X•\¦
  *------------------------------------------
  */
 void clif_show_buyingstore(struct block_list *bl, const char *store_title, int fd)
@@ -13238,7 +13238,7 @@ void clif_show_buyingstore(struct block_list *bl, const char *store_title, int f
 }
 
 /*==========================================
- * w”ƒ˜I“X•Â½
+ * ”ƒæ˜I“X•Â½
  *------------------------------------------
  */
 void clif_close_buyingstore(struct block_list *bl, int fd)
@@ -13260,7 +13260,7 @@ void clif_close_buyingstore(struct block_list *bl, int fd)
 }
 
 /*==========================================
- * w”ƒ˜I“XƒAƒCƒeƒ€ƒŠƒXƒg
+ * ”ƒæ˜I“XƒAƒCƒeƒ€ƒŠƒXƒg
  *------------------------------------------
  */
 void clif_itemlist_buyingstore(struct map_session_data *sd, struct map_session_data *ssd)
@@ -13291,7 +13291,7 @@ void clif_itemlist_buyingstore(struct map_session_data *sd, struct map_session_d
 }
 
 /*==========================================
- * w”ƒ˜I“XI—¹
+ * ”ƒæ˜I“XI—¹
  *------------------------------------------
  */
 void clif_failed_trybuyingstore(struct map_session_data *sd, short result)
@@ -13309,7 +13309,7 @@ void clif_failed_trybuyingstore(struct map_session_data *sd, short result)
 }
 
 /*==========================================
- * w”ƒ˜I“XƒAƒCƒeƒ€XV
+ * ”ƒæ˜I“XƒAƒCƒeƒ€XV
  *------------------------------------------
  */
 void clif_update_buyingstore(struct map_session_data *sd, short nameid, short amount)
@@ -13329,7 +13329,7 @@ void clif_update_buyingstore(struct map_session_data *sd, short nameid, short am
 }
 
 /*==========================================
- * w”ƒ˜I“XƒAƒCƒeƒ€íœ
+ * ”ƒæ˜I“XƒAƒCƒeƒ€íœ
  *------------------------------------------
  */
 void clif_delete_buyingstore(struct map_session_data *sd, short idx, short amount, int value)
@@ -13349,7 +13349,7 @@ void clif_delete_buyingstore(struct map_session_data *sd, short idx, short amoun
 }
 
 /*==========================================
- * w”ƒ˜I“X”ƒ‚¢æ‚è¸”s
+ * ”ƒæ˜I“X”ƒ‚¢æ‚è¸”s
  *------------------------------------------
  */
 void clif_failed_tradebuyingstore(struct map_session_data *sd, short result, short nameid)
@@ -17513,7 +17513,7 @@ static void clif_parse_QuestState(int fd,struct map_session_data *sd, int cmd)
 }
 
 /*==========================================
- * w”ƒ˜I“XŠJİ—v‹
+ * ”ƒæ˜I“XŠJİ—v‹
  *------------------------------------------
  */
 static void clif_parse_OpenBuyingStoreReq(int fd,struct map_session_data *sd, int cmd)
@@ -17530,7 +17530,7 @@ static void clif_parse_OpenBuyingStoreReq(int fd,struct map_session_data *sd, in
 }
 
 /*==========================================
- * w”ƒ˜I“X•Â½—v‹
+ * ”ƒæ˜I“X•Â½—v‹
  *------------------------------------------
  */
 static void clif_parse_CloseBuyingStoreReq(int fd,struct map_session_data *sd, int cmd)
@@ -17541,7 +17541,7 @@ static void clif_parse_CloseBuyingStoreReq(int fd,struct map_session_data *sd, i
 }
 
 /*==========================================
- * w”ƒ˜I“XƒAƒCƒeƒ€ƒŠƒXƒg—v‹
+ * ”ƒæ˜I“XƒAƒCƒeƒ€ƒŠƒXƒg—v‹
  *------------------------------------------
  */
 static void clif_parse_ClickBuyingStoreReq(int fd,struct map_session_data *sd, int cmd)
@@ -17554,7 +17554,7 @@ static void clif_parse_ClickBuyingStoreReq(int fd,struct map_session_data *sd, i
 }
 
 /*==========================================
- * w”ƒ˜I“XƒAƒCƒeƒ€”„‹p—v‹
+ * ”ƒæ˜I“XƒAƒCƒeƒ€”„‹p—v‹
  *------------------------------------------
  */
 static void clif_parse_SellBuyingStoreReq(int fd,struct map_session_data *sd, int cmd)
