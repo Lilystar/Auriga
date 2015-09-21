@@ -141,17 +141,19 @@ enum {
 	WT_KATAR,
 	WT_HANDGUN,
 	WT_RIFLE,
-	WT_SHOTGUN,
 	WT_GATLING,
+	WT_SHOTGUN,
 	WT_GRENADE,
 	WT_HUUMA,
-	WT_DOUBLE_DD = 23,	// ’ZŒ•+’ZŒ•
-	WT_DOUBLE_SS,		// •ÐŽèŒ•+•ÐŽèŒ•
-	WT_DOUBLE_AA,		// •ÐŽè•€+•ÐŽè•€
-	WT_DOUBLE_DS,		// ’ZŒ•+•ÐŽèŒ•
-	WT_DOUBLE_DA,		// ’ZŒ•+•ÐŽè•€
-	WT_DOUBLE_SA,		// •ÐŽèŒ•+•ÐŽè•€
-	WT_MAX,			// Å‘å’l
+	WT_2HSTAFF,
+	WT_MAX,				// Šî–{•ŠíÅ‘å’l
+	WT_DOUBLE_DD = 93,	// “ñ“—¬ ’ZŒ•+’ZŒ•
+	WT_DOUBLE_SS,		// “ñ“—¬ •ÐŽèŒ•+•ÐŽèŒ•
+	WT_DOUBLE_AA,		// “ñ“—¬ •ÐŽè•€+•ÐŽè•€
+	WT_DOUBLE_DS,		// “ñ“—¬ ’ZŒ•+•ÐŽèŒ•
+	WT_DOUBLE_DA,		// “ñ“—¬ ’ZŒ•+•ÐŽè•€
+	WT_DOUBLE_SA,		// “ñ“—¬ •ÐŽèŒ•+•ÐŽè•€
+	WT_DOUBLE_MAX		// “ñ“—¬Å‘å’l
 };
 
 struct block_list {
