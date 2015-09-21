@@ -3734,7 +3734,7 @@ struct block_list * mob_selecttarget(struct mob_data *md, int range)
  * Mob‚Ì”­Œ¾
  *------------------------------------------
  */
-int mob_talk(struct mob_data *md, unsigned short msg_id)
+int mob_talk(struct mob_data *md, int msg_id)
 {
 	char output[256];
 
