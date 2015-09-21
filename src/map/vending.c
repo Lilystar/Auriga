@@ -42,7 +42,7 @@
 static unsigned int vending_id = 0;
 
 // ˜I“XƒAƒCƒeƒ€w“ü¸”s
-enum
+enum e_fail_vending
 {
 	VENDING_FAIL_NOTHING    = 0,
 	VENDING_FAIL_ZENY       = 1,
