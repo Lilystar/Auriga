@@ -33,6 +33,7 @@
 #include "party.h"
 #include "pc.h"
 #include "map.h"
+#include "path.h"
 #include "battle.h"
 #include "intif.h"
 #include "clif.h"
@@ -350,7 +351,7 @@ void party_invite(struct map_session_data *sd, struct map_session_data *tsd)
 		return;
 	}
 	if(battle_config.party_invite_range_check) {	// ‘Šè‚ÌMAP‚Æ‹——£‚ğŠm”F
-		if(sd->bl.m != tsd->bl.m || unit_distance(sd->bl.x,sd->bl.y,tsd->bl.x,tsd->bl.y) > AREA_SIZE) {
+		if(sd->bl.m != tsd->bl.m || path_distance(sd->bl.x,sd->bl.y,tsd->bl.x,tsd->bl.y) > AREA_SIZE) {
 			clif_party_inviteack(sd,tsd->status.name,1);
 			return;
 		}
@@ -990,7 +991,7 @@ void party_equip_window(struct map_session_data *sd, int account_id)
 		if(tsd->status.party_id <= 0 || sd->status.party_id != tsd->status.party_id)	// PT‚ªˆÙ‚È‚é
 			return;
 	}
-	if(sd->bl.m != tsd->bl.m || unit_distance(sd->bl.x, sd->bl.y, tsd->bl.x, tsd->bl.y) > AREA_SIZE)	// ‹——£‚ª‰“‚¢
+	if(sd->bl.m != tsd->bl.m || path_distance(sd->bl.x, sd->bl.y, tsd->bl.x, tsd->bl.y) > AREA_SIZE)	// ‹——£‚ª‰“‚¢
 		return;
 	if(!tsd->status.show_equip) {	// ‘Šè‚ª‘•”õ‚ğŒöŠJ‚µ‚Ä‚È‚¢
 		clif_msgstringtable(sd, 0x54d);
