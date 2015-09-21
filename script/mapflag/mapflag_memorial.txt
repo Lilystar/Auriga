@@ -65,6 +65,28 @@
 6@tower.gat	mapflag	noabra		dummy
 
 //============================================================
+// ••ˆó‚³‚ê‚½_“ai•æ’nj - 1@cata.gat
+//------------------------------------------------------------
+1@cata.gat	mapflag	nosave			SavePoint
+1@cata.gat	mapflag	nomemo			dummy
+1@cata.gat	mapflag	noteleport		dummy
+1@cata.gat	mapflag	nobranch		dummy
+1@cata.gat	mapflag	monster_noteleport	dummy
+1@cata.gat	mapflag	noicewall	dummy
+1@cata.gat	mapflag	noabra		dummy
+
+//============================================================
+// ••ˆó‚³‚ê‚½_“ai‘å••ˆóÕ’dj - 2@cata.gat
+//------------------------------------------------------------
+2@cata.gat	mapflag	nosave			SavePoint
+2@cata.gat	mapflag	nomemo			dummy
+2@cata.gat	mapflag	noteleport		dummy
+2@cata.gat	mapflag	nobranch		dummy
+2@cata.gat	mapflag	monster_noteleport	dummy
+2@cata.gat	mapflag	noicewall	dummy
+2@cata.gat	mapflag	noabra		dummy
+
+//============================================================
 // –\ŒA‰¤‚Ì“´ŒA - 1@cash.gat
 //------------------------------------------------------------
 1@cash.gat	mapflag	nosave			SavePoint
