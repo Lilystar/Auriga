@@ -427,7 +427,7 @@ e_tower.gat,81,105,0	script	“ƒ‚ÌçŒìÎ	406,{
 			mes "Œ³‚ÌêŠ‚Ö‚Ì‹AŠÒp‚ğ";
 			mes "”­“®cc";
 			close2;
-			warp "alberta",223,36;
+			warp "alberta.gat",223,36;
 			end;
 		case 2:
 			mes "y“ƒ‚ÌçŒìÎz";

@@ -6018,8 +6018,6 @@ int pc_nextbaseexp(struct map_session_data *sd)
 		case PC_CLASS_LG2_B:	// 養子ロイヤルガード(騎乗)
 		case PC_CLASS_RA2_B:	// 養子レンジャー(騎乗)
 		case PC_CLASS_NC2_B:	// 養子メカニック(騎乗)
-		case PC_CLASS_ESNV:	// 拡張スーパーノービス
-		case PC_CLASS_ESNV_B:	// 養子拡張スーパーノービス
 		case PC_CLASS_KG:	// 影狼
 		case PC_CLASS_OB:	// 朧
 			table = 7;
@@ -6045,6 +6043,8 @@ int pc_nextbaseexp(struct map_session_data *sd)
 		case PC_CLASS_RK4_H:	// 転生ルーンナイト(騎乗)
 		case PC_CLASS_RK5_H:	// 転生ルーンナイト(騎乗)
 		case PC_CLASS_RK6_H:	// 転生ルーンナイト(騎乗)
+		case PC_CLASS_ESNV:	// 拡張スーパーノービス
+		case PC_CLASS_ESNV_B:	// 養子拡張スーパーノービス
 			table = 8;
 			break;
 		default:	// それ以外
@@ -6202,8 +6202,6 @@ int pc_nextjobexp(struct map_session_data *sd)
 		case PC_CLASS_LG2_B:	// 養子ロイヤルガード(騎乗)
 		case PC_CLASS_RA2_B:	// 養子レンジャー(騎乗)
 		case PC_CLASS_NC2_B:	// 養子メカニック(騎乗)
-		case PC_CLASS_ESNV:	// 拡張スーパーノービス
-		case PC_CLASS_ESNV_B:	// 養子拡張スーパーノービス
 		case PC_CLASS_KG:	// 影狼
 		case PC_CLASS_OB:	// 朧
 			table = 18;
@@ -6229,6 +6227,8 @@ int pc_nextjobexp(struct map_session_data *sd)
 		case PC_CLASS_RK4_H:	// 転生ルーンナイト(騎乗)
 		case PC_CLASS_RK5_H:	// 転生ルーンナイト(騎乗)
 		case PC_CLASS_RK6_H:	// 転生ルーンナイト(騎乗)
+		case PC_CLASS_ESNV:	// 拡張スーパーノービス
+		case PC_CLASS_ESNV_B:	// 養子拡張スーパーノービス
 			table = 19;
 			break;
 		default:
