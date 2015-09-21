@@ -725,6 +725,7 @@ delay    : ƒXƒLƒ‹Žg—pŒã‚ÌƒfƒBƒŒƒCŽžŠÔimsjA‚½‚¾‚µƒfƒBƒŒƒC’†‚ÉŽg‚¦‚È‚¢‚Ì‚Í“¯‚¶ƒ
 		1270,Žæ‚èŠª‚«¢Š«—ŽžŒv“ƒŠÇ—ŽÒ,any,196,1,5000,500,10000,no,self,slavele,0,1193,1269,,,,
 
 Žg—pŽžƒGƒ‚[ƒVƒ‡ƒ“: ƒXƒLƒ‹Žg—pŽž‚Éo‚·ƒGƒ‚[ƒVƒ‡ƒ“”Ô†
+                    •‰‚Ì’l‚ðŽw’è‚·‚é‚ÆA”½“]‚µ‚½’l‚ÌID‚ÌƒƒbƒZ[ƒW‚ðo‚·imob_talk_db.txtŽQÆj
 
 ¦“ÁŽêAI
 @Ecommand: –½—ß‘ÎÛ‚Ìƒ‚ƒ“ƒXƒ^[‚É‘Î‚µ‚ÄSKILL_ID‚ÌƒXƒLƒ‹‚ðŽg—p‚³‚¹‚é
