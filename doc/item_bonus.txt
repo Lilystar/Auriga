@@ -318,7 +318,10 @@ bAutoSpell,bAutoSelfSpell,bRevAutoSpell,bRevAutoSelfSpell‚Í16ŒÂ‚Ü‚Å—LŒø‚Å‚·B16‚
 					Eff_Poison		“Å				Eff_Freeze		“€Œ‹
 					Eff_Silence		’¾–Ù			Eff_Stun		ƒXƒ^ƒ“
 					Eff_Curse		Žô‚¢			Eff_Confusion	¬—
-					Eff_Stone		Î‰»			Eff_Bleed		oŒŒ)
+					Eff_Stone		Î‰»			Eff_Bleed		oŒŒ
+					Eff_Fear		‹°•|			Eff_Burning		”­‰Î
+					Eff_DeepSleep	[‚¢‡–°		Eff_Frostmisty	•XŒ‹
+					Eff_Cold		—â“€			Eff_Siren		–£˜f
 	bonus bCurseByMuramasa,n;			LV>LUK‚ÌŽž,n%‚ÌŠm—¦‚ÅŽô‚¢‚É‚©‚©‚é(n‚Í–œ•ª—¦)
 
 
