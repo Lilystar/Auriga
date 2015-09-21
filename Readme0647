@@ -1,4 +1,11 @@
 ----------------------------------------
+//0843 [2011/04/09] by popori
+
+・ログインサーバーのソースを整理 (src/login/login.c)
+
+・tool/phpでアカウントを作成出来るように対応 (tool/php/auriga.php tool/php/createaccount.php)
+
+----------------------------------------
 //0842 [2011/04/08] by Blaze
 
 ・0839でJOURNAL_IDENTIFIERを上げていないので12->13にアップ (journal.c)
