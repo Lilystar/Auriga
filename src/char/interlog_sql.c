@@ -19,14 +19,33 @@
  *
  */
 
-#ifndef _INTER_H_
-#define _INTER_H_
+#ifndef TXT_ONLY
 
-int inter_init(const char *file);
-int inter_sync(void);
-int inter_parse_frommap(int fd);
-int inter_mapif_init(int fd);
+#include <stdio.h>
+#include <string.h>
 
-void do_final_inter(void);
+#include "utils.h"
+#include "sqldbs.h"
+
+#include "interlog.h"
+
+int interlog_log_sql(const char *fmt, ...)
+{
+	char msg[256], buf[512];
+	va_list ap;
+
+	va_start(ap, fmt);
+	vsnprintf(msg, sizeof(msg), fmt, ap);
+	va_end(ap);
+
+	sqldbs_query(&mysql_handle, "INSERT INTO `" INTERLOG_TABLE "` (`time`,`log`) VALUES (NOW(),'%s')", strecpy(buf,msg));
+
+	return 0;
+}
+
+int interlog_config_read_sql(const char *w1, const char *w2)
+{
+	return 0;
+}
 
 #endif

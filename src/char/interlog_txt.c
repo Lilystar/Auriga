@@ -19,14 +19,46 @@
  *
  */
 
-#ifndef _INTER_H_
-#define _INTER_H_
+#ifdef TXT_ONLY
 
-int inter_init(const char *file);
-int inter_sync(void);
-int inter_parse_frommap(int fd);
-int inter_mapif_init(int fd);
+#include <stdio.h>
+#include <string.h>
 
-void do_final_inter(void);
+#include "lock.h"
+#include "utils.h"
+
+#include "interlog.h"
+
+static char inter_log_filename[1024] = "log/inter.log";
+
+int interlog_log_txt(const char *fmt, ...)
+{
+	FILE *logfp;
+	va_list ap;
+
+	va_start(ap, fmt);
+
+	logfp = fopen(inter_log_filename, "a");
+	if(logfp) {
+		vfprintf(logfp, fmt, ap);
+		fprintf(logfp, RETCODE);
+		fclose(logfp);
+	}
+	va_end(ap);
+
+	return 0;
+}
+
+int interlog_config_read_txt(const char *w1, const char *w2)
+{
+	if( strcmpi(w1, "inter_log_filename") == 0 ) {
+		strncpy(inter_log_filename, w2, sizeof(inter_log_filename) - 1);
+		inter_log_filename[sizeof(inter_log_filename) - 1] = '\0';
+	} else {
+		return 0;
+	}
+
+	return 1;
+}
 
 #endif
