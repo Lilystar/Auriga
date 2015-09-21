@@ -737,7 +737,7 @@ void pet_equipitem(struct map_session_data *sd, int idx)
  * –¼‘O‚Ì•ÏX
  *------------------------------------------
  */
-int pet_change_name(struct map_session_data *sd,char *name)
+int pet_change_name(struct map_session_data *sd,const char *name)
 {
 	int i;
 
