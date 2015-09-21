@@ -51,6 +51,7 @@
 #include "mail.h"
 #include "merc.h"
 #include "booking.h"
+#include "buyingstore.h"
 
 static int unit_walktoxy_timer(int tid,unsigned int tick,int id,void *data);
 static int unit_attack_timer(int tid,unsigned int tick,int id,void *data);
@@ -2149,6 +2150,10 @@ int unit_remove_map(struct block_list *bl, int clrtype, int flag)
 		// ˜I“V‚ğ•Â‚¶‚é
 		if(sd->state.vending)
 			vending_closevending(sd);
+
+		// w”ƒ˜I“X‚ğ•Â‚¶‚é
+		if(sd->state.buyingstore)
+			buyingstore_close(sd);
 
 		// ‘qŒÉ‚ğŠJ‚¢‚Ä‚é‚È‚ç•Â‚¶‚Ä•Û‘¶‚·‚é
 		if(sd->state.storage_flag == 2)
