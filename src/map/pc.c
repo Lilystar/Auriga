@@ -311,9 +311,6 @@ int pc_addspiritball(struct map_session_data *sd,int interval,int num)
 	/* E‹Æ‚ªƒ‚ƒ“ƒN‚ÆC—…‚Ìê‡ */
 	if(sd->s_class.job == PC_JOB_MO || sd->s_class.job == PC_JOB_SR)
 		max = pc_checkskill(sd,MO_CALLSPIRITS);		// ‹CŒ÷‚ÌK“¾ƒŒƒxƒ‹‚ªÅ‘å”
-	/* ‚»‚Ì‘¼‚ÌE‹Æ‚Ìê‡ */
-	else
-		max = 5;
 
 	/* ö—´¸“V */
 	if(sd->sc.data[SC_RAISINGDRAGON].timer != -1)
