@@ -1246,8 +1246,15 @@ static int battle_addmastery(struct map_session_data *sd,struct block_list *targ
 
 	switch(weapon)
 	{
-		case WT_DAGGER:
 		case WT_1HSWORD:
+#ifndef PRE_RENEWAL
+			// ƒAƒ‹ƒPƒ~ƒXƒg•€C—û(+3 ` +30)
+			if((skill = pc_checkskill(sd,AM_AXEMASTERY)) > 0) {
+				damage += (skill * 3);
+			}
+#endif
+			// fall through
+		case WT_DAGGER:
 			// Œ•C—û(+4 ` +40) •ĞèŒ• ’ZŒ•ŠÜ‚Ş
 			if((skill = pc_checkskill(sd,SM_SWORD)) > 0) {
 				damage += (skill * 4);
