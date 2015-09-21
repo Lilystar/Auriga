@@ -1309,19 +1309,15 @@ int unit_skilluse_id2(struct block_list *src, int target_id, int skill_num, int 
 			status_change_end(src,SC_CLOAKING,-1);
 	}
 
- 	if(sc && sc->data[SC_CLOAKINGEXCEED].timer != -1 && skill_num != GC_CLOAKINGEXCEED) {
+	if(sc && sc->data[SC_CLOAKINGEXCEED].timer != -1 && skill_num != GC_CLOAKINGEXCEED) {
 		status_change_end(src,SC_CLOAKINGEXCEED,-1);
 	}
 
- 	if(sc && sc->data[SC_CAMOUFLAGE].timer != -1 && skill_num != RA_CAMOUFLAGE) {
-		status_change_end(src,SC_CAMOUFLAGE,-1);
-	}
-
- 	if(sc && sc->data[SC__INVISIBILITY].timer != -1 && skill_num != SC_INVISIBILITY) {
+	if(sc && sc->data[SC__INVISIBILITY].timer != -1 && skill_num != SC_INVISIBILITY) {
 		status_change_end(src,SC__INVISIBILITY,-1);
 	}
 
- 	if(sc && sc->data[SC_SPELLFIST].timer != -1 && skill_num) {
+	if(sc && sc->data[SC_SPELLFIST].timer != -1 && skill_num) {
 		status_change_end(src, SC_SPELLFIST,-1);
 	}
 
@@ -1513,15 +1509,12 @@ int unit_skilluse_pos2( struct block_list *src, int skill_x, int skill_y, int sk
 	if( (src_sd && !(battle_config.pc_cloak_check_type&2)) ||
 	    (src_md && !(battle_config.monster_cloak_check_type&2)) )
 	{
-	 	if(sc && sc->data[SC_CLOAKING].timer != -1)
+		if(sc && sc->data[SC_CLOAKING].timer != -1)
 			status_change_end(src,SC_CLOAKING,-1);
 	}
 
 	if(sc && sc->data[SC_CLOAKINGEXCEED].timer != -1)
 		status_change_end(src,SC_CLOAKINGEXCEED,-1);
-
- 	if(sc && sc->data[SC_CAMOUFLAGE].timer != -1)
-		status_change_end(src,SC_CAMOUFLAGE,-1);
 
 	if(casttime > 0) {
 		int skill;
