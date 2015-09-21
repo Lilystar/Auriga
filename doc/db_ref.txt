@@ -63,8 +63,14 @@ upkeep_time2:ƒXƒLƒ‹‚É‚æ‚Á‚Ä‹N‚±‚éó‘ÔˆÙí‚ÌˆÛŽŽžŠÔ‚ðÝ’è‚µ‚Ü‚·BƒŒƒxƒ‹•Ê‚ÉÝ’è‚
 	NPC_SILENCEATTACK(’¾–Ù)
 	NPC_BLINDATTACK(ˆÃ•)
 	LK_HEADCRUSH(oŒŒ)
+	NPC_WIDEHEALTHFEAR(‹°•|)
+	NPC_WIDEBODYBURNNING(”­‰Î)
+	NPC_WIDE_DEEP_SLEEP([‚¢‡–°)
+	NPC_WIDEFROSTMISTY(•XŒ‹)
+	NPC_WIDECOLD(—â“€)
+	NPC_WIDESIREN(–£˜f)
 ¦‹}ŠUŒ‚‚Ìê‡Å‘åƒŒƒxƒ‹‚Í1‚Å‚·‚ªƒoƒbƒVƒ…‚ÌƒŒƒxƒ‹‚É‚æ‚Á‚ÄˆÙíŽžŠÔ‚ð•ÏX‚Å‚«‚é‚Ì‚Å•¡”Ý’è‚à‰Â”\‚Å‚·B
-¦ƒ}ƒLƒVƒ}ƒCƒYƒpƒ[‚ÆƒNƒ[ƒLƒ“ƒO‚Ìupkeep_time‚ÍˆÛŽŽžŠÔ‚Å‚Í‚È‚­SP‚ª1Œ¸‚éŽžŠÔ‚Å‚·B
+¦ƒ}ƒLƒVƒ}ƒCƒYƒpƒ[,ƒNƒ[ƒLƒ“ƒO,ƒ`ƒFƒCƒXƒEƒH[ƒN,ƒNƒ[ƒLƒ“ƒOƒGƒNƒV[ƒh,ƒCƒ“ƒrƒWƒrƒŠƒeƒB‚Ìupkeep_time‚ÍˆÛŽŽžŠÔ‚Å‚Í‚È‚­SP‚ª1Œ¸‚éŽžŠÔ‚Å‚·B
 
 
 ==========================================================================
@@ -84,11 +90,11 @@ nk: •t‰Á@1Œø‰Ê@2‚«”ò‚Î‚µ@4”­“®Žž‚ÉŽËüƒ`ƒFƒbƒN
 MaxLv: ƒXƒLƒ‹‚ÌÅ‘åƒŒƒxƒ‹‚Å‚·B
 list_num: Hit‰ñ”‚ÌƒŠƒXƒg‚Å‚·BƒŒƒxƒ‹•Ê‚ÉÝ’è‚·‚éê‡‚Íu:v‚ðŽg‚¢‚Ü‚·B
 castcancel: ƒXƒLƒ‹‚ªƒLƒƒƒ“ƒZƒ‹‚³‚ê‚é‚©‚Ç‚¤‚©‚ðÝ’è‚µ‚Ü‚·Byes‚ÍƒLƒƒƒ“ƒZƒ‹‚³‚ê‚é•¨‚Åno‚ÍƒLƒƒƒ“ƒZƒ‹‚³‚ê‚È‚¢•¨‚Å‚·B
-cast_defence_rate: ƒLƒƒƒXƒeƒBƒ“ƒO’†‚É’á‰º‚·‚é–hŒä—Í‚Ì”ä—¦‚Å‚·Bƒ{ƒEƒŠƒ“ƒOƒoƒbƒVƒ…‚âƒNƒ‰ƒ“ƒhƒNƒƒX‚Ì‚æ‚¤‚ÉƒXƒLƒ‹ƒLƒƒƒXƒeƒBƒ“ƒO’†‚É–hŒä‚ªŒ¸‚éƒXƒLƒ‹‚ÌÝ’è‚ÉŽg‚¢‚Ü‚·B
-inf2: ƒXƒLƒ‹î•ñ2‚Å‚·B1 - ƒNƒFƒXƒgƒXƒLƒ‹A2 - npc ƒXƒLƒ‹A4-“GA8-êŠA16-‘¦Žž”­“®A32-–¡•ûA64-ã©A128-PVPƒ‚[ƒh‚ÅŽ©•ª‚ðŠÜ‚Þ‘S‚Ä‚Ì•¨‚Éƒ_ƒ[ƒW‚ª“ü‚éƒXƒLƒ‹(’n–ÊƒXƒLƒ‹‚Ì‚Ý)A256-•’Ê‚ÌŽg—p‚ÅŽ©•ª‚É•K‚¸ƒ_ƒ[ƒW‚ª“ü‚éƒXƒLƒ‹(’n–ÊƒXƒLƒ‹‚Ì‚Ý)A512-Ž©•ª‚É‚ÍŽg‚¤‚±‚Æ‚ª‚Å‚«‚È‚¢ƒXƒLƒ‹A1024 - Ž©•ª‚©Ž©•ª‚Ìƒp[ƒeƒB‚É‚µ‚©Žg‚¦‚È‚¢ƒXƒLƒ‹B2048 - Ž©•ª‚©Ž©•ª‚ÌƒMƒ‹ƒh‚É‚µ‚©Žg‚¦‚È‚¢ƒXƒLƒ‹A“¯–¿ƒMƒ‹ƒhƒ`ƒFƒbƒN‚Í–³‚µB(4A8A16A32A64‚Íˆê•”‚ÌƒAƒNƒeƒBƒuƒXƒLƒ‹‚ªŽg—pB¡‚Íˆ¢C—…”e–PŒ‚Ì‚ÝŽg—pB)A4096-GVGƒ‚[ƒh‚ÅŽ©•ª‚ðŠÜ‚Þ‘S‚Ä‚Ì•¨‚Éƒ_ƒ[ƒW‚ª“ü‚éƒXƒLƒ‹(’n–ÊƒXƒLƒ‹‚Ì‚Ý)A8192-PKƒ‚[ƒh‚ÅŽ©•ª‚ðŠÜ‚Þ‘S‚Ä‚Ì•¨‚Éƒ_ƒ[ƒW‚ª“ü‚éƒXƒLƒ‹(’n–ÊƒXƒLƒ‹‚Ì‚Ý)(GVG+PK+PVP=12416 PVP+GVG=4224)
+cast_defence_rate: ƒLƒƒƒXƒeƒBƒ“ƒO’†‚É’á‰º‚·‚é–hŒä—Í‚Ì”ä—¦‚Å‚·Bƒ{ƒEƒŠƒ“ƒOƒoƒbƒVƒ…‚âƒOƒ‰ƒ“ƒhƒNƒƒX‚Ì‚æ‚¤‚ÉƒXƒLƒ‹ƒLƒƒƒXƒeƒBƒ“ƒO’†‚É–hŒä‚ªŒ¸‚éƒXƒLƒ‹‚ÌÝ’è‚ÉŽg‚¢‚Ü‚·B
+inf2: ƒXƒLƒ‹î•ñ2‚Å‚·B1 - ƒNƒGƒXƒgƒXƒLƒ‹A2 - npc ƒXƒLƒ‹A4-“GA8-êŠA16-‘¦Žž”­“®A32-–¡•ûA64-ã©A128-PVPƒ‚[ƒh‚ÅŽ©•ª‚ðŠÜ‚Þ‘S‚Ä‚Ì•¨‚Éƒ_ƒ[ƒW‚ª“ü‚éƒXƒLƒ‹(’n–ÊƒXƒLƒ‹‚Ì‚Ý)A256-•’Ê‚ÌŽg—p‚ÅŽ©•ª‚É•K‚¸ƒ_ƒ[ƒW‚ª“ü‚éƒXƒLƒ‹(’n–ÊƒXƒLƒ‹‚Ì‚Ý)A512-Ž©•ª‚É‚ÍŽg‚¤‚±‚Æ‚ª‚Å‚«‚È‚¢ƒXƒLƒ‹A1024 - Ž©•ª‚©Ž©•ª‚Ìƒp[ƒeƒB‚É‚µ‚©Žg‚¦‚È‚¢ƒXƒLƒ‹B2048 - Ž©•ª‚©Ž©•ª‚ÌƒMƒ‹ƒh‚É‚µ‚©Žg‚¦‚È‚¢ƒXƒLƒ‹A“¯–¿ƒMƒ‹ƒhƒ`ƒFƒbƒN‚Í–³‚µB(4A8A16A32A64‚Íˆê•”‚ÌƒAƒNƒeƒBƒuƒXƒLƒ‹‚ªŽg—pB¡‚Íˆ¢C—…”e–PŒ‚Ì‚ÝŽg—pB)A4096-GVGƒ‚[ƒh‚ÅŽ©•ª‚ðŠÜ‚Þ‘S‚Ä‚Ì•¨‚Éƒ_ƒ[ƒW‚ª“ü‚éƒXƒLƒ‹(’n–ÊƒXƒLƒ‹‚Ì‚Ý)A8192-PKƒ‚[ƒh‚ÅŽ©•ª‚ðŠÜ‚Þ‘S‚Ä‚Ì•¨‚Éƒ_ƒ[ƒW‚ª“ü‚éƒXƒLƒ‹(’n–ÊƒXƒLƒ‹‚Ì‚Ý)(GVG+PK+PVP=12416 PVP+GVG=4224)
 maxcount: ’n–ÊƒXƒLƒ‹‚Ì‚Ý‚É“K—p‚³‚ê‚é•¨‚ÅƒXƒLƒ‹‚ð’u‚¯‚éÅ‘å”‚Å‚·BƒŒƒxƒ‹•Ê‚ÉÝ’è‚·‚éê‡‚Íu:v‚ðŽg‚¢‚Ü‚·B0‚Í’u‚¯‚È‚¢‚ÆŒ¾‚¤ˆÓ–¡‚Å‚Í‚È‚­§ŒÀ‚ª‚È‚¢•¨‚ÆŒ¾‚¤ˆÓ–¡‚Å‚·B
 skill_type: ƒXƒLƒ‹‚ÌŽí—Þ‚ðÝ’è‚µ‚Ü‚·Bweapon‚Í•ŠíƒXƒLƒ‹‚Åmagic‚Í–‚–@ƒXƒLƒ‹Amisc‚Í•Ší‚Å‚à–‚–@‚Å‚à‚È‚¢ƒXƒLƒ‹‚Å‚·Bnone‚ÍŒˆ‚ß“ï‚µ‚¢•¨“™‚ÉÝ’è‚µ‚Ü‚·B‚½‚¾‚±‚ê‚ð•Ï‚¦‚½‚Æ‚µ‚Ä‚àƒXƒLƒ‹‚Ìƒ_ƒ[ƒWŒvŽZ‚ª‚±‚ê‚É‡‚í‚¹‚Ä•Ï‚í‚é‚í‚¯‚Å‚Í‚È‚­ƒ_ƒ[ƒW‚ÌŒvŽZ‚ÍƒvƒƒOƒ‰ƒ€ƒŒƒxƒ‹‚Ås‚È‚Á‚Ä‚¢‚Ü‚·B‚±‚ê‚ÍƒXƒyƒ‹ƒuƒŒƒCƒJ[‚Å‰r¥’†Ž~‚³‚ê‚é‚©‚Ç‚¤‚©‚ðÝ’è‚·‚éˆ×‚Ì•¨‚Å‚·B(‘¼‚ÌƒXƒLƒ‹‚Å‚±‚ÌÝ’è‚ðŽg—p‚·‚é‰Â”\«‚à‚ ‚è‚Ü‚·‚ª¡‚ÌŠƒXƒyƒ‹ƒuƒŒƒCƒJ[‚Ì‚Ý‚Å‚·B) magic‚ÉÝ’è‚·‚é‚ÆƒXƒyƒ‹ƒuƒŒƒCƒJ[‚Å‰r¥’†Ž~‚³‚ê‚Ü‚·B
-blow_count: ƒXƒLƒ‹‚æ‚éƒmƒbƒNƒoƒbƒN‹——£‚Å‚·BƒŒƒxƒ‹•Ê‚ÉÝ’è‚·‚éê‡‚Íu:v‚ðŽg‚¢‚Ü‚·B
+blow_count: ƒXƒLƒ‹‚É‚æ‚éƒmƒbƒNƒoƒbƒN‹——£‚Å‚·BƒŒƒxƒ‹•Ê‚ÉÝ’è‚·‚éê‡‚Íu:v‚ðŽg‚¢‚Ü‚·B
 
 
 ==========================================================================
@@ -341,6 +347,7 @@ ID,Name,Jname,Type,Price,Sell,Weight,ATK:MATK,DEF:MDEF,Range,Slot,Job,Gender,Loc
                              i”Ì”„‰¿Ši‚Æ”„’l‚ðŒÂ•Ê‚ÉÝ’è‚µ‚½‚¢ê‡‚Íitem_value_db.txt‚ÅŽw’è‚µ‚Ä‚­‚¾‚³‚¢j
       WEIGHT       = d—Êx10 (10‚È‚ç‚Îd—Ê1‚É‚È‚é)
       ATK          = UŒ‚—Í            (‘•”õ•i‚Ìê‡Ý’è‚µ‚Ü‚µ‚å‚¤)
+                     –‚–@UŒ‚—Í‚àÝ’è‚·‚éê‡‚Íu:v‚ðŽg‚¢‚Ü‚·B
       DEF          = –hŒä—Í            (‘•”õ•i‚Ìê‡Ý’è‚µ‚Ü‚µ‚å‚¤)
                      –‚–@–hŒä—Í‚àÝ’è‚·‚éê‡‚Íu:v‚ðŽg‚¢‚Ü‚·B
       RANGE        = ŽË’ö              (‘•”õ•i‚Ìê‡Ý’è‚µ‚Ü‚µ‚å‚¤)
@@ -381,7 +388,7 @@ ID,Name,Jname,Type,Price,Sell,Weight,ATK:MATK,DEF:MDEF,Range,Slot,Job,Gender,Loc
                      ƒmƒr 2^0=1 Œ•Žm 2^1=2  1+2=3 ‚Å 3‚ðÝ’è‚µ‚Ü‚·B
                      ¦16i”‚Å•\‹L‚·‚é‚±‚Æ‚à‰Â”\‚Å‚·B‘SE‹Æ‰Â”\ : 0xffffffff
                      “]¶E‹Æ‚Ì”»’f‚Íitem_upper.txt‚Ås‚¤‚±‚Æ
-      GENDER       = «•ÊŒÀ’è‘•”õŽw’è  (2‚ÅŽw’è–³‚µA0‚Æ1‚Å’j«ŒÀ’è‚©—«ŒÀ’è‚©Žw’èB)
+      GENDER       = «•ÊŒÀ’è‘•”õŽw’è  (2‚ÅŽw’è–³‚µA0‚Æ1‚Å—«ŒÀ’è‚©’j«ŒÀ’è‚©Žw’èB)
       LOC          = ‘•”õŒÂŠŽw’è      (‘•”õ•i/ƒJ[ƒh‚Ìê‡Ý’è‚µ‚Ü‚µ‚å‚¤)
                      “ª‰º’i                 :1
                      ‰EŽè                   :2
@@ -398,7 +405,7 @@ ID,Name,Jname,Type,Price,Sell,Weight,ATK:MATK,DEF:MDEF,Range,Slot,Job,Gender,Loc
                      ƒRƒXƒ`ƒ…[ƒ€“ª‰º’i     :4096
                      ƒRƒXƒ`ƒ…[ƒ€Œ¨         :8192
                      ƒRƒXƒ`ƒ…[ƒ€Floor      :16384
-                     –î             :32768
+                     –î                     :32768
                      ¦“ªã’†’i‘•”õ‚Ìê‡‚Í
                      “ªã’i(256)+“ª’†’i(512)=768‚È‚Ì‚Å768‚ðÝ’è‚µ‚Ü‚·B
                      ¦ƒAƒNƒZƒTƒŠ‚Í’Êí‚Ç‚¿‚ç‚É‚à‘•”õ‰Â”\‚É‚È‚Á‚Ä‚¢‚é‚Ì‚Å
@@ -545,17 +552,17 @@ Mode : Šî–{s“®ƒpƒ^[ƒ“B’l‚ð‰ÁŽZ‚µ‚Ä‚¢‚­
 	i—á : ŒÅ’èŒ^ƒAƒNƒeƒBƒuƒ‚ƒ“ƒXƒ^[‚È‚çAŒÅ’è(0)+’ÇÕ(4)+UŒ‚(128)=132j
 	i—á : ˆÚ“®Œ^ƒAƒNƒeƒBƒuƒ‚ƒ“ƒXƒ^[‚È‚çAˆÚ“®(1)+’ÇÕ(4)+UŒ‚(128)=133j
 	i—á : ƒ‹[ƒgƒŠƒ“ƒNŒ^ƒmƒ“ƒAƒNƒeƒBƒuƒ‚ƒ“ƒXƒ^[‚È‚çAˆÚ“®(1)+ƒ‹[ƒg(2)+ƒŠƒ“ƒN(8)+UŒ‚(128)=139j
-	0 : ŒÅ’è
-	1 : ˆÚ“®
-	2 : ƒ‹[ƒg
-	4 : ’ÇÕ
-	8 : ƒŠƒ“ƒN
-	16 : ‰r¥”½‰ž
-	32 : ƒ{ƒX‘®«‚Æ‚¢‚¤‚©ƒXƒeƒBƒ‹•s‰ÂEƒnƒCƒfƒBƒ“ƒO–³Œø
-	64 : ƒ_ƒ[ƒW1
-	128 : UŒ‚iƒAƒNƒeƒBƒuj
-	256 : ÚG”½‰ž
-	512 : UŒ‚’†ƒ^[ƒQƒbƒgƒ`ƒFƒ“ƒW‹–‰Â
+	   0 : ŒÅ’è
+	   1 : ˆÚ“®
+	   2 : ƒ‹[ƒg
+	   4 : ’ÇÕ
+	   8 : ƒŠƒ“ƒN
+	  16 : ‰r¥”½‰ž
+	  32 : ƒ{ƒX‘®«‚Æ‚¢‚¤‚©ƒXƒeƒBƒ‹•s‰ÂEƒnƒCƒfƒBƒ“ƒO–³Œø
+	  64 : ƒ_ƒ[ƒW1
+	 128 : UŒ‚iƒAƒNƒeƒBƒuj
+	 256 : ÚG”½‰ž
+	 512 : UŒ‚’†ƒ^[ƒQƒbƒgƒ`ƒFƒ“ƒW‹–‰Â
 	1024 : ’ÇÕ’†ƒ^[ƒQƒbƒgƒ`ƒFƒ“ƒW‹–‰Â
 	2048 : ‹­“G‚É”ñƒAƒNƒeƒBƒu
 	4096 : ƒnƒCƒp[ƒAƒNƒeƒBƒu
