@@ -863,7 +863,7 @@ static int chrif_breakadoption(int char_id, unsigned char *name)
 
 	snprintf(output, sizeof(output), msg_txt(174), name); // %s‚³‚ñ‚Ì—v–]‚É‚æ‚èA—{ŽqŠÖŒW‚ª”jŠü‚³‚ê‚Ü‚µ‚½
 	clif_disp_onlyself(sd->fd, output);
-#if PACKETVER > 14
+#if PACKETVER > 20080102
 	clif_skillinfoblock(sd);
 #endif
 	return 0;
