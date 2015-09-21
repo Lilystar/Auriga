@@ -4861,9 +4861,16 @@ int battle_check_target( struct block_list *src, struct block_list *target,int f
 	if( src->prev == NULL || unit_isdead(src) ) // €‚ñ‚Å‚é‚È‚çƒGƒ‰[
 		return -1;
 
-	if( (ss->type == BL_PC && target->type == BL_MOB) ||
-	    (ss->type == BL_MOB && target->type == BL_PC) )
-		return 0;	// PCvsMOB‚È‚ç“G
+	if(ss->type == BL_PC && target->type == BL_MOB) {
+		struct mob_data *md = (struct mob_data*)target;
+		struct map_session_data *sd = (struct map_session_data*)ss;
+		if(md->guild_id > 0 && sd->status.guild_id > 0 && md->guild_id == sd->status.guild_id) 
+			return 1;
+		return 0;
+	}
+	if(ss->type == BL_MOB && target->type == BL_PC) {
+		return 0;	// MOB¨PC‚È‚ç“G
+	}
 
 	if(ss->type == BL_PET && target->type == BL_MOB) {
 		struct pet_data *pd = (struct pet_data*)ss;
