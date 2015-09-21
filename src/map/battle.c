@@ -4895,11 +4895,11 @@ int battle_check_target( struct block_list *src, struct block_list *target,int f
 		int i, guardian = 0;
 		struct mob_data *md         = (struct mob_data*)target;
 		struct map_session_data *sd = (struct map_session_data*)ss;
-		struct guild *g         = guild_search(sd->status.guild_id);
-		struct guild_castle *gc = guild_mapid2gc(target->m);
+		struct guild_castle *gc;
 
 		// Ô‚ÌƒK[ƒfƒBƒAƒ“‚©‚Ç‚¤‚©
-		if(md->guild_id) {
+		if(md->guild_id > 0) {
+			gc = guild_mapid2gc(md->bl.m);
 			if(gc) {
 				for(i = 0; i < sizeof(gc->guardian) / sizeof(gc->guardian[0]); i++) {
 					if(gc->guardian[i].id == md->bl.id) {
@@ -4922,11 +4922,19 @@ int battle_check_target( struct block_list *src, struct block_list *target,int f
 		/* ‚±‚±‚©‚ç flag.gvg ‚ª‚ ‚éˆ— */
 
 		// ƒMƒ‹ƒh–³‚µPC‚Í‘S•”“G
-		if(g == NULL)
+		if(sd->status.guild_id <= 0)
 			return 0;
+
+		// ƒMƒ‹ƒhéî•ñ‚Ì•âŠ®
+		if(md->guild_id <= 0)
+			gc = guild_mapid2gc(md->bl.m);
 
 		// ©•ª‚ÌƒMƒ‹ƒh‚©“¯–¿ƒMƒ‹ƒhÔ
 		if(gc) {
+			struct guild *g = guild_search(sd->status.guild_id);
+			if(g == NULL)
+				return 0;
+
 			if(g->guild_id == gc->guild_id || guild_check_alliance(md->guild_id, sd->status.guild_id, 0)) {
 				// ƒGƒ“ƒy‚ÆƒK[ƒfƒBƒAƒ“‚Í–¡•û
 				if(md->class_ == 1288 || guardian)
