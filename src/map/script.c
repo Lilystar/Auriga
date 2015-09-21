@@ -8239,11 +8239,11 @@ int buildin_changebase(struct script_state *st)
 
 	vclass = pc_calc_class_job(job, upper);
 
-	if(vclass == 22 && !battle_config.wedding_modifydisplay)
+	if(vclass == PC_CLASS_WE && !battle_config.wedding_modifydisplay)
 		return 0;
 
-	//if(vclass == 22 || vclass == 26 || vclass == 27)
-	//	pc_unequipitem(sd,sd->equip_index[9],1);	// ‘•”õŠO‚µ
+	//if(vclass == PC_CLASS_WE || vclass == PC_CLASS_ST || vclass == PC_CLASS_SU)
+	//	pc_unequipitem(sd,sd->equip_index[EQUIP_INDEX_RARM],1);	// ‘•”õŠO‚µ
 
 	sd->view_class = vclass;
 	clif_changelook(&sd->bl, LOOK_BASE, vclass);
