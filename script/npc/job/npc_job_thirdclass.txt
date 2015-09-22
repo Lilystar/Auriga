@@ -265,6 +265,7 @@ function	script	jobchenge3rd_func	{
 	case Job_Guillotine:
 		setquest 201200;
 		getitem 5755,1;	//’¾–Ù‚Ì·sÒ
+		getitem 12106,1;	//•óÎ” 
 		break;
 	case Job_RoyalGuard:
 		setquest 201210;
