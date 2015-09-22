@@ -2317,6 +2317,9 @@ int unit_remove_map(struct block_list *bl, int clrtype, int flag)
 		else if(sd->state.storage_flag == 1)
 			storage_storageclose(sd);
 
+		// NPC¤“Xî•ñ‚ðŽæ‚èÁ‚µ
+		sd->npc_shopid = 0;
+
 		// —F’BƒŠƒXƒgŠ©—U‚ð‹‘”Û‚·‚é
 		if(sd->friend_invite > 0)
 			friend_add_reply(sd,sd->friend_invite,sd->friend_invite_char,0);
