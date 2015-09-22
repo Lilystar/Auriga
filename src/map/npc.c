@@ -107,12 +107,10 @@ static int npc_enable_sub( struct block_list *bl, va_list ap )
 	nullpo_retr(0, nd = va_arg(ap,struct npc_data *));
 	nullpo_retr(0, sd = (struct map_session_data *)bl);
 
-	if(nd->flag&1)	// –³Œø‰»‚³‚ê‚Ä‚¢‚é
-		return 1;
-	//if(sd->areanpc_id == nd->bl.id)
-	//	return 1;
-	if(!(nd->flag&3)) {
-		sd->areanpc_id = 0;
+	if(nd->flag&1) {	// –³Œø‰»‚³‚ê‚Ä‚¢‚é
+		if(sd->areanpc_id == nd->bl.id) {	// NPC‚ÆÚG‚µ‚Ä‚¢‚½‚ç‰ğ•ú‚³‚¹‚é
+			sd->areanpc_id = 0;
+		}
 		return 1;
 	}
 
