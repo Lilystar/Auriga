@@ -6651,7 +6651,7 @@ int status_change_start(struct block_list *bl,int type,int val1,int val2,int val
 			type != SC_DOUBLE && type != SC_TKCOMBO && type != SC_DODGE && type != SC_SPURT && type != SC_SEVENWIND &&
 			type != SC_SHAPESHIFT && type != SC_ON_PUSH_CART)
 			return 0;
-		if((type >= SC_STUN && type <= SC_BLIND) || type == SC_DPOISON || type == SC_FOGWALLPENALTY || type == SC_FORCEWALKING)
+		if((type >= SC_STUN && type <= SC_BLIND) || type == SC_DPOISON || type == SC_FOGWALLPENALTY || type == SC_FORCEWALKING || type == SC_ORATIO)
 			return 0;	/* Œp‚¬‘«‚µ‚ª‚Å‚«‚È‚¢ó‘ÔˆÙí‚Å‚ ‚éŽž‚Íó‘ÔˆÙí‚ðs‚í‚È‚¢ */
 		if(type == SC_GRAFFITI || type == SC_SEVENWIND || type == SC_SHAPESHIFT || type == SC__AUTOSHADOWSPELL || type == SC_PROPERTYWALK) {
 			// ˆÙí’†‚É‚à‚¤ˆê“xó‘ÔˆÙí‚É‚È‚Á‚½Žž‚É‰ðœ‚µ‚Ä‚©‚çÄ“x‚©‚©‚é
