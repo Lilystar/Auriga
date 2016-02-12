@@ -613,7 +613,7 @@ MVP1id(id),MVP1per,(per)`MVP3id(id),MVP3per,(per) : MVPƒhƒƒbƒvƒAƒCƒeƒ€‚Æ‚»‚ÌŠm
 ==========================================================================
 15. db/mob_skill_db.txt
 --------------------------------------------------------------------------
-MOB_ID,ƒ_ƒ~[•¶Žš—ñ,STATE,SKILL_ID,SKILL_LV,–œ•ª—¦,casttime,delay,–WŠQ‰Â”\,ƒ^[ƒQƒbƒg,ðŒƒ^ƒCƒv,ðŒ’l,’l1,’l2,’l3,’l4,’l5,Žg—pŽžƒGƒ‚[ƒVƒ‡ƒ“
+MOB_ID,ƒ_ƒ~[•¶Žš—ñ,STATE,SKILL_ID,SKILL_LV,–œ•ª—¦,casttime,delay,–WŠQ‰Â”\,ƒ^[ƒQƒbƒg,ðŒƒ^ƒCƒv,ðŒ’l,’l1,’l2,’l3,’l4,’l5[,’l6],Žg—pŽžƒGƒ‚[ƒVƒ‡ƒ“
 
 MOB_ID      : ƒ‚ƒ“ƒXƒ^[‚ÌID
 ƒ_ƒ~[•¶Žš—ñ: ‚í‚©‚è‚â‚·‚¢–¼‘O‚ð“ü‚ê‚é‚Æ‚¢‚¢‚©‚ÆB
@@ -720,8 +720,9 @@ delay    : ƒXƒLƒ‹Žg—pŒã‚ÌƒfƒBƒŒƒCŽžŠÔimsjA‚½‚¾‚µƒfƒBƒŒƒC’†‚ÉŽg‚¦‚È‚¢‚Ì‚Í“¯‚¶ƒ
 	stone      	Š®‘SÎ‰»ó‘Ô
 	lexaeterna 	LAó‘Ô
 
-’l1`5: •K—v‚É‰ž‚¶‚Ä’l‚ð“ü‚ê‚é
+’l1`6: •K—v‚É‰ž‚¶‚Ä’l‚ð“ü‚ê‚é
         “ü—Í‚·‚×‚«’l‚ÍŽg—p‚·‚éƒXƒLƒ‹‚âðŒƒ^ƒCƒv‚É‚æ‚Á‚ÄˆÙ‚È‚è‚Ü‚·imob.c‚âskill.cA“ÁŽêAI‚Ì€‚ðŽQÆ‚Ì‚±‚Æj
+        ’l6‚ÍÈ—ª‚·‚é‚±‚Æ‚ª‚Å‚«‚Ü‚·
 
 	—á‚Pj2%‚ÌŠm—¦‚ÅƒGƒ‚[ƒVƒ‡ƒ“”Ô†5‚ðŽg—p‚·‚é
 		1009,ƒGƒ‚[ƒVƒ‡ƒ“—ƒRƒ“ƒhƒ‹,idle,197,1,200,0,5000,no,self,always,0,5,,,,,
@@ -760,6 +761,7 @@ delay    : ƒXƒLƒ‹Žg—pŒã‚ÌƒfƒBƒŒƒCŽžŠÔimsjA‚½‚¾‚µƒfƒBƒŒƒC’†‚ÉŽg‚¦‚È‚¢‚Ì‚Í“¯‚¶ƒ
 	’l3 -> ƒXƒLƒ‹‘ÎÛ
 	’l4 -> ƒXƒLƒ‹‘ÎÛŒŸõ”ÍˆÍ
 	’l5 -> –¢Žg—p
+	’l6 -> –¢Žg—p
 
 	–½—ß‘ÎÛ‚ÉŽg‚¦‚é•¶Žš—ñ
 		self    = Ž©•ª
@@ -795,6 +797,7 @@ delay    : ƒXƒLƒ‹Žg—pŒã‚ÌƒfƒBƒŒƒCŽžŠÔimsjA‚½‚¾‚µƒfƒBƒŒƒC’†‚ÉŽg‚¦‚È‚¢‚Ì‚Í“¯‚¶ƒ
 	’l3 -> •Ï‰»Œã‚Ìmode
 	’l4 -> –¢Žg—p
 	’l5 -> –¢Žg—p
+	’l6 -> –¢Žg—p
 
 	–½—ß‘ÎÛ‚ÉŽg‚¦‚é•¶Žš—ñ
 		self    = Ž©•ª
